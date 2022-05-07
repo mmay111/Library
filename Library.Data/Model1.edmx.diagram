@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f1fb478a565944a386c3bf62b52365ec" Name="Diagram1">
+        <EntityTypeShape EntityType="LibraryModel.Author" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.BookBorrowFee" Width="1.5" PointX="9" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.BookDetails" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.BookRequest" Width="1.5" PointX="8.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.Books" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.BorrowedBooks" Width="1.5" PointX="11.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.Campus" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.ResourceTypes" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.User" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LibraryModel.UserTypes" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="LibraryModel.FK_BookDetails_Author" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_BorrowedBooks_BookBorrowFee" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_BookDetails_Campus" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_BookDetails_ResourceTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_Books_BookDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_BookRequest_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_BookRequest_User" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_BorrowedBooks_Books" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_BorrowedBooks_User" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_User_Campus" ManuallyRouted="false" />
+        <AssociationConnector Association="LibraryModel.FK_User_UserTypes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
