@@ -24,6 +24,11 @@ namespace Library.Data
         public byte UserTypeID { get; set; }
         public byte CampusID { get; set; }
         public bool IsActive { get; set; }
+        public string TC { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Email { get; set; }
+        public string PasswordHash { get; set; }
     
         public virtual ICollection<BookRequest> BookRequest { get; set; }
         public virtual ICollection<BorrowedBooks> BorrowedBooks { get; set; }

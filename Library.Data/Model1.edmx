@@ -4,21 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="LibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Author">
           <Key>
             <PropertyRef Name="AuthorID" />
           </Key>
           <Property Name="AuthorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="AuthorName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="AuthorName" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="BookBorrowFee">
           <Key>
             <PropertyRef Name="BookBorrowFeeID" />
           </Key>
           <Property Name="BookBorrowFeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BorrowTime" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="BorrowFee" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="BorrowTime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="BorrowFee" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="BookDetails">
@@ -27,7 +27,7 @@
           </Key>
           <Property Name="BookDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuthorID" Type="int" Nullable="false" />
-          <Property Name="Barcode" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Barcode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CampusID" Type="tinyint" Nullable="false" />
           <Property Name="ResourceTypeID" Type="tinyint" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -47,7 +47,7 @@
             <PropertyRef Name="BookID" />
           </Key>
           <Property Name="BookID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BookName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="BookName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="BookDetailsID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="BorrowedBooks">
@@ -67,7 +67,7 @@
             <PropertyRef Name="CampusID" />
           </Key>
           <Property Name="CampusID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CampusName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CampusName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ResourceTypes">
@@ -75,7 +75,7 @@
             <PropertyRef Name="ResourceTypeID" />
           </Key>
           <Property Name="ResourceTypeID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ResourceTypeName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ResourceTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
@@ -83,6 +83,11 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TC" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" Nullable="false" />
           <Property Name="UserTypeID" Type="tinyint" Nullable="false" />
           <Property Name="CampusID" Type="tinyint" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
@@ -92,7 +97,7 @@
             <PropertyRef Name="UserTypeID" />
           </Key>
           <Property Name="UserTypeID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserTypeName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserTypeName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_BookDetails_Author">
@@ -283,8 +288,7 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -293,7 +297,7 @@
             <PropertyRef Name="AuthorID" />
           </Key>
           <Property Name="AuthorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="AuthorName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AuthorName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="BookDetails" Relationship="Self.FK_BookDetails_Author" FromRole="Author" ToRole="BookDetails" />
         </EntityType>
         <EntityType Name="BookBorrowFee">
@@ -301,8 +305,8 @@
             <PropertyRef Name="BookBorrowFeeID" />
           </Key>
           <Property Name="BookBorrowFeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BorrowTime" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BorrowFee" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="BorrowTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BorrowFee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BorrowedBooks" Relationship="Self.FK_BorrowedBooks_BookBorrowFee" FromRole="BookBorrowFee" ToRole="BorrowedBooks" />
         </EntityType>
@@ -312,7 +316,7 @@
           </Key>
           <Property Name="BookDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuthorID" Type="Int32" Nullable="false" />
-          <Property Name="Barcode" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Barcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CampusID" Type="Byte" Nullable="false" />
           <Property Name="ResourceTypeID" Type="Byte" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
@@ -338,7 +342,7 @@
             <PropertyRef Name="BookID" />
           </Key>
           <Property Name="BookID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BookName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BookName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BookDetailsID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="BookDetails" Relationship="Self.FK_Books_BookDetails" FromRole="Books" ToRole="BookDetails" />
           <NavigationProperty Name="BookRequest" Relationship="Self.FK_BookRequest_Books" FromRole="Books" ToRole="BookRequest" />
@@ -364,7 +368,7 @@
             <PropertyRef Name="CampusID" />
           </Key>
           <Property Name="CampusID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CampusName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CampusName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BookDetails" Relationship="Self.FK_BookDetails_Campus" FromRole="Campus" ToRole="BookDetails" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_Campus" FromRole="Campus" ToRole="User" />
@@ -374,7 +378,7 @@
             <PropertyRef Name="ResourceTypeID" />
           </Key>
           <Property Name="ResourceTypeID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ResourceTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ResourceTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BookDetails" Relationship="Self.FK_BookDetails_ResourceTypes" FromRole="ResourceTypes" ToRole="BookDetails" />
         </EntityType>
@@ -390,13 +394,18 @@
           <NavigationProperty Name="BorrowedBooks" Relationship="Self.FK_BorrowedBooks_User" FromRole="User" ToRole="BorrowedBooks" />
           <NavigationProperty Name="Campus" Relationship="Self.FK_User_Campus" FromRole="User" ToRole="Campus" />
           <NavigationProperty Name="UserTypes" Relationship="Self.FK_User_UserTypes" FromRole="User" ToRole="UserTypes" />
+          <Property Name="TC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordHash" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserTypes">
           <Key>
             <PropertyRef Name="UserTypeID" />
           </Key>
           <Property Name="UserTypeID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserTypeName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_User_UserTypes" FromRole="UserTypes" ToRole="User" />
         </EntityType>
@@ -678,6 +687,11 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="LibraryModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="TC" ColumnName="TC" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="CampusID" ColumnName="CampusID" />
