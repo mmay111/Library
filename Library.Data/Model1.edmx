@@ -17,7 +17,7 @@
             <PropertyRef Name="BookBorrowFeeID" />
           </Key>
           <Property Name="BookBorrowFeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BorrowTime" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="NumberOfDateBorrowed" Type="int" Nullable="false" />
           <Property Name="BorrowFee" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
@@ -32,6 +32,7 @@
           <Property Name="ResourceTypeID" Type="tinyint" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="IsAvailable" Type="bit" Nullable="false" />
+          <Property Name="IsPrinted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="BookRequest">
           <Key>
@@ -60,6 +61,15 @@
           <Property Name="BookBorrowFeeID" Type="int" Nullable="false" />
           <Property Name="BorrrowDate" Type="datetime" Nullable="false" />
           <Property Name="BorrowExpiresDate" Type="datetime" Nullable="false" />
+          <Property Name="IsReturned" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BorrowedBooksMaxNumber">
+          <Key>
+            <PropertyRef Name="BorrowedBooksMaxNumberID" />
+          </Key>
+          <Property Name="BorrowedBooksMaxNumberID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="maxNumber" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Campus">
@@ -239,6 +249,7 @@
           <EntitySet Name="BookRequest" EntityType="Self.BookRequest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BorrowedBooks" EntityType="Self.BorrowedBooks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BorrowedBooksMaxNumber" EntityType="Self.BorrowedBooksMaxNumber" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Campus" EntityType="Self.Campus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ResourceTypes" EntityType="Self.ResourceTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -305,10 +316,10 @@
             <PropertyRef Name="BookBorrowFeeID" />
           </Key>
           <Property Name="BookBorrowFeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BorrowTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BorrowFee" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="BorrowedBooks" Relationship="Self.FK_BorrowedBooks_BookBorrowFee" FromRole="BookBorrowFee" ToRole="BorrowedBooks" />
+          <Property Name="NumberOfDateBorrowed" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="BookDetails">
           <Key>
@@ -325,6 +336,7 @@
           <NavigationProperty Name="Campus" Relationship="Self.FK_BookDetails_Campus" FromRole="BookDetails" ToRole="Campus" />
           <NavigationProperty Name="ResourceTypes" Relationship="Self.FK_BookDetails_ResourceTypes" FromRole="BookDetails" ToRole="ResourceTypes" />
           <NavigationProperty Name="Books" Relationship="Self.FK_Books_BookDetails" FromRole="BookDetails" ToRole="Books" />
+          <Property Name="IsPrinted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="BookRequest">
           <Key>
@@ -362,6 +374,7 @@
           <NavigationProperty Name="BookBorrowFee" Relationship="Self.FK_BorrowedBooks_BookBorrowFee" FromRole="BorrowedBooks" ToRole="BookBorrowFee" />
           <NavigationProperty Name="Books" Relationship="Self.FK_BorrowedBooks_Books" FromRole="BorrowedBooks" ToRole="Books" />
           <NavigationProperty Name="User" Relationship="Self.FK_BorrowedBooks_User" FromRole="BorrowedBooks" ToRole="User" />
+          <Property Name="IsReturned" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Campus">
           <Key>
@@ -596,7 +609,16 @@
             <End Role="UserTypes" EntitySet="UserTypes" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <EntitySet Name="BorrowedBooksMaxNumber" EntityType="LibraryModel.BorrowedBooksMaxNumber" />
         </EntityContainer>
+        <EntityType Name="BorrowedBooksMaxNumber">
+          <Key>
+            <PropertyRef Name="BorrowedBooksMaxNumberID" />
+          </Key>
+          <Property Name="BorrowedBooksMaxNumberID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="maxNumber" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -614,8 +636,8 @@
           <EntitySetMapping Name="BookBorrowFee">
             <EntityTypeMapping TypeName="LibraryModel.BookBorrowFee">
               <MappingFragment StoreEntitySet="BookBorrowFee">
+                <ScalarProperty Name="NumberOfDateBorrowed" ColumnName="NumberOfDateBorrowed" />
                 <ScalarProperty Name="BookBorrowFeeID" ColumnName="BookBorrowFeeID" />
-                <ScalarProperty Name="BorrowTime" ColumnName="BorrowTime" />
                 <ScalarProperty Name="BorrowFee" ColumnName="BorrowFee" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
@@ -624,6 +646,7 @@
           <EntitySetMapping Name="BookDetails">
             <EntityTypeMapping TypeName="LibraryModel.BookDetails">
               <MappingFragment StoreEntitySet="BookDetails">
+                <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
                 <ScalarProperty Name="BookDetailsID" ColumnName="BookDetailsID" />
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
                 <ScalarProperty Name="Barcode" ColumnName="Barcode" />
@@ -656,6 +679,7 @@
           <EntitySetMapping Name="BorrowedBooks">
             <EntityTypeMapping TypeName="LibraryModel.BorrowedBooks">
               <MappingFragment StoreEntitySet="BorrowedBooks">
+                <ScalarProperty Name="IsReturned" ColumnName="IsReturned" />
                 <ScalarProperty Name="BorrowedBookID" ColumnName="BorrowedBookID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="BookID" ColumnName="BookID" />
@@ -705,6 +729,15 @@
                 <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BorrowedBooksMaxNumber">
+            <EntityTypeMapping TypeName="LibraryModel.BorrowedBooksMaxNumber">
+              <MappingFragment StoreEntitySet="BorrowedBooksMaxNumber">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="maxNumber" ColumnName="maxNumber" />
+                <ScalarProperty Name="BorrowedBooksMaxNumberID" ColumnName="BorrowedBooksMaxNumberID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

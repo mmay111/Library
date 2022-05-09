@@ -9,8 +9,8 @@ namespace Library.DTO
     public class BookBorrowFeeDTO
     {
         public int BookBorrowFeeID { get; set; }
-        public string BorrowTime { get; set; }
         public string BorrowFee { get; set; }
         public bool IsActive { get; set; }
+        public int NumberOfDateBorrowed { get; set; }
     }
 }

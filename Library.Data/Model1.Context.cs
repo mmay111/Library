@@ -35,5 +35,6 @@ namespace Library.Data
         public DbSet<ResourceTypes> ResourceTypes { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<UserTypes> UserTypes { get; set; }
+        public DbSet<BorrowedBooksMaxNumber> BorrowedBooksMaxNumber { get; set; }
     }
 }

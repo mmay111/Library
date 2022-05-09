@@ -187,19 +187,6 @@ namespace Library.Data.Repository
             }
         }
 
-        public T Single(Expression<Func<T, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
 
-        public List<T> Search(Expression<Func<T, bool>> predicate)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, string includeProperties = "")
-        {
-            throw new NotImplementedException();
-        }
     }
 }

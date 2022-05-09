@@ -1,0 +1,124 @@
+﻿@model Library.Admin.Models.LoginForm
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>@Library.Admin.Helper.LibraryValues.AppName</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/Content/font-awesome")
+    @Styles.Render("~/Content/simple-line-icons")
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/login")
+    @Scripts.Render("~/Scripts/jquery")
+
+    <link rel="shortcut icon" href="favicon.ico" />
+</head>
+<body class="login">
+    <div class="user-login-5">
+        <div class="row bs-reset">
+            <div class="col-md-6 bs-reset mt-login-5-bsfix">
+                <div class="login-bg" style="background-image:url(/Content/pages/img/login/bg1.jpg)">
+
+                </div>
+            </div>
+            <div class="col-md-6 login-container bs-reset mt-login-5-bsfix">
+                @*<img width="170" height="53" class="login-logo" src="/Content/layouts/layout2/img/darin-logo.png" />*@
+                <div class="login-content">
+                    <h1>Kütüphane Sistemi <br /> Kütüphane Görevlisi Girişi</h1>
+                    <form action="/Account/Login" class="login-form" method="post">
+                        @Html.AntiForgeryToken()
+
+                        @{
+                            if (ViewBag.Message != null)
+                            {
+                                <div class="alert alert-danger display-hide" style="display:block">
+                                    <button class="close" data-close="alert"></button>
+                                    <span>@ViewBag.Message.ToString()</span>
+                                </div>
+                            }
+                        }
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+                                <input class="form-control form-control-solid placeholder-no-fix form-group" maxlength="200" type="text" autocomplete="off" placeholder="Email adresiniz..." name="Email" required />
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+                                <input class="form-control form-control-solid placeholder-no-fix form-group" maxlength="10" type="password" autocomplete="off" placeholder="Parola" name="Password" required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="rem-password">
+                                    @*<label class="rememberme mt-checkbox mt-checkbox-outline">
+                                            @Html.CheckBoxFor(x => x.isRememberMe)
+                                            Beni Hatırla
+                                            <span></span>
+                                        </label>*@
+                                </div>
+                            </div>
+                            <div class="col-sm-8 text-right">
+                                <div class="forgot-password">
+                                    <a href="javascript:;" id="forget-password" class="forget-password">Parolamı unuttum</a>
+                                </div>
+                                <input type="submit" class="btn blue" style="background-color:#3598dc" value="Giriş" />
+                            </div>
+                        </div>
+                    </form>
+                    <form action="/Account/ForgotPassword" class="forget-form" method="post">
+                        <h3 class="font-green">Parolamı unuttum</h3>
+                        <p>Lütfen kullanıcı adınızı girin.</p>
+                        <div class="form-group">
+                            <input class="form-control placeholder-no-fix form-group" type="text" autocomplete="off" placeholder="kullanıcı adı" id="userName" name="username" />
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" id="back-btn" class="btn green btn-outline">Geri</button>
+                            <button type="button" id="btn-pass-reminder" class="btn blue pull-right" style="background-color:#3598dc">Gönder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Scripts.Render("~/Scripts/script")
+    @Scripts.Render("~/Scripts/validation")
+    @Scripts.Render("~/Scripts/backstretch")
+    @Scripts.Render("~/Scripts/login")
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#btn-pass-reminder").click(function () {
+            var userName = $("#userName").val();
+            $.ajax({
+                cache: false,
+                url: "/Account/ForgotPassword",
+                type: "GET",
+                data: { username: $("#userName").val() },
+                success: function (data) {
+                    if (data == 0) {
+                        toastr.warning("Kullanıcı bilgileriniz gönderilemedi.", "Parolamı Unuttum");
+                    }
+                    else if (data == 1) {
+                        toastr.warning("Lütfen geçerli bir kullanıcı adı girin.", "Parolamı Unuttum");
+                    }
+                    else if (data == 2) {
+                        toastr.warning(userName + "  kayıtlı değil.", "Parolamı Unuttum");
+                    }
+                    else {
+                        toastr.success(data, "Parolamı Unuttum");
+                        $("#back-btn").click();
+                    }
+                },
+                error: function (response) {
+                    console.log(response.responseText + " - " + response.status);
+                },
+            });
+        })
+    })
+    </script>
+</body>
+</html>

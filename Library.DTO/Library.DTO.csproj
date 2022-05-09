@@ -47,7 +47,9 @@
     <Compile Include="BookRequestDTO.cs" />
     <Compile Include="BooksDTO.cs" />
     <Compile Include="BorrowedBooksDTO.cs" />
+    <Compile Include="BorrowedBooksMaxNumberDTO.cs" />
     <Compile Include="CampusDTO.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceTypesDTO.cs" />
     <Compile Include="UserDTO.cs" />

@@ -75,6 +75,9 @@
     <Compile Include="BorrowedBooks.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BorrowedBooksMaxNumber.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Campus.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
