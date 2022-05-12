@@ -27,6 +27,7 @@ namespace Library.Data
         public bool IsActive { get; set; }
         public bool IsAvailable { get; set; }
         public bool IsPrinted { get; set; }
+        public string Summary { get; set; }
     
         public virtual Author Author { get; set; }
         public virtual Campus Campus { get; set; }

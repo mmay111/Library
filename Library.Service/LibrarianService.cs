@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Library.Service
 {
-    public class LibrarianService
+    public class LibrarianService : BaseService
     {
         public UserDTO GetByID(int userID, bool? isActive = null)
         {

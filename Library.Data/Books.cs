@@ -23,6 +23,7 @@ namespace Library.Data
         public int BookID { get; set; }
         public string BookName { get; set; }
         public int BookDetailsID { get; set; }
+        public bool IsActive { get; set; }
     
         public virtual BookDetails BookDetails { get; set; }
         public virtual ICollection<BookRequest> BookRequest { get; set; }

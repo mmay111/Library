@@ -26,6 +26,7 @@
             <PropertyRef Name="BookDetailsID" />
           </Key>
           <Property Name="BookDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Summary" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="AuthorID" Type="int" Nullable="false" />
           <Property Name="Barcode" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CampusID" Type="tinyint" Nullable="false" />
@@ -50,6 +51,7 @@
           <Property Name="BookID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="BookName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="BookDetailsID" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="BorrowedBooks">
           <Key>
@@ -170,18 +172,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Books_BookDetails">
-          <End Role="BookDetails" Type="Self.BookDetails" Multiplicity="1" />
-          <End Role="Books" Type="Self.Books" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="BookDetails">
-              <PropertyRef Name="BookDetailsID" />
-            </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="BookDetailsID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_BorrowedBooks_BookBorrowFee">
           <End Role="BookBorrowFee" Type="Self.BookBorrowFee" Multiplicity="1" />
           <End Role="BorrowedBooks" Type="Self.BorrowedBooks" Multiplicity="*" />
@@ -274,10 +264,6 @@
             <End Role="User" EntitySet="User" />
             <End Role="BookRequest" EntitySet="BookRequest" />
           </AssociationSet>
-          <AssociationSet Name="FK_Books_BookDetails" Association="Self.FK_Books_BookDetails">
-            <End Role="BookDetails" EntitySet="BookDetails" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
           <AssociationSet Name="FK_BorrowedBooks_BookBorrowFee" Association="Self.FK_BorrowedBooks_BookBorrowFee">
             <End Role="BookBorrowFee" EntitySet="BookBorrowFee" />
             <End Role="BorrowedBooks" EntitySet="BorrowedBooks" />
@@ -337,6 +323,7 @@
           <NavigationProperty Name="ResourceTypes" Relationship="Self.FK_BookDetails_ResourceTypes" FromRole="BookDetails" ToRole="ResourceTypes" />
           <NavigationProperty Name="Books" Relationship="Self.FK_Books_BookDetails" FromRole="BookDetails" ToRole="Books" />
           <Property Name="IsPrinted" Type="Boolean" Nullable="false" />
+          <Property Name="Summary" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="BookRequest">
           <Key>
@@ -359,6 +346,7 @@
           <NavigationProperty Name="BookDetails" Relationship="Self.FK_Books_BookDetails" FromRole="Books" ToRole="BookDetails" />
           <NavigationProperty Name="BookRequest" Relationship="Self.FK_BookRequest_Books" FromRole="Books" ToRole="BookRequest" />
           <NavigationProperty Name="BorrowedBooks" Relationship="Self.FK_BorrowedBooks_Books" FromRole="Books" ToRole="BorrowedBooks" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="BorrowedBooks">
           <Key>
@@ -646,6 +634,7 @@
           <EntitySetMapping Name="BookDetails">
             <EntityTypeMapping TypeName="LibraryModel.BookDetails">
               <MappingFragment StoreEntitySet="BookDetails">
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
                 <ScalarProperty Name="IsPrinted" ColumnName="IsPrinted" />
                 <ScalarProperty Name="BookDetailsID" ColumnName="BookDetailsID" />
                 <ScalarProperty Name="AuthorID" ColumnName="AuthorID" />
@@ -670,6 +659,7 @@
           <EntitySetMapping Name="Books">
             <EntityTypeMapping TypeName="LibraryModel.Books">
               <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="BookID" ColumnName="BookID" />
                 <ScalarProperty Name="BookName" ColumnName="BookName" />
                 <ScalarProperty Name="BookDetailsID" ColumnName="BookDetailsID" />

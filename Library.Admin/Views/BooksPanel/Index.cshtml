@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-title">Kullanıcı Listesi</h2>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        Sistemde bulunan kitaplar aşağıda listelenmiştir.
+    </ul>
+    <div class="page-toolbar">
+        <div class="btn-group pull-right">
+            <a href="/BooksPanel/Create" class="btn btn-fit-height red">
+                <i class="fa fa-plus"></i>
+                Yeni Kitap
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-users font-dark"></i>
+                    <span class="caption-subject bold uppercase">Kitaplar</span>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped dataTable table-hover nowrap stripe table-bordered " id="dyntable">
+                    <thead>
+                        <tr role="row">
+
+                            <th>Kitap Adı</th>
+                            <th>Yazar</th>
+                            <th>Barcode</th>
+                            <th>Kaynak Türü</th>
+                            <th>Campus</th>
+                            <th>Mevcut</th>
+                            <th>Basılı</th>
+                            <th>Durum</th>
+                            <th></th>
+
+
+
+                        </tr>
+                        <tr class="sptl">
+
+                            <th><input type="text" name="search_engine" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody"></tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/vendorPanelDataQuery.js"></script>
+

@@ -36,5 +36,30 @@ namespace Library.Admin.Helper
 
             return userData.UserID.ToString();
         }
+        public static string GetIsActive(bool type)
+        {
+            if (type == true)
+                return "<span class='label label-sm label-success'>Aktif</span>";
+            else if (type == false)
+                return "<span class='label label-sm label-danger'>Pasif</span>";
+            return "";
+        }
+        public static string GetIsAvailable(bool type)
+        {
+            if (type == true)
+                return "<span class='label label-sm label-success'>Mevcut</span>";
+            else if (type == false)
+                return "<span class='label label-sm label-danger'>Mevcut değil</span>";
+            return "";
+        }
+        public static string GetIsPrinted(bool type)
+        {
+            if (type == true)
+                return "<span class='label label-sm label-success'>Basılı</span>";
+            else if (type == false)
+                return "<span class='label label-sm label-danger'>Online</span>";
+            return "";
+        }
+        
     }
 }

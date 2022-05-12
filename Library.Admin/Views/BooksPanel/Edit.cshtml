@@ -1,0 +1,160 @@
+﻿@model BooksListDTO
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var isPrintedSelectList = new SelectList(new List<SelectListItem> {
+            new SelectListItem {Text = "Basılı", Value = "True"},
+            new SelectListItem {Text = "Online", Value = "False"},}, "Value", "Text");
+
+    var availableSelectList = new SelectList(new List<SelectListItem> {
+            new SelectListItem {Text = "Mevcut", Value = "True"},
+            new SelectListItem {Text = "Mevcut Değil", Value = "False"},}, "Value", "Text");
+
+    var selectList = new SelectList(new List<SelectListItem> {
+            new SelectListItem {Text = "Aktif", Value = "True"},
+            new SelectListItem {Text = "Pasif", Value = "False"},}, "Value", "Text");
+}
+
+<h2 class="page-title">Kitap Listesi</h2>
+
+<div class="portlet box">
+    <div class="portlet-body form">
+        <!--begin form-->
+        <form action="/BooksPanel/Edit" method="post" id="form_sample_2" class="form-horizontal">
+            @Html.AntiForgeryToken()
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button> Lütfen zorunlu alanları doldurunuz.
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kitap adı</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    
+                                    <input type="text" maxlength="200" class="form-control" value="@Model.BookName" name="BookName" required />
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Yazar Adı</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                   
+                                        <input type="text" maxlength="200" class="form-control" value="@Model.AuthorName" name="AuthorName" required />
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Barcode</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                   
+                                        <input type="text" maxlength="11" class="form-control" value="@Model.Barcode" name="Barcode" required />
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kampüs</label>
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(Model => Model.CampusID, new SelectList(ViewBag.Campuses, "CampusID", "CampusName"), "Kampüs seçiniz", new { @id = "CampusID", @class = "form-control", @required = true })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Kitap Özeti</label>
+                        <div class="col-md-9">
+                            
+                                <textarea type="text" rows="4" maxlength="1000" class="form-control" value="@Model.Summary" name="Summary" required></textarea>
+                            
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Kitap Türü</label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(Model => Model.ResourceTypeID, new SelectList(ViewBag.ResourceTypes, "ResourceTypeID", "ResourceTypeName"), "Kullanıcı tipini seçiniz", new { @id = "ResourceTypeID", @class = "form-control", @required = true })
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Mevcut mu</label>
+                            <div class="col-md-9">
+
+                                @Html.DropDownListFor(m => m.IsAvailable, availableSelectList, "Mevcut olma durumu", new { @class = "form-control ", @required = true })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kayıt Durumu</label>
+                            <div class="col-md-9">
+
+                                @Html.DropDownListFor(m => m.IsPrinted, isPrintedSelectList, "Basılı olma durumu", new { @class = "form-control ", @required = true })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kayıt Durumu</label>
+                            <div class="col-md-9">
+
+                                @Html.DropDownListFor(m => m.IsActive, selectList, "Aktiflik durumu", new { @class = "form-control ", @required = true })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="pull-left col-md-3">
+                                <a href="/BooksPanel/Index" class="btn red">İptal</a>
+                                <button id="btnSave" type="button" name="Save" class="btn blue">Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        @if(ViewBag.Error == "Error")
+        {
+            @: toastr.error("Kullanıcı kaydı güncellenemedi", "Kullanıcı Düzenle");
+        }
+    });
+    </script>
+}

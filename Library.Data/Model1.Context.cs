@@ -31,7 +31,7 @@ namespace Library.Data
         public DbSet<BookRequest> BookRequest { get; set; }
         public DbSet<Books> Books { get; set; }
         public DbSet<BorrowedBooks> BorrowedBooks { get; set; }
-        public DbSet<Campus> Campus { get; set; }
+        public DbSet<ResourceTypes> Campus { get; set; }
         public DbSet<ResourceTypes> ResourceTypes { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<UserTypes> UserTypes { get; set; }

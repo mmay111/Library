@@ -1,0 +1,182 @@
+﻿@model UserDTO
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    input[type=checkbox] {
+        transform: scale(1.7);
+        margin-right: 10px;
+    }
+
+    
+</style>
+<h2 class="page-title">Kullanıcı Listesi</h2>
+
+<div class="portlet box">
+    <div class="portlet-body form">
+        <!--begin form-->
+        <form action="/UserPanel/Create" method="post" id="form_sample_2" class="form-horizontal">
+            @Html.AntiForgeryToken()
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button> Lütfen zorunlu alanları doldurunuz.
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Ad</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    @if (Model != null)
+                                    {
+                                        <input type="text" maxlength="50" class="form-control" value="@Model.Name" name="Name" required />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" maxlength="50" class="form-control" name="Name" required />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Soyad</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    @if (Model != null)
+                                    {
+                                        <input type="text" maxlength="50" class="form-control" value="@Model.Surname" name="Surname" required />
+                                    }
+                                    else
+                                    {
+                                        <input type="text" maxlength="50" class="form-control" name="Surname" required />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">E-posta</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    @if (Model != null)
+                                    {
+                                        <input type="email" pattern="^[a-zA-Z0-9._+-]+@("@")[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" value="@Model.Email" name="Email" id="Email" class="form-control" maxlength="200" required>
+
+                                    }
+                                    else
+                                    {
+                                        <input type="email" pattern="^[a-zA-Z0-9._+-]+@("@")[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" name="Email" id="Email" class="form-control" maxlength="200" required>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Şifre</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    @if (Model != null)
+                                    {
+                                        <input type="text" maxlength="50" class="form-control" value="@Model.PasswordHash" name="PasswordHash" required>
+                                    }
+                                    else
+                                    {
+                                        <input type="text" maxlength="50" class="form-control" name="PasswordHash" required>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                   
+                    <div class="col-md-6 ">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">TC NO</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+                                    @if (Model != null)
+                                    {
+                                        <input type="text" maxlength="11" class="form-control" value="@Model.TC" name="TC" required>
+                                    }
+                                    else
+                                    {
+                                        <input type="text" maxlength="11" class="form-control" name="TC" required>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kullanıcı Tipi</label>
+                            <div class="col-md-9">
+                                @Html.DropDownList("UserTypeID", null, "Kullanıcı tipini seçiniz", new { @class = "form-control ", @id = "UserTypeID", @name = "UserTypeID", @required = true })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Kampüs</label>
+                            <div class="col-md-9">
+                                @Html.DropDownList("CampusID", null, "Kampüs seçiniz", new { @class = "form-control ", @id = "CampusID", @name = "CampusID", @required = true })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="pull-left col-md-3">
+                                <a href="/UserPanel/Index" class="btn red">İptal</a>
+                                <button id="btnSave" type="button" name="Save" class="btn blue">Kaydet</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            @if (ViewBag.Error == "Error")
+            {
+                 @: toastr.error("Kullanıcı eklenemedi", "Yeni Kullanıcı Kaydı");
+
+            }
+            
+            //Form Submit
+            var allowSubmit = true;
+            $("#btnSave").click(function () {
+                if (allowSubmit) {
+                    submitform();
+                }
+            })
+            function submitform() {
+                if ($('#form_sample_2').valid())
+                {
+                    allowSubmit = false;
+                    document.getElementById('form_sample_2').submit();
+                }
+            }
+        });
+    </script>
+}
+

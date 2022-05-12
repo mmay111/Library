@@ -10,6 +10,7 @@ namespace Library.DTO
     {
         public int BookDetailsID { get; set; }
         public int AuthorID { get; set; }
+        public string Summary { get; set; }
         public string Barcode { get; set; }
         public byte CampusID { get; set; }
         public byte ResourceTypeID { get; set; }

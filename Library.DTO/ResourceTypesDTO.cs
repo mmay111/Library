@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.DTO
 {
-    class ResourceTypesDTO
+    public class ResourceTypesDTO
     {
         public byte ResourceTypeID { get; set; }
         public string ResourceTypeName { get; set; }

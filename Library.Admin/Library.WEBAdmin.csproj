@@ -1474,10 +1474,12 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\userPanelDataQuery.js" />
+    <Content Include="Scripts\vendorPanelDataQuery.js" />
     <Content Include="Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Books\Index.cshtml" />
+    <Content Include="Views\BooksPanel\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -1485,8 +1487,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BooksController.cs" />
+    <Compile Include="Controllers\BooksPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserPanelController.cs" />
     <Compile Include="Filters\LibrarianAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1526,6 +1529,11 @@
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\UserPanel\Index.cshtml" />
+    <Content Include="Views\UserPanel\Create.cshtml" />
+    <Content Include="Views\UserPanel\Edit.cshtml" />
+    <Content Include="Views\BooksPanel\Create.cshtml" />
+    <Content Include="Views\BooksPanel\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
