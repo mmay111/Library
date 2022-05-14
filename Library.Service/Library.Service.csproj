@@ -54,6 +54,7 @@
     <Compile Include="AuthorsPanelService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="BooksPanelService.cs" />
+    <Compile Include="BorrowedBooksPanelService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DefinitionService.cs" />
     <Compile Include="LibrarianService.cs" />

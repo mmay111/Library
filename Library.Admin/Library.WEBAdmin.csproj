@@ -1466,6 +1466,7 @@
     <Content Include="Content\global\plugins\typeahead\LICENSE" />
     <Content Include="Content\global\plugins\typeahead\README.md" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\borroWedBooksPanelDataQuery.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
@@ -1488,6 +1489,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BooksPanelController.cs" />
+    <Compile Include="Controllers\BorrowedBooksPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserPanelController.cs" />
     <Compile Include="Filters\LibrarianAuthorizeAttribute.cs" />
@@ -1534,6 +1536,7 @@
     <Content Include="Views\UserPanel\Edit.cshtml" />
     <Content Include="Views\BooksPanel\Create.cshtml" />
     <Content Include="Views\BooksPanel\Edit.cshtml" />
+    <Content Include="Views\BorrowedBooksPanel\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

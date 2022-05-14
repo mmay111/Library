@@ -22,5 +22,27 @@ namespace Library.Service
             }
 
         }
+        public bool Update(AuthorDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.Repository<Author>().Update(uow.MapSingle<AuthorDTO, Author>(obj));
+                var commit = uow.Commit();
+                return commit == -1 ? true : false;
+            }
+        }
+        public AuthorDTO Insert(AuthorDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var result = uow.Repository<Author>().Insert(uow.MapSingle<AuthorDTO, Author>(obj));
+                var commit = uow.Commit();
+                if (commit == -1)
+                {
+                    return uow.MapSingle<Author, AuthorDTO>(result);
+                }
+                return null;
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace Library.Service
 {
     public class BooksPanelService : BaseService
     {
+        private AuthorsPanelService authorsPanelService = new AuthorsPanelService();
         public List<BooksListDTO> GetAllBooks()
         {
             using (LibraryEntities db = new LibraryEntities())
@@ -81,8 +82,7 @@ namespace Library.Service
                                 {
                                     AuthorName = obj.AuthorName,
                                 };
-                                var authorResult = uow.Repository<Author>().Insert(uow.MapSingle<AuthorDTO, Author>(authorModel));
-                                //var commit = uow.Commit();
+                                var authorResult = authorsPanelService.Insert(authorModel);
                                 obj.AuthorID = authorResult.AuthorID;
                             }
 
@@ -97,7 +97,7 @@ namespace Library.Service
                                 IsAvailable=obj.IsAvailable,
                                 IsPrinted=obj.IsPrinted,
                             };
-                            var bookDetailsResult = uow.Repository<BookDetails>().Insert(uow.MapSingle<BookDetailsDTO, BookDetails>(bookDetailsModel));
+                            var bookDetailsResult = InsertBookDetails(bookDetailsModel);
                             //var commit = uow.Commit();
                             obj.BookDetailsID = bookDetailsResult.BookDetailsID;
 
@@ -129,23 +129,12 @@ namespace Library.Service
                         
                 }
             }
-            //using (UnitOfWork uow = new UnitOfWork())
-            //{
-            //    var result = uow.Repository<Books>().Insert(uow.MapSingle<BooksListDTO, Books>(obj));
-            //    var commit = uow.Commit();
-            //    if (commit == -1)
-            //    {
-            //        return uow.MapSingle<Books, BooksListDTO>(result);
-            //    }
-            //    return null;
-            //}
+           
         }
         public bool Update(BooksListDTO obj)
         {
             
-                //uow.Repository<User>().Update(uow.MapSingle<UserDTO, User>(obj));
-                //var commit = uow.Commit();
-                //return commit == -1 ? true : false;
+               
             
             using (LibraryEntities db = new LibraryEntities())
             {
@@ -161,7 +150,7 @@ namespace Library.Service
                                 {
                                     AuthorName = obj.AuthorName,
                                 };
-                                var authorResult = uow.Repository<Author>().Insert(uow.MapSingle<AuthorDTO, Author>(authorModel));
+                                var authorResult = authorsPanelService.Insert(authorModel);
                                 //var commit = uow.Commit();
                                 obj.AuthorID = authorResult.AuthorID;
                             }
@@ -177,7 +166,7 @@ namespace Library.Service
                                 IsAvailable = obj.IsAvailable,
                                 IsPrinted = obj.IsPrinted,
                             };
-                            var bookDetailsResult = uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(bookDetailsModel));
+                            var bookDetailsResult = UpdateBookDetails(bookDetailsModel);
                             //var commit = uow.Commit();
 
                             BooksDTO booksModel = new BooksDTO
@@ -208,66 +197,37 @@ namespace Library.Service
                 }
             }
         }
-        //public EndScreenDTO Insert(EndScreenDTO obj)
-        //{
-        //using (UnitOfWork uow = new UnitOfWork())
-        //{
-        //    EndScreen model = new EndScreen
-        //    {
-        //        Name = obj.Name,
-        //        ScreenTypeID = obj.ScreenTypeID,
-        //        Genders = obj.Genders,
-        //        Langs = obj.Langs,
-        //        IsActive = obj.IsActive,
-        //        CreatedDate = obj.CreatedDate,
-        //        OrderNumber = obj.OrderNumber,
-        //        CountryID = obj.CountryID
-        //    };
-        //    var result = uow.Repository<EndScreen>().Insert(model);
-        //    var commit = uow.Commit();
-        //    obj.EndScreenID = model.EndScreenID;
-        //    return obj;
-        //}
+        public bool UpdateBookAvaliable(BooksListDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(obj.IsAvailable));
+                var commit = uow.Commit();
+                return commit == -1 ? true : false;
+            }
 
-        //            PollResult pollResult = new PollResult
-        //            {
-        //                CreatedDate = DateTime.Now,
-        //                PollID = obj.PollID,
-        //                UserID = obj.UserID,
-
-        //            };
-
-        //            List<PollResultAnswer> pollResultAnswers = new List<PollResultAnswer>();
-        //            foreach (var answer in obj.Answers)
-        //            {
-        //                PollResultAnswer newAnswer = new PollResultAnswer
-        //                {
-        //                    QuestionID = answer.QuestionID,
-        //                    AnswerID = answer.AnswerID,
-        //                    AnswerText = answer.AnswerText
-        //                };
-        //                pollResultAnswers.Add(newAnswer);
-        //            }
-        //            pollResult.PollResultAnswers = pollResultAnswers;
-
-        //            db.PollResults.Add(pollResult);
-
-        //            var saved = db.SaveChanges();
-
-        //            dbContextTransaction.Commit();
-
-        //            return true;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            dbContextTransaction.Rollback();
-        //            return false;
-        //        }
-        //    }
-
-
-        //}
-        //}
-
+        }
+        public bool UpdateBookDetails(BookDetailsDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(obj));
+                var commit = uow.Commit();
+                return commit == -1 ? true : false;
+            }
+        }
+        public BookDetailsDTO InsertBookDetails(BookDetailsDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var result = uow.Repository<BookDetails>().Insert(uow.MapSingle<BookDetailsDTO, BookDetails>(obj));
+                var commit = uow.Commit();
+                if (commit == -1)
+                {
+                    return uow.MapSingle<BookDetails, BookDetailsDTO>(result);
+                }
+                return null;
+            }
+        }
     }
 }
