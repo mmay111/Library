@@ -16,5 +16,6 @@ namespace Library.DTO
         public System.DateTime BorrowExpiresDate { get; set; }
         public bool IsActive { get; set; }
         public bool IsReturned { get; set; }
+        public BookDetailsDTO BookDetails { get; set; }
     }
 }

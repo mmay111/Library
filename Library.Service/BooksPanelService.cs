@@ -30,6 +30,15 @@ namespace Library.Service
                 return books;
             }
         }
+        public int GetBooksCountByCampusID(int campusID)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var count = db.Books.Where(x=>x.BookDetails.CampusID==campusID && x.IsActive==true).Count();
+                return count;
+            }
+        }
+        
         public BooksListDTO GetByID(int bookID)
         {
             using (LibraryEntities db = new LibraryEntities())
@@ -208,66 +217,7 @@ namespace Library.Service
                 }
             }
         }
-        //public EndScreenDTO Insert(EndScreenDTO obj)
-        //{
-        //using (UnitOfWork uow = new UnitOfWork())
-        //{
-        //    EndScreen model = new EndScreen
-        //    {
-        //        Name = obj.Name,
-        //        ScreenTypeID = obj.ScreenTypeID,
-        //        Genders = obj.Genders,
-        //        Langs = obj.Langs,
-        //        IsActive = obj.IsActive,
-        //        CreatedDate = obj.CreatedDate,
-        //        OrderNumber = obj.OrderNumber,
-        //        CountryID = obj.CountryID
-        //    };
-        //    var result = uow.Repository<EndScreen>().Insert(model);
-        //    var commit = uow.Commit();
-        //    obj.EndScreenID = model.EndScreenID;
-        //    return obj;
-        //}
-
-        //            PollResult pollResult = new PollResult
-        //            {
-        //                CreatedDate = DateTime.Now,
-        //                PollID = obj.PollID,
-        //                UserID = obj.UserID,
-
-        //            };
-
-        //            List<PollResultAnswer> pollResultAnswers = new List<PollResultAnswer>();
-        //            foreach (var answer in obj.Answers)
-        //            {
-        //                PollResultAnswer newAnswer = new PollResultAnswer
-        //                {
-        //                    QuestionID = answer.QuestionID,
-        //                    AnswerID = answer.AnswerID,
-        //                    AnswerText = answer.AnswerText
-        //                };
-        //                pollResultAnswers.Add(newAnswer);
-        //            }
-        //            pollResult.PollResultAnswers = pollResultAnswers;
-
-        //            db.PollResults.Add(pollResult);
-
-        //            var saved = db.SaveChanges();
-
-        //            dbContextTransaction.Commit();
-
-        //            return true;
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            dbContextTransaction.Rollback();
-        //            return false;
-        //        }
-        //    }
-
-
-        //}
-        //}
+        
 
     }
 }

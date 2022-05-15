@@ -53,11 +53,14 @@
   <ItemGroup>
     <Compile Include="AuthorsPanelService.cs" />
     <Compile Include="BaseService.cs" />
+    <Compile Include="BookRequestsPanelService.cs" />
     <Compile Include="BooksPanelService.cs" />
+    <Compile Include="BorrowedBooksService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DefinitionService.cs" />
     <Compile Include="LibrarianService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportPanelService.cs" />
     <Compile Include="UserPanelService.cs" />
   </ItemGroup>
   <ItemGroup>

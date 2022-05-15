@@ -1,0 +1,72 @@
+﻿@model CampusReportDTO
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        .center {
+            text-align: center !important;
+        }
+
+        table, th, td {
+            position: relative;
+            margin: auto;
+            padding: 5px !important;
+            text-align: left;
+        }
+    </style>
+    <style>
+        @@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700,600,800,900&subset=latin-ext');
+    </style>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.rtl.min.css" rel="stylesheet" />
+    <title>Kütüphane Sistemi</title>
+</head>
+<body>
+    <br /><br />
+    <div class="caption" style="margin-top:50px;">
+       
+    </div>
+    <br />
+    <div class="row" style="margin:50px;">
+        
+        
+            <p><b>@Model.DateStart - @Model.DateFinish</b> tarihleri arasında Kütüphane sistemine dair raporu aşağıda bulabilirsiniz.</p>
+        
+        
+    </div>
+    <div class="row">
+        <div style="align-content:center;">
+            <table>
+                <tr>
+                    <td>Kampüs Adı</td>
+                    <td><b>@Model.CampusName</b></td>
+                </tr>
+                <tr>
+                    <td>toplam kitap sayısı</td>
+                    <td><b>@Model.BooksCount </b>Adet </td>
+                </tr>
+                <tr>
+                    <td>mevcut kitap sayısı</td>
+                    <td><b>@Model.AvailableBooksCount </b>Adet</td>
+                </tr>
+                <tr>
+                    <td>ödünç verilen kitap sayısı</td>
+                    <td><b>@Model.BorrowedBooksCount </b>Adet </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    
+    
+
+</body>
+</html>

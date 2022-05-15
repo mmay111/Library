@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Library.Service
 {
-    public class AuthorsPanelService
+    public class AuthorsPanelService : BaseService
     {
         public AuthorDTO GetByName(string name, bool? isActive = null)
         {

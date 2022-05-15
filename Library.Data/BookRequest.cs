@@ -18,6 +18,7 @@ namespace Library.Data
         public int UserID { get; set; }
         public int BookID { get; set; }
         public bool IsActive { get; set; }
+        public bool BookIsAvailable { get; set; }
     
         public virtual Books Books { get; set; }
         public virtual User User { get; set; }
