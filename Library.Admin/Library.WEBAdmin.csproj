@@ -1475,6 +1475,7 @@
     <Content Include="Content\global\plugins\typeahead\README.md" />
     <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
+    <Content Include="Scripts\borroWedBooksPanelDataQuery.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
     <Content Include="Scripts\jquery-3.6.0.slim.js" />
@@ -1499,6 +1500,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookRequestsPanelController.cs" />
     <Compile Include="Controllers\BooksPanelController.cs" />
+    <Compile Include="Controllers\BorrowedBooksPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportsPanelController.cs" />
     <Compile Include="Controllers\UserPanelController.cs" />
@@ -1549,6 +1551,7 @@
     <Content Include="Views\BookRequestsPanel\Index.cshtml" />
     <Content Include="Views\ReportsPanel\Index.cshtml" />
     <Content Include="Views\ReportsPanel\Report.cshtml" />
+    <Content Include="Views\BorrowedBooksPanel\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

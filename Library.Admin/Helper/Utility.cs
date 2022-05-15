@@ -84,6 +84,14 @@ namespace Library.Admin.Helper
                 return "<span class='label label-sm label-danger'>Online</span>";
             return "";
         }
-        
+        public static string GetIsReturned(bool type)
+        {
+            if (type == true)
+                return "<span class='label label-sm label-success'>İade Edildi</span>";
+            else if (type == false)
+                return "<span class='label label-sm label-danger'>iade edilmedi</span>";
+            return "";
+        }
+
     }
 }

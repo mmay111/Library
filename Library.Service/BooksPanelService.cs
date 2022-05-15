@@ -11,6 +11,7 @@ namespace Library.Service
 {
     public class BooksPanelService : BaseService
     {
+        private AuthorsPanelService authorsPanelService = new AuthorsPanelService();
         public List<BooksListDTO> GetAllBooks()
         {
             using (LibraryEntities db = new LibraryEntities())
@@ -90,8 +91,7 @@ namespace Library.Service
                                 {
                                     AuthorName = obj.AuthorName,
                                 };
-                                var authorResult = uow.Repository<Author>().Insert(uow.MapSingle<AuthorDTO, Author>(authorModel));
-                                //var commit = uow.Commit();
+                                var authorResult = authorsPanelService.Insert(authorModel);
                                 obj.AuthorID = authorResult.AuthorID;
                             }
 
@@ -106,7 +106,7 @@ namespace Library.Service
                                 IsAvailable=obj.IsAvailable,
                                 IsPrinted=obj.IsPrinted,
                             };
-                            var bookDetailsResult = uow.Repository<BookDetails>().Insert(uow.MapSingle<BookDetailsDTO, BookDetails>(bookDetailsModel));
+                            var bookDetailsResult = InsertBookDetails(bookDetailsModel);
                             //var commit = uow.Commit();
                             obj.BookDetailsID = bookDetailsResult.BookDetailsID;
 
@@ -138,23 +138,12 @@ namespace Library.Service
                         
                 }
             }
-            //using (UnitOfWork uow = new UnitOfWork())
-            //{
-            //    var result = uow.Repository<Books>().Insert(uow.MapSingle<BooksListDTO, Books>(obj));
-            //    var commit = uow.Commit();
-            //    if (commit == -1)
-            //    {
-            //        return uow.MapSingle<Books, BooksListDTO>(result);
-            //    }
-            //    return null;
-            //}
+           
         }
         public bool Update(BooksListDTO obj)
         {
             
-                //uow.Repository<User>().Update(uow.MapSingle<UserDTO, User>(obj));
-                //var commit = uow.Commit();
-                //return commit == -1 ? true : false;
+               
             
             using (LibraryEntities db = new LibraryEntities())
             {
@@ -170,7 +159,7 @@ namespace Library.Service
                                 {
                                     AuthorName = obj.AuthorName,
                                 };
-                                var authorResult = uow.Repository<Author>().Insert(uow.MapSingle<AuthorDTO, Author>(authorModel));
+                                var authorResult = authorsPanelService.Insert(authorModel);
                                 //var commit = uow.Commit();
                                 obj.AuthorID = authorResult.AuthorID;
                             }
@@ -186,7 +175,7 @@ namespace Library.Service
                                 IsAvailable = obj.IsAvailable,
                                 IsPrinted = obj.IsPrinted,
                             };
-                            var bookDetailsResult = uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(bookDetailsModel));
+                            var bookDetailsResult = UpdateBookDetails(bookDetailsModel);
                             //var commit = uow.Commit();
 
                             BooksDTO booksModel = new BooksDTO
@@ -217,7 +206,37 @@ namespace Library.Service
                 }
             }
         }
-        
+        public bool UpdateBookAvaliable(BooksListDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(obj.IsAvailable));
+                var commit = uow.Commit();
+                return commit == -1 ? true : false;
+            }
 
+        }
+        public bool UpdateBookDetails(BookDetailsDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(obj));
+                var commit = uow.Commit();
+                return commit == -1 ? true : false;
+            }
+        }
+        public BookDetailsDTO InsertBookDetails(BookDetailsDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var result = uow.Repository<BookDetails>().Insert(uow.MapSingle<BookDetailsDTO, BookDetails>(obj));
+                var commit = uow.Commit();
+                if (commit == -1)
+                {
+                    return uow.MapSingle<BookDetails, BookDetailsDTO>(result);
+                }
+                return null;
+            }
+        }
     }
 }

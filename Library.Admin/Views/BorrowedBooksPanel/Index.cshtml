@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-title">Kullanıcı Listesi</h2>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        Sistemde bulunan ödünç alınmış kitaplar aşağıda listelenmiştir.
+    </ul>
+    
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-users font-dark"></i>
+                    <span class="caption-subject bold uppercase">Kitaplar</span>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped dataTable table-hover nowrap stripe table-bordered " id="dyntable">
+                    <thead>
+                        <tr role="row">
+
+                            <th>Kitabı ödünç alan </th>
+                            <th>Kitap adı</th>
+                            <th>Yazar</th>
+                            <th>Barcode</th>
+                            <th>Kitap Ücreti</th>
+                            <th>Campus</th>
+                            <th>Ödünç alma tarihi</th>
+                            <th>Ödünç alma bitiş tarihi</th>
+                            <th>İade durumu</th>
+                            <th></th>
+
+
+
+                        </tr>
+                        <tr class="sptl">
+
+                            <th><input type="text" name="search_engine" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody"></tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="MessageModal" @*tabindex="-1"*@ aria-labelledby="login" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content r-15">
+            <div class="modal-body text-center p-30" id="MessageContent">
+
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/borroWedBooksPanelDataQuery.js"></script>
+
+<script>
+    function btnEdit(el) {
+        var model = {
+            BorrowedBookID: el,
+        };
+        $.ajax({
+            url: "/BorrowedBooksPanel/ReturnBorrowedBook",
+            type: "POST",
+            data: JSON.stringify(model),
+            contentType: 'application/json; charset=utf-8',
+            success: function (data) {
+                //console.log("data success: " + data);
+                $("#MessageModal #MessageContent").empty().append(data);
+                $('#MessageModal').modal('show');
+                setTimeout(function () {
+                    location.reload();
+                }, 1500)
+            },
+            error: function (response) {
+                console.log("error" + response.responseText);
+            }
+        })
+    }
+</script>
+
