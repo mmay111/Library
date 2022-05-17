@@ -34,6 +34,11 @@ namespace Library.Admin.Controllers
         public ActionResult Login(LoginForm user)
         {
             string message = string.Empty;
+            if (user.Email=="" || user.Password == "")
+            {
+                message = "Kullanıcı adı ve/veya parola boş bırakılamaz";
+            }
+            
             var validUser = librarianService.Authenticate(user.Email, user.Password);
 
             if (validUser == null || validUser.IsActive == false)

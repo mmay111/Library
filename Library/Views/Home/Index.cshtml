@@ -1,0 +1,307 @@
+﻿@model List<Library.DTO.BooksListDTO>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    var validUser = Library.Helpers.Utility.GetValidUserInfo();
+    var validUserCampusId = Library.Helpers.Utility.GetValidUserCampus().CampusID;
+
+}
+<style>
+    .jobs-content {
+        min-height: 600px;
+        padding-bottom: 25px;
+    }
+
+
+
+    @@media (min-width: 1280px) {
+        .job-list img.comp-logo {
+            width: 100px;
+            height: 75px;
+        }
+    }
+</style>
+
+
+
+<div id="app">
+    <div class="container-fluid container-blue-lt">
+        <div class="row row-padding">
+            <div class="col-lg-12 pt-4 mt-2 pt-sm-5">
+                <div class="d-none d-sm-block">
+                    Kitap listelsi
+                </div>
+
+                <h1 class="f-24 pt-3 pt-sm-4"><strong>@*@ViewBag.PageTitle*@</strong></h1>
+
+
+
+
+
+            </div>
+        </div>
+        <div class="row row-padding">
+            <div class="col-lg-12 form-group row w-100 pt-3  pb-5">
+
+                <div class="col-md-3" style="">
+                    <input v-model="booksNameFilter" style="border-radius: 999px !important;" type="search"  placeholder="Kitap adına göre ara" class="form-control form-control-slim r-999" value="">
+                </div>
+
+                <div class="col-md-2">
+                    <input v-model="authorNameFilter" style="border-radius: 999px !important;" type="search"  placeholder="Yazar ismine göre ara" class="form-control form-control-slim r-999" value="">
+
+                </div>
+                <div class="col-md-3">
+                    <input v-model="barcodeFilter" style="border-radius: 999px !important;" type="search" placeholder="Barkod numarasına göre ara" class="form-control form-control-slim r-999" value="">
+
+                </div>
+                <div class="col-md-2">
+                    <input v-model="summaryFilter" style="border-radius: 999px !important;" type="search"  placeholder="Kitap özetine göre ara" class="form-control form-control-slim r-999" value="">
+
+                </div>
+                <div class="col-md-2">
+                    <select v-model="campusFilter" class="form-select form-control" style="border-radius: 999px !important;" id="selectedKeyType" aria-label="Default select example">
+                        <option value="1">Doğu Kampüsü</option>
+                        <option value="2">Batı Kampüsü</option>
+                        <option value="3">Kuzey Kampüsü</option>
+                        <option value="4">Güney Kampüsü</option>
+                    </select>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Job Post Form -->
+    <!-- Jobs List Start -->
+    <div class="container-fluid container-blue-lt jobs-content">
+        <div class="row row-padding" id="jobs">
+            <div class="row ml-2" style=" margin-bottom: -18px;">
+                <div class="col-md-2 p-0 m-0">
+                    <p>Kitap adı</p>
+                </div>
+                <div class="col-md-2 p-0 m-0">
+                    <p>Kaynak Türü</p>
+                </div>
+                <div class="col-md-2 p-0 m-0">
+                    <p>Kampüs</p>
+                </div>
+                <div class="col-md-2 p-0 m-0">
+                    <p>Kitap tipi</p>
+                </div>
+                <div class="col-md-2 p-0 m-0">
+                    <p>Durum</p>
+                </div>
+            </div>
+            <div class="w-100 job-list " v-for="book in books">
+                <div class="row no-gutters  card card-noborder flex-row " style="margin-bottom:2px; border-radius: 10px !important;">
+                    <div class="col-12">
+                        <div class="card-body pr-0">
+                            <div class="row no-gutters">
+                                <div class=" row flex-grow-1">
+                                    <div class="col-md-2">
+                                        <h5 class="card-title f-16 ff-pnova-b">{{book.BookName}}</h5>
+                                        <p>
+                                            {{book.AuthorName}}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="card-text">
+                                            {{book.ResourceTypeName}}
+                                            <span class="text-grey-l f-12 pl-3"> </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p class="card-text">
+                                            {{book.CampusName}}
+                                            <span class="text-grey-l f-12 pl-3"> </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p v-if="book.IsPrinted" class="card-text">
+                                            Basılı
+                                            <span class="text-grey-l f-12 pl-3"> </span>
+                                        </p>
+                                        <p v-else class="card-text">
+                                            online
+                                            <span class="text-grey-l f-12 pl-3"> </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p v-if="book.IsAvailable" class="card-text">
+                                            mevcut
+                                            <span class="text-grey-l f-12 pl-3"> </span>
+                                        </p>
+                                        <p v-else class="card-text">
+                                            mevcut değil
+                                            <span class="text-grey-l f-12 pl-3"> </span>
+                                        </p>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div style="min-width:100px;display:flex;">
+                                            <div class="float-right align-self-center mt-2 pt-2">
+                                                <div v-if="book.IsAvailable">
+                                                    <button href="#" style="border-radius: 999px !important;" class="btn btn-md btn-primary">Ödünç Al <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
+                                                </div>
+                                                <div v-else>
+                                                    <button href="#" style="border-radius: 999px !important;" class="btn btn-md btn-warning ">Talep Oluştur <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script>
+    var userID = 0;
+    var vm = '';
+    window.addEventListener('load', () => {
+
+        vm=new Vue({
+
+            el: '#app',
+            data: {
+
+                books:@Html.Raw(Json.Encode(Model)),
+
+                //filter//
+                booksNameFilter: '',
+                authorNameFilter: '',
+                barcodeFilter: '',
+                summaryFilter: '',
+                campusFilter:@validUserCampusId,
+            },
+
+            mounted() {
+
+            },
+            watch: {
+
+                booksNameFilter: function (value) {
+                    if (this.booksNameFilter.length > 1) {
+                        this.authorNameFilter = '';
+                        this.barcodeFilter = '';
+                        this.summaryFilter = '';
+                        this.getFilteredBooks();
+                    }
+                    if (this.booksNameFilter == '') {
+                        this.getFilteredBooks();
+                    }
+                    
+                },
+                authorNameFilter: function (value) {
+                    if (this.authorNameFilter.length > 1) {
+                        this.booksNameFilter='';
+                        this.barcodeFilter='';
+                        this.summaryFilter = '';
+                        this.getFilteredBooks();
+                    }
+                    if (this.authorNameFilter == '') {
+                        this.getFilteredBooks();
+                    }
+                },
+                barcodeFilter: function (value) {
+                    if (this.barcodeFilter.length > 1) {
+                        this.booksNameFilter = '';
+                        this.authorNameFilter = '';
+                        this.summaryFilter = '';
+                        this.getFilteredBooks();
+                    }
+                    if (this.barcodeFilter == '') {
+                        this.getFilteredBooks();
+                    }
+                },
+                summaryFilter: function (value) {
+                    if (this.summaryFilter.length > 1) {
+                        this.booksNameFilter = '';
+                        this.barcodeFilter = '';
+                        this.authorNameFilter = '';
+                        this.getFilteredBooks();
+                    }
+                    if (this.summaryFilter == '') {
+                        this.getFilteredBooks();
+                    }
+                },
+                campusFilter: function (value) {
+                    this.getFilteredBooks();
+                    
+                },
+
+
+            },
+            methods: {
+                getFilteredBooks() {
+
+                    var model = {
+                        BookName: this.booksNameFilter,
+                        AuthorName: this.authorNameFilter,
+                        Barcode: this.barcodeFilter,
+                        Summary: this.summaryFilter,
+                        CampusID: this.campusFilter,
+
+                    };
+                    var url = new URL(location.origin + '/Home/GetFilteredBooks');
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(model),
+                    }).then((res) => {
+                        return res.json()
+                    }).then((res) => {
+                        this.books = res;
+                        if (res.length > 0) {
+                           
+                        }
+
+                    }).catch((error) => {
+                        console.log("error");
+                    })
+                },
+
+
+
+
+
+
+
+            }
+        });
+
+
+    });
+
+
+    function SendNotificationToFilteredUsers() {
+        userID = 0;
+        $('#NotificatonModal').modal("show");
+    }
+
+</script>
+
+
+
+
+
+
+

@@ -31,6 +31,53 @@ namespace Library.Service
                 return books;
             }
         }
+        public List<BooksListDTO> GetFilteredBooks(BooksListDTO model)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+
+                IQueryable<Books> data = db.Books.Where(x => x.IsActive != false);
+
+                data = data.Where(b => b.BookDetails.CampusID == model.CampusID);
+
+                if (model.BookName != null && model.BookName!="")
+                {   
+                     data = data.Where(b =>b.BookName.Contains(model.BookName));
+                }
+                if (model.AuthorName != null && model.AuthorName != "")
+                {
+                    data = data.Where(b => b.BookDetails.Author.AuthorName.Contains(model.AuthorName));
+                }
+                if (model.Barcode != null && model.Barcode != "")
+                {
+                    data = data.Where(b => b.BookDetails.Barcode.Contains(model.Barcode));
+                }
+                if (model.Summary != null && model.Summary != "")
+                {
+                    data = data.Where(b => b.BookDetails.Summary.Contains(model.Summary));
+                }
+
+                var newData = data.Select(x => new BooksListDTO
+                {
+                    BookID = x.BookID,
+                    BookName = x.BookName,
+                    AuthorName = x.BookDetails.Author.AuthorName,
+                    Summary = x.BookDetails.Summary,
+                    Barcode = x.BookDetails.Barcode,
+                    IsAvailable = x.BookDetails.IsAvailable,
+                    IsPrinted=x.BookDetails.IsPrinted,
+                    
+                }).OrderByDescending(x => x.BookID).ToList();
+               
+                return newData.ToList();
+            }
+
+
+
+
+
+
+        }
         public int GetBooksCountByCampusID(int campusID)
         {
             using (LibraryEntities db = new LibraryEntities())

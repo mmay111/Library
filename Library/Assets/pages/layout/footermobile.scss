@@ -1,0 +1,45 @@
+﻿footer {
+    p {
+        margin-bottom: 0;
+        padding-bottom: 1rem;
+        padding-left: 1rem;
+
+        a {
+
+            i.fa-chevron-right {
+                float: right !important;
+                padding-top: .25rem !important;
+                padding-right: 1rem !important;
+            }
+        }
+    }
+
+    a {
+        font-size: 11px;
+
+        i.fa-cc-mastercard {
+            color: #242734;
+            background: rgb(255,1,31);
+            background: linear-gradient(90deg, rgba(255,1,31,1) 0%, rgba(255,72,30,1) 45%, rgba(255,142,42,1) 100%);
+            border: none;
+            padding: 0px;
+            margin: 0px;
+            line-height: .8em;
+        }
+
+        i.fa-cc-visa {
+            color: #0353a5;
+            background: #fff;
+            border: none;
+            padding: 0px;
+            margin: 0px;
+            line-height: .7em;
+        }
+    }
+
+
+    a:link, a:visited {
+        color: #fff !important;
+        /*text-decoration: none;*/
+    }
+}

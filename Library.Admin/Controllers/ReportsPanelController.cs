@@ -18,7 +18,7 @@ namespace Library.Admin.Controllers
         private ReportPanelService reportPanelService = new ReportPanelService();
         private BooksPanelService booksPanelService = new BooksPanelService();
         private DefinitionService definitionService = new DefinitionService();
-        private BorrowedBooksService borrowedBooksService = new BorrowedBooksService();
+        private BorrowedBooksPanelService borrowedBooksService = new BorrowedBooksPanelService();
         
 
         // GET: ReportsPanel
