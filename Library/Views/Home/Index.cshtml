@@ -9,6 +9,10 @@
     var validUser = Library.Helpers.Utility.GetValidUserInfo();
     var validUserCampusId = Library.Helpers.Utility.GetValidUserCampus().CampusID;
 
+
+
+
+    var availableBookRequest = ViewBag.AvailableBookRequest as List<Library.DTO.BookRequestListDTO>;
 }
 <style>
     .jobs-content {
@@ -30,13 +34,24 @@
 
 <div id="app">
     <div class="container-fluid container-blue-lt">
+        @if (availableBookRequest != null)
+        {
+            foreach (var item in availableBookRequest)
+            {
+                <spam style="color:red;">Talep oluşturduğunuz @item.BookName adlı kitap şuan mevcut bulunmaktadır.</spam>
+                
+                    
+                    <div style="margin-left:10px; margin-top:10px;"><button v-on:click="showedBookRequestBtn(@item.BookRequestID)" type="button" class="btn btn-primary" id="SendNotificationButton">Okey</button></div>
+                
+            }
+        }
         <div class="row row-padding">
             <div class="col-lg-12 pt-4 mt-2 pt-sm-5">
                 <div class="d-none d-sm-block">
-                    Kitap listelsi
+                   
                 </div>
 
-                <h1 class="f-24 pt-3 pt-sm-4"><strong>@*@ViewBag.PageTitle*@</strong></h1>
+                <h1 class="f-24 pt-3 pt-sm-4"><strong>Books</strong></h1>
 
 
 
@@ -48,19 +63,19 @@
             <div class="col-lg-12 form-group row w-100 pt-3  pb-5">
 
                 <div class="col-md-3" style="">
-                    <input v-model="booksNameFilter" style="border-radius: 999px !important;" type="search"  placeholder="Kitap adına göre ara" class="form-control form-control-slim r-999" value="">
+                    <input v-model="booksNameFilter" style="border-radius: 999px !important;" type="search" placeholder="Search By Book name" class="form-control form-control-slim r-999" value="">
                 </div>
 
                 <div class="col-md-2">
-                    <input v-model="authorNameFilter" style="border-radius: 999px !important;" type="search"  placeholder="Yazar ismine göre ara" class="form-control form-control-slim r-999" value="">
+                    <input v-model="authorNameFilter" style="border-radius: 999px !important;" type="search" placeholder="Search By author Name" class="form-control form-control-slim r-999" value="">
 
                 </div>
                 <div class="col-md-3">
-                    <input v-model="barcodeFilter" style="border-radius: 999px !important;" type="search" placeholder="Barkod numarasına göre ara" class="form-control form-control-slim r-999" value="">
+                    <input v-model="barcodeFilter" style="border-radius: 999px !important;" type="search" placeholder="Search By barcode number" class="form-control form-control-slim r-999" value="">
 
                 </div>
                 <div class="col-md-2">
-                    <input v-model="summaryFilter" style="border-radius: 999px !important;" type="search"  placeholder="Kitap özetine göre ara" class="form-control form-control-slim r-999" value="">
+                    <input v-model="summaryFilter" style="border-radius: 999px !important;" type="search" placeholder="Search By book summary" class="form-control form-control-slim r-999" value="">
 
                 </div>
                 <div class="col-md-2">
@@ -70,7 +85,7 @@
                         <option value="3">Kuzey Kampüsü</option>
                         <option value="4">Güney Kampüsü</option>
                     </select>
-                   
+
                 </div>
             </div>
         </div>
@@ -81,23 +96,24 @@
         <div class="row row-padding" id="jobs">
             <div class="row ml-2" style=" margin-bottom: -18px;">
                 <div class="col-md-2 p-0 m-0">
-                    <p>Kitap adı</p>
+                    <p>Book Name</p>
                 </div>
                 <div class="col-md-2 p-0 m-0">
-                    <p>Kaynak Türü</p>
+                    <p>Resource Type</p>
                 </div>
                 <div class="col-md-2 p-0 m-0">
-                    <p>Kampüs</p>
+                    <p>Campus Name</p>
                 </div>
                 <div class="col-md-2 p-0 m-0">
-                    <p>Kitap tipi</p>
+                    <p>Is Printed</p>
                 </div>
                 <div class="col-md-2 p-0 m-0">
-                    <p>Durum</p>
+                    <p>Status</p>
                 </div>
             </div>
             <div class="w-100 job-list " v-for="book in books">
                 <div class="row no-gutters  card card-noborder flex-row " style="margin-bottom:2px; border-radius: 10px !important;">
+                    
                     <div class="col-12">
                         <div class="card-body pr-0">
                             <div class="row no-gutters">
@@ -145,7 +161,7 @@
                                         <div style="min-width:100px;display:flex;">
                                             <div class="float-right align-self-center mt-2 pt-2">
                                                 <div v-if="book.IsAvailable">
-                                                    <button href="#" style="border-radius: 999px !important;" class="btn btn-md btn-primary">Ödünç Al <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
+                                                    <button href="#" v-on:click="btnEdit(book.BookID)"  style="border-radius: 999px !important;" class="btn btn-md btn-primary">Ödünç Al <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
                                                 </div>
                                                 <div v-else>
                                                     <button href="#" style="border-radius: 999px !important;" class="btn btn-md btn-warning ">Talep Oluştur <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
@@ -164,23 +180,83 @@
 
         <div class="clearfix"></div>
     </div>
+
+
+
+    <div class="modal fade" id="NotificatonModal" role="dialog" tabindex="-1" aria-labelledby="ban_reason_modal_title" aria-hidden="true">
+
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Send Notification
+                </div>
+                <div class="modal-body col-md-12" id="">
+                  
+                    <p>Talep oluşturduğunuz </p>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-success" id="SendNotificationButton">Okey</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+<div class="modal fade" id="borrowBookModal" aria-labelledby="MessageModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content r-15">
+            <div class="modal-body text-center p-30" id="borrowBookModalBody">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="MessageModal" @*tabindex="-1"*@ aria-labelledby="login" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content r-15">
+            <div class="modal-body text-center p-30" id="MessageContent">
+
+            </div>
+        </div>
+    </div>
 </div>
 
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.js"></script>
 
-
-
+<script src="~/Scripts/jquery-3.6.0.slim.js"></script>
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.6.0.intellisense.js"></script>
+<script src="~/Scripts/bootstrap.esm.min.js"></script>
+<script src="~/Scripts/bootstrap.bundle.min.js"></script>
+<script src="~/Scripts/bootstrap.bundle.js"></script>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+    @*$(document).ready(function () {
+        if (@Html.Raw(Json.Encode(availableBookRequest))!= null) {
+            console.log("giriij");
+            $('#NotificatonModal').modal('show');
+        }
+    });*@
+</script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script>
-    var userID = 0;
-    var vm = '';
-    window.addEventListener('load', () => {
+   
 
-        vm=new Vue({
+    window.addEventListener('load', () => {
+       new Vue({
 
             el: '#app',
             data: {
 
                 books:@Html.Raw(Json.Encode(Model)),
+
+
 
                 //filter//
                 booksNameFilter: '',
@@ -191,7 +267,7 @@
             },
 
             mounted() {
-
+               
             },
             watch: {
 
@@ -205,7 +281,7 @@
                     if (this.booksNameFilter == '') {
                         this.getFilteredBooks();
                     }
-                    
+
                 },
                 authorNameFilter: function (value) {
                     if (this.authorNameFilter.length > 1) {
@@ -242,7 +318,7 @@
                 },
                 campusFilter: function (value) {
                     this.getFilteredBooks();
-                    
+
                 },
 
 
@@ -271,11 +347,49 @@
                     }).then((res) => {
                         this.books = res;
                         if (res.length > 0) {
-                           
+
                         }
 
                     }).catch((error) => {
                         console.log("error");
+                    })
+                },
+                showedBookRequestBtn(el) {
+                    var data = { bookrequestId: el }
+                    $.ajax({
+                        type: "POST",
+                        url: "/Home/BookRequestUpdate",
+                        contentType: "application/json",
+                        data: JSON.stringify(data),
+                        success: function (data) {
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500)
+                           
+                        },
+                        error: function (response) {
+                            console.log("Hata");
+                        }
+                    });
+                },
+                btnEdit(el) {
+                    console.log(el);
+                    var model = {
+                        bookId: el,
+                    };
+                    $.ajax({
+                        url: "/Home/_BorrrowBookPage",
+                        type: "POST",
+                        data: JSON.stringify(model),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            //console.log("data success: " + data);
+                            $("#borrowBookModal #borrowBookModalBody").empty().append(data);
+                            $('#borrowBookModal').modal('show');
+                        },
+                        error: function (response) {
+                            console.log("error" + response.responseText);
+                        }
                     })
                 },
 
@@ -290,12 +404,12 @@
 
 
     });
-
-
-    function SendNotificationToFilteredUsers() {
-        userID = 0;
-        $('#NotificatonModal').modal("show");
+    function btnEdit(el) {
+        
     }
+
+
+
 
 </script>
 

@@ -1,0 +1,98 @@
+﻿@model BooksListDTO
+@{
+    ViewBag.Title = "BorrowBookPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="portlet box">
+    <div class="portlet-body form">
+        <!--begin form-->
+        <form action="/BooksPanel/Edit" method="post" id="form_sample_2" class="form-horizontal">
+            @Html.AntiForgeryToken()
+            <div class="form-body">
+                <div class="alert alert-danger display-hide">
+                    <button class="close" data-close="alert"></button> Please fill the required fields.
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Book Name</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+
+                                    <input type="text" maxlength="200" class="form-control" value="@Model.BookName" name="BookName" readonly />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Author Name</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+
+                                    <input type="text" maxlength="200" class="form-control" value="@Model.AuthorName" name="AuthorName" readonly />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Barcode</label>
+                            <div class="col-md-9">
+                                <div class="input-icon right">
+
+                                    <input type="text" maxlength="11" class="form-control" value="@Model.Barcode" name="Barcode" readonly />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Book Summary</label>
+                        <div class="col-md-9">
+
+                            <textarea type="text" rows="4" maxlength="1000" class="form-control" value="@Model.Summary" name="Summary" readonly></textarea>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Number Of Day to Borrow </label>
+                                <div class="col-md-9">
+                                    @Html.DropDownListFor(Model => Model.ResourceTypeID, new SelectList(ViewBag.ResourceTypes, "ResourceTypeID", "ResourceTypeName"), "Kullanıcı tipini seçiniz", new { @id = "ResourceTypeID", @class = "form-control", @required = true })
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                
+
+            </div>
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="pull-left col-md-3">
+                                <a href="/BooksPanel/Index" class="btn red">Cancel</a>
+                                <button id="btnSave" type="button" name="Save" class="btn blue">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

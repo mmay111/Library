@@ -27,7 +27,7 @@
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.rtl.min.css" rel="stylesheet" />
-    <title>Kütüphane Sistemi</title>
+    <title>Library System</title>
 </head>
 <body>
     <br /><br />
@@ -38,7 +38,7 @@
     <div class="row" style="margin:50px;">
         
         
-            <p><b>@Model.DateStart - @Model.DateFinish</b> tarihleri arasında Kütüphane sistemine dair raporu aşağıda bulabilirsiniz.</p>
+        <p> Below you can find the Library system report between <b>@Model.DateStart - @Model.DateFinish</b>.</p>
         
         
     </div>
@@ -46,20 +46,20 @@
         <div style="align-content:center;">
             <table>
                 <tr>
-                    <td>Kampüs Adı</td>
+                    <td>Campus Name</td>
                     <td><b>@Model.CampusName</b></td>
                 </tr>
                 <tr>
-                    <td>toplam kitap sayısı</td>
-                    <td><b>@Model.BooksCount </b>Adet </td>
+                    <td>Total Books Count</td>
+                    <td><b>@Model.BooksCount </b>Books </td>
                 </tr>
                 <tr>
-                    <td>mevcut kitap sayısı</td>
-                    <td><b>@Model.AvailableBooksCount </b>Adet</td>
+                    <td>Available Books Count</td>
+                    <td><b>@Model.AvailableBooksCount </b>Books</td>
                 </tr>
                 <tr>
-                    <td>ödünç verilen kitap sayısı</td>
-                    <td><b>@Model.BorrowedBooksCount </b>Adet </td>
+                    <td>Borrowed Books Count</td>
+                    <td><b>@Model.BorrowedBooksCount </b>Books </td>
                 </tr>
             </table>
         </div>

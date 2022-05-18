@@ -25,19 +25,19 @@ namespace Library.Helpers
             var userData = serializer.Deserialize<UserDTO>(ticket.UserData);
             return userData;
         }
-        public static string GetValidUserID()
+        public static int GetValidUserID()
         {
             var cookie = HttpContext.Current.Request.Cookies[$"User{FormsAuthentication.FormsCookieName}"];
             if (cookie == null)
             {
-                return null;
+                return 0;
             }
             var ticket = FormsAuthentication.Decrypt(cookie.Value);
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             var userData = serializer.Deserialize<UserDTO>(ticket.UserData);
 
 
-            return userData.UserID.ToString();
+            return userData.UserID;
         }
         public static CampusDTO GetValidUserCampus()
         {

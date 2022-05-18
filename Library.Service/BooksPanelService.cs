@@ -27,7 +27,7 @@ namespace Library.Service
                     IsAvailable = x.BookDetails.IsAvailable,
                     IsPrinted = x.BookDetails.IsPrinted,
                     IsActive = true,
-                }).ToList();
+                }).Where(x=>x.IsActive==true).ToList();
                 return books;
             }
         }
@@ -78,6 +78,20 @@ namespace Library.Service
 
 
         }
+        public List<BooksListDTO> GetAllBooksForReportByCampusID(int validUserCampusId)
+        {
+            
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var books = db.Books.Select(x => new BooksListDTO
+                {
+                    BookID = x.BookID,
+                    ResourceTypeName = x.BookDetails.ResourceTypes.ResourceTypeName,
+                    IsAvailable = x.BookDetails.IsAvailable,
+                }).Where(x=>x.IsActive==true && x.CampusID==validUserCampusId).ToList();
+                return books;
+            }
+        }
         public int GetBooksCountByCampusID(int campusID)
         {
             using (LibraryEntities db = new LibraryEntities())
@@ -101,6 +115,7 @@ namespace Library.Service
                     ResourceTypeName = x.BookDetails.ResourceTypes.ResourceTypeName,
                     CampusID=x.BookDetails.CampusID,
                     ResourceTypeID=x.BookDetails.ResourceTypeID,
+                    BookDetailsID=x.BookDetailsID,
                     AuthorID=x.BookDetails.AuthorID,
                     CampusName = x.BookDetails.Campus.CampusName,
                     IsAvailable = x.BookDetails.IsAvailable,
@@ -267,7 +282,8 @@ namespace Library.Service
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(obj));
+                var result = uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(obj));
+               
                 var commit = uow.Commit();
                 return commit == -1 ? true : false;
             }
@@ -285,5 +301,30 @@ namespace Library.Service
                 return null;
             }
         }
+
+        public BooksDTO GetBookByID(int bookId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.MapSingle<Books, BooksDTO>(uow.Repository<BookRequest>().Single(x => x.BookID == bookId));
+            }
+        }
+        public BookDetailsDTO GetBookDetailByID(int bookDetailsID)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.MapSingle<BookDetails, BookDetailsDTO>(uow.Repository<BookDetails>().Single(x =>
+                 x.BookDetailsID == bookDetailsID 
+                ));
+            }
+        }
+        public BorrowedBooksMaxNumberDTO BorrowedBooksMaxNumber()
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.MapSingle<BorrowedBooksMaxNumber, BorrowedBooksMaxNumberDTO>(uow.Repository<BorrowedBooksMaxNumber>().Single(x => x.IsActive == true));
+            }
+        }
+
     }
 }

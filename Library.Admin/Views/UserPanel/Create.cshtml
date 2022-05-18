@@ -12,7 +12,7 @@
 
     
 </style>
-<h2 class="page-title">Kullanıcı Listesi</h2>
+<h2 class="page-title">Add User</h2>
 
 <div class="portlet box">
     <div class="portlet-body form">
@@ -21,12 +21,12 @@
             @Html.AntiForgeryToken()
             <div class="form-body">
                 <div class="alert alert-danger display-hide">
-                    <button class="close" data-close="alert"></button> Lütfen zorunlu alanları doldurunuz.
+                    <button class="close" data-close="alert"></button> Please fill the required fields.
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Ad</label>
+                            <label class="control-label col-md-3">Name</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     @if (Model != null)
@@ -43,7 +43,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Soyad</label>
+                            <label class="control-label col-md-3">Surname</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     @if (Model != null)
@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">E-posta</label>
+                            <label class="control-label col-md-3">E-Mail</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     @if (Model != null)
@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-md-6 ">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Şifre</label>
+                            <label class="control-label col-md-3">Password</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     @if (Model != null)
@@ -120,7 +120,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Kullanıcı Tipi</label>
+                            <label class="control-label col-md-3">User Type</label>
                             <div class="col-md-9">
                                 @Html.DropDownList("UserTypeID", null, "Kullanıcı tipini seçiniz", new { @class = "form-control ", @id = "UserTypeID", @name = "UserTypeID", @required = true })
                             </div>
@@ -128,7 +128,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Kampüs</label>
+                            <label class="control-label col-md-3">Campus</label>
                             <div class="col-md-9">
                                 @Html.DropDownList("CampusID", null, "Kampüs seçiniz", new { @class = "form-control ", @id = "CampusID", @name = "CampusID", @required = true })
                             </div>
@@ -142,8 +142,8 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="pull-left col-md-3">
-                                <a href="/UserPanel/Index" class="btn red">İptal</a>
-                                <button id="btnSave" type="button" name="Save" class="btn blue">Kaydet</button>
+                                <a href="/UserPanel/Index" class="btn red">Cancel</a>
+                                <button id="btnSave" type="button" name="Save" class="btn blue">Save</button>
                             </div>
                         </div>
                     </div>
@@ -158,7 +158,7 @@
 
             @if (ViewBag.Error == "Error")
             {
-                 @: toastr.error("Kullanıcı eklenemedi", "Yeni Kullanıcı Kaydı");
+                 @: toastr.error("No user added", "New User record");
 
             }
             

@@ -36,4 +36,15 @@ namespace Library.DTO
         public bool IsActive { get; set; }
         public bool IsReturned { get; set; }
     }
+    public class userBorrowBookListDTO
+    {
+        public int UserID { get; set; }
+        public int BookID { get; set; }
+        public string BookName { get; set; }
+        public int BookBorrowFeeID { get; set; }
+        public System.DateTime BorrrowDate { get; set; }
+        public System.DateTime BorrowExpiresDate { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsReturned { get; set; }
+    }
 }

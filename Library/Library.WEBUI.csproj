@@ -219,6 +219,8 @@
     <Content Include="Scripts\jquery-3.6.0.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Home\BorrowBookPage.cshtml" />
+    <Content Include="Views\Home\_BorrrowBookPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -228,7 +230,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\scripts\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
