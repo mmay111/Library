@@ -34,13 +34,18 @@ namespace Library.Admin.Controllers
         public ActionResult Login(LoginForm user)
         {
             string message = string.Empty;
+            if (user.Email=="" || user.Password == "")
+            {
+                message = "Enter your email and/or password";
+            }
+            
             var validUser = librarianService.Authenticate(user.Email, user.Password);
 
             if (validUser == null || validUser.IsActive == false)
             {
-                message = "Kullanıcı adı ve/veya parola yanlış";
+                message = "Email or password is incorrect";
             }
-            else
+            else if (validUser.UserTypeID == 2 || validUser.UserTypeID == 4)
             {
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -67,6 +72,10 @@ namespace Library.Admin.Controllers
                 }
                 System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
                 return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                message = "Email or password is incorrect";
             }
             ViewBag.Message = message;
             return View(user);

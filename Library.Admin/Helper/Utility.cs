@@ -1,4 +1,7 @@
-﻿using Library.DTO;
+﻿
+using Library.Data;
+using Library.Data.UnitOfWork;
+using Library.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +37,28 @@ namespace Library.Admin.Helper
             JavaScriptSerializer serializer = new JavaScriptSerializer();
             var userData = serializer.Deserialize<UserDTO>(ticket.UserData);
 
+            
             return userData.UserID.ToString();
+        }
+        public static CampusDTO GetValidUserCampus()
+        {
+            var cookie = HttpContext.Current.Request.Cookies[$"LibrarianUser{FormsAuthentication.FormsCookieName}"];
+            if (cookie == null)
+            {
+                return null;
+            }
+            var ticket = FormsAuthentication.Decrypt(cookie.Value);
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            var userData = serializer.Deserialize<UserDTO>(ticket.UserData);
+
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.MapSingle<Campus, CampusDTO>(uow.Repository<Campus>().Single(x =>
+                    x.CampusID == userData.CampusID
+
+               ));
+            }
+            
         }
         public static string GetIsActive(bool type)
         {

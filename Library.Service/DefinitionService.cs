@@ -15,6 +15,7 @@ namespace Library.Service
         public static readonly string AllActiveUserTypes = "AllActiveUserTypes";
         public static readonly string AllActiveCampuses = "AllActiveCampuses";
         public static readonly string AllActiveResourceTypes = "AllActiveResourceTypes";
+        public static readonly string AllActiveBookBorrowFee = "AllActiveBookBorrowFee";
     }
     public class DefinitionService : BaseService
     {
@@ -61,5 +62,16 @@ namespace Library.Service
                 }
             }
         }
+        public List<BookBorrowFeeDTO> GetAllActiveBookBorrowFees()
+        {
+            using (InMemoryCache cacheService = new InMemoryCache())
+            {
+                using (UnitOfWork uow = new UnitOfWork())
+                {
+                    return cacheService.GetOrSet(CacheKeys.AllActiveBookBorrowFee, () => uow.MapList<BookBorrowFee, BookBorrowFeeDTO > (uow.Repository<BookBorrowFee>().Search(x => x.IsActive == true)), 15);
+                }
+            }
+        }
+
     }
 }

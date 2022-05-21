@@ -39,6 +39,7 @@ namespace Library.Admin.Controllers
         }
         private JsonDataTable GetBooksForWebView(jQueryDataTableParam parameters)
         {
+            var validUserCampusId = Library.Admin.Helper.Utility.GetValidUserCampus().CampusID;
             var sortColumnIndex = Convert.ToInt32((HttpContext.Request["iSortCol_1"]));
             var sortDirection = HttpContext.Request["sSortDir_1"];//asc or desc
 
@@ -52,7 +53,7 @@ namespace Library.Admin.Controllers
                                     sortColumnIndex == 7 ? c.IsPrinted :
                                     sortColumnIndex == 8 ? c.IsActive : new object());
 
-            var data = booksPanelService.GetAllBooks();
+            var data = booksPanelService.GetAllBooks().Where(x=>x.CampusID==validUserCampusId);
             var tempData = data?.OrderByDescending(x => x.BookID).ToList();
 
             var isName = HttpContext.Request["sSearch_0"];

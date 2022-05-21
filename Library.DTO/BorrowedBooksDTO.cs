@@ -16,6 +16,7 @@ namespace Library.DTO
         public System.DateTime BorrowExpiresDate { get; set; }
         public bool IsActive { get; set; }
         public bool IsReturned { get; set; }
+        public BookDetailsDTO BookDetails { get; set; }
     }
     public class BorrowedBooksListDTO
     {
@@ -30,6 +31,17 @@ namespace Library.DTO
         public string AuthorName { get; set; }
         public int BookBorrowFeeID { get; set; }
         public string BookBorrowFee { get; set; }
+        public System.DateTime BorrrowDate { get; set; }
+        public System.DateTime BorrowExpiresDate { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsReturned { get; set; }
+    }
+    public class userBorrowBookListDTO
+    {
+        public int UserID { get; set; }
+        public int BookID { get; set; }
+        public string BookName { get; set; }
+        public int BookBorrowFeeID { get; set; }
         public System.DateTime BorrrowDate { get; set; }
         public System.DateTime BorrowExpiresDate { get; set; }
         public bool IsActive { get; set; }

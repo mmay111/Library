@@ -14,7 +14,7 @@
         margin-right: 10px;
     }
 </style>
-<h2 class="page-title">Kullanıcı Düzenle</h2>
+<h2 class="page-title">Edit User</h2>
 <div class="portlet box">
     <div class="portlet-body form">
         <!-- BEGIN FORM-->
@@ -24,13 +24,13 @@
             @Html.AntiForgeryToken()
             <div class="form-body ">
                 <div class="alert alert-danger display-hide">
-                    <button class="close" data-close="alert"></button> Lütfen zorunlu alanları doldurunuz.
+                    <button class="close" data-close="alert"></button> Please fill the required fields.
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 ">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Ad</label>
+                            <label class="control-label col-md-3">Name</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     <input type="text" maxlength="50" class="form-control" value="@Model.Name" name="Name" required>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-6 ">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Soyad</label>
+                            <label class="control-label col-md-3">Surname</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     <input type="text" maxlength="50" class="form-control" value="@Model.Surname" name="Surname" required>
@@ -54,7 +54,7 @@
                 <div class="row">
                     <div class="col-md-6 ">
                         <div class="form-group">
-                            <label class="control-label col-md-3">E-posta</label>
+                            <label class="control-label col-md-3">E-Mail</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     <input type="email" pattern="^[a-zA-Z0-9._+-]+@("@")[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" name="Email" id="Email" value="@Model.Email" class="form-control" maxlength="200" required>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-md-6 ">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Yeni Şifre</label>
+                            <label class="control-label col-md-3">New Password</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     <input type="text" maxlength="50" class="form-control" value="" name="PasswordHash">
@@ -77,7 +77,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Kayıt Durumu</label>
+                            <label class="control-label col-md-3">Status</label>
                             <div class="col-md-9">
 
                                 @Html.DropDownListFor(m => m.IsActive, selectList, "Aktiflik durumu", new { @class = "form-control ", @required = true })
@@ -98,7 +98,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Kullanıcı Tipi</label>
+                            <label class="control-label col-md-3">User Type</label>
                             <div class="col-md-9">
                                 @Html.DropDownListFor(Model => Model.UserTypeID, new SelectList(ViewBag.UserTypes, "UserTypeID", "UserTypeName"), "Kullanıcı tipini seçiniz", new { @id = "UserTypeID", @class = "form-control", @required = true })
                             </div>
@@ -106,7 +106,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Kampüs</label>
+                            <label class="control-label col-md-3">Campus</label>
                             <div class="col-md-9">
                                 @Html.DropDownListFor(Model => Model.CampusID, new SelectList(ViewBag.Campuses, "CampusID", "CampusName"), "Kampüs seçiniz", new { @id = "CampusID", @class = "form-control", @required = true })
 
@@ -122,8 +122,8 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="pull-left col-md-3">
-                                <a href="/UserPanel/Index" class="btn red">İptal</a>
-                                <button id="btnSave" type="submit" name="Save" class="btn blue">Kaydet</button>
+                                <a href="/UserPanel/Index" class="btn red">Cancel</a>
+                                <button id="btnSave" type="submit" name="Save" class="btn blue">Save</button>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
 
         @if(ViewBag.Error == "Error")
         {
-            @: toastr.error("Kullanıcı kaydı güncellenemedi", "Kullanıcı Düzenle");
+            @: toastr.error("Failed to update user record", "Edit User");
         }
     });
     </script>

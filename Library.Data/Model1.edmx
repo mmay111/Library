@@ -43,6 +43,7 @@
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="BookID" Type="int" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="BookIsAvailable" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Books">
           <Key>
@@ -335,6 +336,7 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Books" Relationship="Self.FK_BookRequest_Books" FromRole="BookRequest" ToRole="Books" />
           <NavigationProperty Name="User" Relationship="Self.FK_BookRequest_User" FromRole="BookRequest" ToRole="User" />
+          <Property Name="BookIsAvailable" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Books">
           <Key>
@@ -649,6 +651,7 @@
           <EntitySetMapping Name="BookRequest">
             <EntityTypeMapping TypeName="LibraryModel.BookRequest">
               <MappingFragment StoreEntitySet="BookRequest">
+                <ScalarProperty Name="BookIsAvailable" ColumnName="BookIsAvailable" />
                 <ScalarProperty Name="BookRequestID" ColumnName="BookRequestID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="BookID" ColumnName="BookID" />

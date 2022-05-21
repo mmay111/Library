@@ -21,7 +21,7 @@
 
    
 </style>
-<h2 class="page-title">Kullanıcı Listesi</h2>
+<h2 class="page-title">Create Book Record</h2>
 
 <div class="portlet box">
     <div class="portlet-body form">
@@ -30,12 +30,12 @@
             @Html.AntiForgeryToken()
             <div class="form-body">
                 <div class="alert alert-danger display-hide">
-                    <button class="close" data-close="alert"></button> Lütfen zorunlu alanları doldurunuz.
+                    <button class="close" data-close="alert"></button>Please fill the required fields
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Kitap adı</label>
+                            <label class="control-label col-md-3">Book Name</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     @if (Model != null)
@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Yazar Adı</label>
+                            <label class="control-label col-md-3">Author Name</label>
                             <div class="col-md-9">
                                 <div class="input-icon right">
                                     @if (Model != null)
@@ -88,7 +88,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Kampüs</label>
+                            <label class="control-label col-md-3">Campus</label>
                             <div class="col-md-9">
                                 @Html.DropDownList("CampusID", null, "Kampüs seçiniz", new { @class = "form-control ", @id = "CampusID", @name = "CampusID", @required = true })
                             </div>
@@ -97,7 +97,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-md-3">Kitap Özeti</label>
+                        <label class="control-label col-md-3">Book Summary</label>
                         <div class="col-md-9">
                             @if (Model != null)
                             {
@@ -112,7 +112,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Kitap Türü</label>
+                            <label class="control-label col-md-3">Book type</label>
                             <div class="col-md-9">
                                 @Html.DropDownList("ResourceTypeID", null, "Kitap türünü seçiniz", new { @class = "form-control ", @id = "ResourceTypeID", @name = "ResourceTypeID", @required = true })
                             </div>
@@ -125,7 +125,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Mevcut mu</label>
+                            <label class="control-label col-md-3">Is Available</label>
                             <div class="col-md-9">
 
                                 @Html.DropDownListFor(m => m.IsAvailable, availableSelectList, "Mevcut olma durumu", new { @class = "form-control ", @required = true })
@@ -134,7 +134,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Kayıt Durumu</label>
+                            <label class="control-label col-md-3">Is Printed</label>
                             <div class="col-md-9">
 
                                 @Html.DropDownListFor(m => m.IsPrinted, isPrintedSelectList, "Basılı olma durumu", new { @class = "form-control ", @required = true })
@@ -149,8 +149,8 @@
                     <div class="col-md-12">
                         <div class="row">
                             <div class="pull-left col-md-3">
-                                <a href="/BooksPanel/Index" class="btn red">İptal</a>
-                                <button id="btnSave" type="button" name="Save" class="btn blue">Kaydet</button>
+                                <a href="/BooksPanel/Index" class="btn red">Cancel</a>
+                                <button id="btnSave" type="button" name="Save" class="btn blue">Save</button>
                             </div>
                         </div>
                     </div>

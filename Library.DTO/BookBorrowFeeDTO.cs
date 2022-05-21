@@ -13,4 +13,5 @@ namespace Library.DTO
         public bool IsActive { get; set; }
         public int NumberOfDateBorrowed { get; set; }
     }
+    
 }

@@ -27,10 +27,80 @@ namespace Library.Service
                     IsAvailable = x.BookDetails.IsAvailable,
                     IsPrinted = x.BookDetails.IsPrinted,
                     IsActive = true,
-                }).ToList();
+                }).Where(x=>x.IsActive==true).ToList();
                 return books;
             }
         }
+        public List<BooksListDTO> GetFilteredBooks(BooksListDTO model)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+
+                IQueryable<Books> data = db.Books.Where(x => x.IsActive != false);
+
+                data = data.Where(b => b.BookDetails.CampusID == model.CampusID);
+
+                if (model.BookName != null && model.BookName!="")
+                {   
+                     data = data.Where(b =>b.BookName.Contains(model.BookName));
+                }
+                if (model.AuthorName != null && model.AuthorName != "")
+                {
+                    data = data.Where(b => b.BookDetails.Author.AuthorName.Contains(model.AuthorName));
+                }
+                if (model.Barcode != null && model.Barcode != "")
+                {
+                    data = data.Where(b => b.BookDetails.Barcode.Contains(model.Barcode));
+                }
+                if (model.Summary != null && model.Summary != "")
+                {
+                    data = data.Where(b => b.BookDetails.Summary.Contains(model.Summary));
+                }
+
+                var newData = data.Select(x => new BooksListDTO
+                {
+                    BookID = x.BookID,
+                    BookName = x.BookName,
+                    AuthorName = x.BookDetails.Author.AuthorName,
+                    Summary = x.BookDetails.Summary,
+                    Barcode = x.BookDetails.Barcode,
+                    IsAvailable = x.BookDetails.IsAvailable,
+                    IsPrinted=x.BookDetails.IsPrinted,
+                    
+                }).OrderByDescending(x => x.BookID).ToList();
+               
+                return newData.ToList();
+            }
+
+
+
+
+
+
+        }
+        public List<BooksListDTO> GetAllBooksForReportByCampusID(int validUserCampusId)
+        {
+            
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var books = db.Books.Select(x => new BooksListDTO
+                {
+                    BookID = x.BookID,
+                    ResourceTypeName = x.BookDetails.ResourceTypes.ResourceTypeName,
+                    IsAvailable = x.BookDetails.IsAvailable,
+                }).Where(x=>x.IsActive==true && x.CampusID==validUserCampusId).ToList();
+                return books;
+            }
+        }
+        public int GetBooksCountByCampusID(int campusID)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var count = db.Books.Where(x=>x.BookDetails.CampusID==campusID && x.IsActive==true).Count();
+                return count;
+            }
+        }
+        
         public BooksListDTO GetByID(int bookID)
         {
             using (LibraryEntities db = new LibraryEntities())
@@ -45,6 +115,7 @@ namespace Library.Service
                     ResourceTypeName = x.BookDetails.ResourceTypes.ResourceTypeName,
                     CampusID=x.BookDetails.CampusID,
                     ResourceTypeID=x.BookDetails.ResourceTypeID,
+                    BookDetailsID=x.BookDetailsID,
                     AuthorID=x.BookDetails.AuthorID,
                     CampusName = x.BookDetails.Campus.CampusName,
                     IsAvailable = x.BookDetails.IsAvailable,
@@ -211,7 +282,8 @@ namespace Library.Service
         {
             using (UnitOfWork uow = new UnitOfWork())
             {
-                uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(obj));
+                var result = uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(obj));
+               
                 var commit = uow.Commit();
                 return commit == -1 ? true : false;
             }
@@ -229,5 +301,30 @@ namespace Library.Service
                 return null;
             }
         }
+
+        public BooksDTO GetBookByID(int bookId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.MapSingle<Books, BooksDTO>(uow.Repository<BookRequest>().Single(x => x.BookID == bookId));
+            }
+        }
+        public BookDetailsDTO GetBookDetailByID(int bookDetailsID)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.MapSingle<BookDetails, BookDetailsDTO>(uow.Repository<BookDetails>().Single(x =>
+                 x.BookDetailsID == bookDetailsID 
+                ));
+            }
+        }
+        public BorrowedBooksMaxNumberDTO BorrowedBooksMaxNumber()
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.MapSingle<BorrowedBooksMaxNumber, BorrowedBooksMaxNumberDTO>(uow.Repository<BorrowedBooksMaxNumber>().Single(x => x.IsActive == true));
+            }
+        }
+
     }
 }
