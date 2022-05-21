@@ -35,6 +35,34 @@ namespace Library.Service
                 return borrowedBooks;
             }
         }
+        public List<BorrowedBooks> GetTodaysBorrowedBooksByCampusID(int campusID)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var borrowedBooks = db.BorrowedBooks.Where(b => b.BorrrowDate.Year == DateTime.Now.Year && b.BorrrowDate.Month == DateTime.Now.Month && b.BorrrowDate.Day == DateTime.Now.Day).Where(x => x.Books.BookDetails.CampusID == campusID && x.IsReturned == false && x.IsActive == true).ToList();
+                return borrowedBooks;
+            }
+        }
+        public List<BorrowedBooks> GetLastMonthBorrowedBooksByCampusID(int campusID)
+        {
+            var newDate = DateTime.Now.Date.AddDays(-30);
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var borrowedBooks = db.BorrowedBooks.Where(b => b.BorrrowDate >= newDate).Where(x => x.Books.BookDetails.CampusID == campusID && x.IsReturned == false && x.IsActive == true).ToList();
+                return borrowedBooks;
+
+            }
+        }
+        public List<BorrowedBooks> GetLastWeekBorrowedBooksByCampusID(int campusID)
+        {
+            var newDate = DateTime.Now.Date.AddDays(-7);
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var borrowedBooks = db.BorrowedBooks.Where(b => b.BorrrowDate >= newDate).Where(x => x.Books.BookDetails.CampusID == campusID && x.IsReturned == false && x.IsActive == true).ToList();
+                return borrowedBooks;
+
+            }
+        }
         public BorrowedBooksDTO GetByID(int borrowedBookId, bool? isActive = null)
         {
             using (UnitOfWork uow = new UnitOfWork())
@@ -44,6 +72,15 @@ namespace Library.Service
                 ));
             }
         }
+        public int GetBorrowedBooksCountByUserID(int userId)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var borrowedBooks = db.BorrowedBooks.Where(b => b.UserID >= userId).Where(x => x.IsActive == true).ToList();
+                return borrowedBooks.Count();
+
+            }
+        }
         public bool Update(BorrowedBooksDTO obj)
         {
             using (UnitOfWork uow = new UnitOfWork())
@@ -51,6 +88,29 @@ namespace Library.Service
                 uow.Repository<BorrowedBooks>().Update(uow.MapSingle<BorrowedBooksDTO, BorrowedBooks>(obj));
                 var commit = uow.Commit();
                 return commit == -1 ? true : false;
+            }
+        }
+        public BorrowedBooksDTO Insert(BorrowedBooksDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var result = uow.Repository<BorrowedBooks>().Insert(uow.MapSingle<BorrowedBooksDTO, BorrowedBooks>(obj));
+                var commit = uow.Commit();
+                if (commit == -1)
+                {
+                    return uow.MapSingle<BorrowedBooks, BorrowedBooksDTO>(result);
+                }
+                return null;
+            }
+        }
+        
+        public BookBorrowFeeDTO GetBookBorrowFeeById(int feeId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.MapSingle<BookBorrowFee, BookBorrowFeeDTO>(uow.Repository<BookBorrowFee>().Single(x =>
+                 x.BookBorrowFeeID == feeId
+                ));
             }
         }
 

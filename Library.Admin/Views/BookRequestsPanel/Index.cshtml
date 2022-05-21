@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="page-title">Kitap İstekleri Listesi</h2>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        Book requests in the system are listed below.
+    </ul>
+   
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-users font-dark"></i>
+                    <span class="caption-subject bold uppercase">Book Requests</span>
+                </div>
+
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped dataTable table-hover nowrap stripe table-bordered " id="dyntable">
+                    <thead>
+                        <tr role="row">
+
+                            <th>User Name</th>
+                            <th>Book Name</th>
+                            <th>Is Available</th>
+                            <th>Status</th>
+                            
+                            <th></th>
+
+
+
+                        </tr>
+                        <tr class="sptl">
+
+                            <th><input type="text" name="search_engine" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            <th><input type="text" name="search_browser" value="" class="form-control input-sm" /></th>
+                            
+                            <th></th>
+                            <th></th>
+
+
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="tableBody"></tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/bookRequestsPanelDataQuery.js"></script>
+

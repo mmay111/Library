@@ -1,0 +1,205 @@
+﻿
+<!DOCTYPE html>
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1, user-scalable=no">
+    <title>Library System</title>
+
+
+
+    @RenderSection("head", required: false)
+
+
+
+
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+
+
+    <link rel="stylesheet" href="/assets/css/all.min.css" />
+    <link href="/assets/css/nav2.css" rel="stylesheet" />
+    <link rel="preload" href="/assets/css/nav2.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/assets/css/nav2.css"></noscript>
+
+    
+    <link rel="stylesheet" href="~/Assets/css/select2-4.1.0-rc.0.min.css" media="print" onload="this.media='all'">
+
+
+
+    <link rel="preload" href="/assets/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="/assets/css/custom.min.css" as="style">
+
+   
+    <link rel="preload" as="image" href="/assets/img/cmn/icon-sprite.png" importance="high">
+    <link rel="preload" as="script" href="/assets/js/jquery-1.9.1.min.js">
+
+    <style>
+       
+        .add-button {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+        }
+
+        @@media (min-width: 576px) and (max-width: 991px) {
+            .row {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+        }
+    </style>
+
+
+
+
+</head>
+<body>
+
+
+
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-right">
+            <div class="modal-content modal-content-right">
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="forgotPassword" tabindex="-1" aria-labelledby="forgotPassword" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-right">
+            <div class="modal-content modal-content-right">
+                <div class="modal-body" id="forgotPasswordModalBody">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="registration" tabindex="-1" aria-labelledby="registration" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-right">
+            <div class="modal-content modal-content-right">
+                <div class="modal-body" id="registrationModalBody">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="OnBoarding" tabindex="-1" aria-labelledby="onBoarding" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content r-15">
+                <div class="modal-body p-30" id="OnBoardingModalBody">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="MessageModal" tabindex="-1" aria-labelledby="MessageModal" aria-hidden="true" style="z-index:1051!important;">
+        <div class="modal-dialog">
+            <div class="modal-content r-15">
+                <div class="modal-body text-center p-30" id="MessageContent">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="fixed-top" style="background-color: #fff; box-shadow: 0 1px 0 0 #e3e7eb;">
+
+
+
+        <div class="row px-md-4">
+            <div class="col-7 col-sm-7 navbar-height-l reset-padding-l pr-0 pt-4">
+
+                <a href="#" class="link-black" style="left:-3px; position:relative;" data-toggle="collapse" data-target="#accordionLefMenu" aria-controls="navbarCollapse" aria-expanded="true" aria-label="Toggle navigation"><i class="fas fa-bars d-sm-none f-16" style="vertical-align:middle;"></i></a>
+                <a class="navbar-brand mx-0 mr-sm-5" href="/">
+                   
+                    <img width="70" height="34" src="~/Content/library-logo.png" />
+                   
+                </a>
+                <div class="d-none d-lg-inline d-xl-inline">
+                    <div class="d-none d-lg-inline d-xl-inline dropdown-nav">
+                        <span class="un">
+                            <a href="/Home/Index" class="btn ff-pnova-b fw-600  p-2 pr-2 dropdown-toggle headItem" type="button"  aria-haspopup="true" aria-expanded="false">
+                               Home 
+                            </a>
+                        </span>
+                        <span class="un">
+                            <a href="/MyBorrowedBooks/Index" class="btn ff-pnova-b fw-600  p-2 pl-2 pr-2 dropdown-toggle headItem" type="button"  aria-haspopup="true" aria-expanded="false">
+                                Borrowed Books@*<i class="fas fa-chevron-down" style=""></i>*@
+                            </a>
+                        </span>
+                        
+
+
+
+                    </div>
+
+                </div>
+
+
+                <style>
+                    .dropdown-nav a.dropdown-toggle {
+                        font-weight: 600;
+                        font-size: 18px;
+
+                    }
+                        a.dropdown-toggle:after, .dropdown-nav a.dropdown-toggle:after {
+                            display: none;
+                        }
+                </style>
+            </div>
+        
+
+        </div>
+       
+
+
+    </div>
+
+    <div class=" p-5" style=" background-color: #EFF6FC;">
+        <div class="row">
+
+
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  pl-3 pl-sm-0" id="maincontainer">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/Assets/js/jquery.lazy-1.7.10.min.js"></script>
+
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/Scripts/url.helper.js"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="/Scripts/jquery.validate.min.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+
+
+    <script src="~/Assets/js/polyfill-0.1.43.min.js"></script>
+    <script src="~/Assets/js/select2-4.0.0-rc.0.min.js"></script>
+    <script src="~/Assets/js/jquery.inputmask.bundle-3.1.62.min.js"></script>
+    @RenderSection("scripts", required: false)
+
+
+
+
+</body>
+</html>

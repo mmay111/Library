@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption font-dark">
+                    <span class="caption-subject uppercase">Raporlar</span>
+                </div>
+                <div class="col-md-12 FilterAreaListItem">
+                    <div class="col-md-2" style="padding:0px;">
+                        <label>
+                            <input type="radio" onclick="handleClick()" id="TimeFilter" value="0" class="TimeFilterRadio" name="TimeFilter" checked> Daily Report
+                        </label>
+                    </div>
+                    <div class="col-md-2" style="padding:0px;">
+                        <label style="margin-right:10px;">
+                            <input type="radio" id="TimeFilter" onclick="handleClick()" value="1" class="TimeFilterRadio" name="TimeFilter"> Weekly Report
+                        </label>
+                    </div>
+                    <div class="col-md-5" style="padding:0px;">
+                        <label>
+                            <input type="radio" id="TimeFilter" onclick="handleClick()" value="2" class="TimeFilterRadio" name="TimeFilter"> Monthly Report
+                        </label>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="portlet-body">
+
+                <table id="dyntable" class="table table-striped dataTable table-hover nowrap stripe">
+                    <thead>
+                        <tr role="row">
+                            <th hidden>CampusID</th>
+                            <th>Campus</th>
+                            <th></th>
+                        </tr>
+                        <tr class="sptl">
+                            <th hidden></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/ReportPanelDataQuery.js"></script>
+<script>
+    //function handleClick() {
+        
+    //    var url = "/ReportsPanel/GetReports?Type=" + $('input[name="GetByUserType"]:checked').val();
+    //    $.ajax({
+    //        type: "POST",
+    //        url: url,
+    //        contentType: "application/json",
+    //        //data: JSON.stringify(data),
+    //        success: function (data) {
+
+    //            console.log(data);
+    //        },
+    //        error: function (response) {
+    //            console.log("Hata");
+    //        }
+    //    });
+    //}
+  
+</script>
