@@ -325,6 +325,23 @@ namespace Library.Service
                 return uow.MapSingle<BorrowedBooksMaxNumber, BorrowedBooksMaxNumberDTO>(uow.Repository<BorrowedBooksMaxNumber>().Single(x => x.IsActive == true));
             }
         }
+        public int GetAllBooksByResourceTypeIDandCampusID(byte resourceTypeId, byte validUserCampusId)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var books = db.Books.Where(x => x.BookDetails.ResourceTypeID == resourceTypeId &&  x.BookDetails.CampusID == validUserCampusId).ToList();
+                return books.Count;
+            }
+        }
+        public int GetAlllAvailableBooksByResourceTypeIDandCampusID(byte resourceTypeId, byte validUserCampusId)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var books = db.Books.Where(x => x.BookDetails.ResourceTypeID == resourceTypeId && x.BookDetails.CampusID == validUserCampusId && x.BookDetails.IsAvailable==true).ToList();
+                return books.Count;
+                
+            }
+        }
 
     }
 }

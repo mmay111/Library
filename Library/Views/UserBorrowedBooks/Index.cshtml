@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2 class="page-title">Borrowed Books</h2>
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        Your borrowed Books in the system are listed below.
+    </ul>
+
+</div>
+<br />
+
+<div class="row" id="app">
+    <div class="col-md-12">
+        <div class="portlet light">
+            <div class="portlet-title">
+                <div class="caption">
+                    <i class="icon-users font-dark"></i>
+                    <span class="caption-subject bold uppercase"></span>
+                </div>
+
+            </div>
+
+            <div class="container-fluid container-blue-lt jobs-content">
+                <div class="row row-padding" id="jobs">
+                    <div class="row ml-2" style=" margin-bottom: -18px;">
+                        <div class="col-md-1 pl-2 m-0">
+                            <p>Book Name</p>
+                        </div>
+
+                        <div class="col-md-2 pl-4 m-0">
+                            <p>Barcode</p>
+                        </div>
+                        <div class="col-md-1 p-0 m-0">
+                            <p>Borrow Fee</p>
+                        </div>
+                        <div class="col-md-2 p-0 m-0">
+                            <p>Borrrow Date</p>
+                        </div>
+                        <div class="col-md-2 p-0 m-0">
+                            <p>Expires Date</p>
+                        </div>
+                        <div class="col-md-2 pl-0 m-0">
+                            <p>Campus Name</p>
+                        </div>
+                        <div class="col-md-2 p-0 m-0">
+                            <p>Is Returned</p>
+                        </div>
+                    </div>
+
+
+                    <div class="w-100 job-list " v-for="book in books">
+                        <div class="row no-gutters  card card-noborder flex-row " style="margin-bottom:2px; border-radius: 10px !important;">
+
+                            <div class="col-12">
+                                <div class="card-body pr-0">
+                                    <div class="row no-gutters">
+                                        <div class=" row flex-grow-2">
+                                            <div class="col-md-1">
+                                                <span>{{book.BookName}}</span>
+                                            </div>
+
+                                            <div class="col-md-2">
+                                                <span>{{book.Barcode}} </span>
+
+                                            </div>
+                                            <div class="col-md-1">
+                                                <span>{{book.BookBorrowFee}} </span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span> {{book.BorrrowDate}}</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span> {{book.BorrowExpiresDate}}</span>
+                                            </div>
+                                            <div class="col-md-2 pl-4">
+                                                <span>{{book.CampusName}} </span>
+                                            </div>
+                                            <div class="col-md-2 pl-4">
+                                                <span v-if="book.IsReturnedBool" v-html="book.IsReturned" style="color:blue;">{{book.IsReturned}} </span>
+                                                <span v-else v-html="book.IsReturned" style="color:red;">{{book.IsReturned}} </span>
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script>
+
+
+    window.addEventListener('load', () => {
+       new Vue({
+
+            el: '#app',
+            data: {
+
+                books:@Html.Raw(Json.Encode(Model)),
+
+            },
+
+
+
+        });
+
+
+    });
+
+
+
+
+</script>

@@ -14,16 +14,9 @@ namespace Library.Data
     
     public partial class BookBorrowFee
     {
-        public BookBorrowFee()
-        {
-            this.BorrowedBooks = new HashSet<BorrowedBooks>();
-        }
-    
         public int BookBorrowFeeID { get; set; }
-        public string BorrowFee { get; set; }
-        public bool IsActive { get; set; }
         public int NumberOfDateBorrowed { get; set; }
-    
-        public virtual ICollection<BorrowedBooks> BorrowedBooks { get; set; }
+        public int BorrowFee { get; set; }
+        public bool IsActive { get; set; }
     }
 }

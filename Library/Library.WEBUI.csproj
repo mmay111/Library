@@ -172,6 +172,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\UserBorrowedBooksDataQuery.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -179,10 +180,12 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UserBorrowedBooksController.cs" />
     <Compile Include="Filters\UserAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\jQueryDataTableParam.cs" />
     <Compile Include="Helpers\LoginModel.cs" />
     <Compile Include="Helpers\Utility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -221,6 +224,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\BorrowBookPage.cshtml" />
     <Content Include="Views\Home\_BorrrowBookPage.cshtml" />
+    <Content Include="Views\UserBorrowedBooks\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

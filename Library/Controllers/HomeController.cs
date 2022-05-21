@@ -31,7 +31,8 @@ namespace Library.Controllers
             }
 
             var validUserCampusId = Library.Helpers.Utility.GetValidUserCampus().CampusID;
-            var books = booksPanelService.GetAllBooks().Where(x => x.CampusID == validUserCampusId).OrderByDescending(x => x.BookID).Take(50).ToList();
+            model.CampusID = validUserCampusId;
+            var books = booksPanelService.GetFilteredBooks(model).OrderByDescending(x => x.BookID).Take(50).ToList();
             return View(books);
         }
         public JsonResult GetFilteredBooks(BooksListDTO model)
@@ -70,64 +71,81 @@ namespace Library.Controllers
 
             var userCurrentBorrowedBooksCount = borrowedBooksPanelService.GetBorrowedBooksCountByUserID(validUserID);
             var multiplier = 1;
-            if (validUserInfo.UserTypeID == 3)//guest
+
+            BooksListDTO currentBook = booksPanelService.GetByID(model.BookID);
+            int booksCountByResourceTypeID = booksPanelService.GetAllBooksByResourceTypeIDandCampusID(currentBook.ResourceTypeID, validUserInfo.CampusID);
+
+            int availableBooksCountByResourceTypeID = booksPanelService.GetAlllAvailableBooksByResourceTypeIDandCampusID(currentBook.ResourceTypeID, validUserInfo.CampusID);
+
+            float ratio = (float)availableBooksCountByResourceTypeID / (float)booksCountByResourceTypeID *100;
+            if (ratio < 10)//Kategorilerden herhangi birinde mevcut kaynak sayısının %10’unun altına indiğinde, kaynak miktarı % 10’un üstüne çıkana kadar ilgili kategoriden hiçbir kullanıcıya kitap ödünç verilmeyecektir
             {
-                borrowedBooksMaxnumber = borrowedBooksMaxnumber / 2;//misafir max alınan kaynak sayısının yarısı kadar alabilir
-                multiplier = 2;//misafir 2 kat fazla ödeme yapar
+                return Json("Kategori bazında kitap miktarı yüzde 10'un altına düştüğü için ödünç verme işlemi gerçekleştirilemiyor.", JsonRequestBehavior.AllowGet);
             }
-            
-            if (borrowedBooksMaxnumber > userCurrentBorrowedBooksCount)
+            else
             {
-
-                BooksListDTO currentBook = booksPanelService.GetByID(model.BookID);
-                //var currentBookResorceTypeCount= booksPanelService.
-                var bookBorrowFeeRow = borrowedBooksPanelService.GetBookBorrowFeeById(model.BookBorrowFeeID);
-
-
-                
-                BorrowedBooksDTO data = new BorrowedBooksDTO
+                if (validUserInfo.UserTypeID == 1 && validUserInfo.IsActive == false)//kayıt dondurmuş öğrenciler için
                 {
-                    BookID = model.BookID,
-                    UserID = validUserID,
-                    BorrrowDate = DateTime.Now,
-                    BookBorrowFee = int.Parse(bookBorrowFeeRow.BorrowFee)*multiplier,
-                    BorrowExpiresDate = DateTime.Now.AddDays(bookBorrowFeeRow.NumberOfDateBorrowed),
-                    IsActive = true,
-                    IsReturned = false,
-                };
-                var bookBorrowResult = borrowedBooksPanelService.Insert(data);
-                if (bookBorrowResult != null)
-                {
-                    var bookDetails = booksPanelService.GetBookDetailByID(currentBook.BookDetailsID);
-
-                    bookDetails.IsAvailable = false;
-                    var result = booksPanelService.UpdateBookDetails(bookDetails);
-                    if (result)
+                    if (ratio < 50)
                     {
-                        return Json("Kitap ödünç alındı.", JsonRequestBehavior.AllowGet);
+                        return Json("Kategori bazında kitap miktarı yüzde 50'nin altında olduğu için kayıt dondurmuş öğrencilere ödünç verme işlemi gerçekleştirilemiyor.", JsonRequestBehavior.AllowGet);
+                    }
+                    borrowedBooksMaxnumber = borrowedBooksMaxnumber / 2;//kayıt dodurmuş öğrenci max alınan kaynak sayısının yarısı kadar alabilir
+                    multiplier = 2;//kayıt dodurmuş öğrenci 2 kat fazla ödeme yapar
+                    
+                }
+                if (validUserInfo.UserTypeID == 3)//guest
+                {
+                    if (ratio < 50)
+                    {
+                        return Json("Kategori bazında kitap miktarı yüzde 50'nin altında olduğu için kayıt dondormuş öğrencilere ödünç verme işlemi gerçekleştirilemiyor.", JsonRequestBehavior.AllowGet);
+                    }
+                    borrowedBooksMaxnumber = borrowedBooksMaxnumber / 2;//misafir max alınan kaynak sayısının yarısı kadar alabilir
+                    multiplier = 2;//misafir 2 kat fazla ödeme yapar
+                }
+
+                if (borrowedBooksMaxnumber > userCurrentBorrowedBooksCount)
+                {
+                    //var currentBookResorceTypeCount= booksPanelService.
+                    var bookBorrowFeeRow = borrowedBooksPanelService.GetBookBorrowFeeById(model.BookBorrowFeeID);
+
+                    BorrowedBooksDTO data = new BorrowedBooksDTO
+                    {
+                        BookID = model.BookID,
+                        UserID = validUserID,
+                        BorrrowDate = DateTime.Now,
+                        BookBorrowFee = int.Parse(bookBorrowFeeRow.BorrowFee) * multiplier,
+                        BorrowExpiresDate = DateTime.Now.AddDays(bookBorrowFeeRow.NumberOfDateBorrowed),
+                        IsActive = true,
+                        IsReturned = false,
+                    };
+                    var bookBorrowResult = borrowedBooksPanelService.Insert(data);
+                    if (bookBorrowResult != null)
+                    {
+                        var bookDetails = booksPanelService.GetBookDetailByID(currentBook.BookDetailsID);
+
+                        bookDetails.IsAvailable = false;
+                        var result = booksPanelService.UpdateBookDetails(bookDetails);
+                        if (result)
+                        {
+                            return Json("Kitap ödünç alındı.", JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+
+                            return Json("işlem sırasında bir hata oluştu!", JsonRequestBehavior.AllowGet);
+                        }
                     }
                     else
                     {
-
                         return Json("işlem sırasında bir hata oluştu!", JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
                 {
-
-                    return Json("işlem sırasında bir hata oluştu!", JsonRequestBehavior.AllowGet);
+                    return Json("Ödünç alabileceğiniz maximum kitap sayısını geçtiniz!", JsonRequestBehavior.AllowGet);
                 }
-
-
             }
-            else
-            {
-                return Json("Ödünç alabileceğiniz maximum kitap sayısını geçtiniz!", JsonRequestBehavior.AllowGet);
-            }
-
-
-
-
         }
 
         public PartialViewResult _BorrrowBookPage(int bookId)

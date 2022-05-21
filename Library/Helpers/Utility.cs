@@ -59,6 +59,38 @@ namespace Library.Helpers
             }
 
         }
+        public static string GetIsActive(bool type)
+        {
+            if (type == true)
+                return "<span class='label label-sm label-success'>Aktif</span>";
+            else if (type == false)
+                return "<span class='label label-sm label-danger'>Pasif</span>";
+            return "";
+        }
+        public static string GetIsAvailable(bool type)
+        {
+            if (type == true)
+                return "<span class='label label-sm label-success'>Mevcut</span>";
+            else if (type == false)
+                return "<span class='label label-sm label-danger'>Mevcut değil</span>";
+            return "";
+        }
+        public static string GetIsPrinted(bool type)
+        {
+            if (type == true)
+                return "<span class='label label-sm label-success'>Basılı</span>";
+            else if (type == false)
+                return "<span class='label label-sm label-danger'>Online</span>";
+            return "";
+        }
+        public static string GetIsReturned(bool type)
+        {
+            if (type == true)
+                return "<span class='label label-sm label-success'>İade Edildi</span>";
+            else if (type == false)
+                return "<span class='label label-sm label-danger'>iade edilmedi</span>";
+            return "";
+        }
     }
     
 }

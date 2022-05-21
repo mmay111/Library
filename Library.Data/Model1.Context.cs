@@ -26,7 +26,6 @@ namespace Library.Data
         }
     
         public DbSet<Author> Author { get; set; }
-        public DbSet<BookBorrowFee> BookBorrowFee { get; set; }
         public DbSet<BookDetails> BookDetails { get; set; }
         public DbSet<BookRequest> BookRequest { get; set; }
         public DbSet<Books> Books { get; set; }
@@ -36,5 +35,6 @@ namespace Library.Data
         public DbSet<User> User { get; set; }
         public DbSet<UserTypes> UserTypes { get; set; }
         public DbSet<BorrowedBooksMaxNumber> BorrowedBooksMaxNumber { get; set; }
+        public DbSet<BookBorrowFee> BookBorrowFee { get; set; }
     }
 }

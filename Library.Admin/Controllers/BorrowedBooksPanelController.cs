@@ -91,7 +91,7 @@ namespace Library.Admin.Controllers
                                       c.AuthorName,
                                       c.BookName,
                                       c.Barcode,
-                                      c.BookBorrowFee,
+                                      c.BookBorrowFee.ToString(),
                                       c.CampusName,
                                       c.BorrrowDate.ToString("dd MM yyyy"),
                                       c.BorrowExpiresDate.ToString("dd MM yyyy"),

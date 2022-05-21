@@ -17,13 +17,12 @@ namespace Library.Data
         public int BorrowedBookID { get; set; }
         public int UserID { get; set; }
         public int BookID { get; set; }
-        public int BookBorrowFeeID { get; set; }
         public System.DateTime BorrrowDate { get; set; }
         public System.DateTime BorrowExpiresDate { get; set; }
         public bool IsActive { get; set; }
         public bool IsReturned { get; set; }
+        public int BookBorrowFee { get; set; }
     
-        public virtual BookBorrowFee BookBorrowFee { get; set; }
         public virtual Books Books { get; set; }
         public virtual User User { get; set; }
     }

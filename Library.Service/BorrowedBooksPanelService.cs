@@ -25,7 +25,7 @@ namespace Library.Service
                     BookName = x.Books.BookName,
                     Barcode=x.Books.BookDetails.Barcode,
                     CampusName = x.User.Campus.CampusName,
-                    BookBorrowFee = x.BookBorrowFee.BorrowFee,
+                    BookBorrowFee = x.BookBorrowFee,
                     IsActive = x.IsActive,
                     BorrrowDate=x.BorrrowDate,
                     BorrowExpiresDate=x.BorrowExpiresDate,
@@ -113,6 +113,7 @@ namespace Library.Service
                 ));
             }
         }
+       
 
     }
 }
