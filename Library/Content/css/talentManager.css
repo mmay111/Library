@@ -1,0 +1,283 @@
+.disableShortDescription {
+    display: none;
+}
+
+.disableDiv {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.disableChangeButton {
+    visibility: hidden !important;
+}
+
+.job-photos {
+    height: 190px;
+    overflow: auto;
+    /*border: 1px solid #c1c1c1;*/
+    min-height: 50px;
+    width: 100%;
+    padding: 2px 20px;
+}
+
+.networking-photos {
+    height: 190px;
+    overflow: auto;
+    /*border: 1px solid #c1c1c1;*/
+    min-height: 50px;
+    width: 100%;
+    padding: 2px 20px;
+}
+
+.eula-container {
+    padding: 6px 40px 10px 8px;
+    height: 150px;
+    overflow: auto;
+    color: #484848;
+    font-size: 13px;
+    font-weight: 400;
+    background-color: #fdfdfd;
+    border-radius: 2px;
+    border: 1px solid rgb(194, 202, 216);
+}
+
+    .eula-container p {
+        margin-top: 8px !important;
+        margin-bottom: 8px;
+    }
+
+.col-active {
+    height: auto;
+}
+
+.img-content {
+    /*top: 50%;*/
+    position: relative;
+    /*transform: translateY(-50%);*/
+    max-width: 100%;
+    height: auto;
+    text-align: center;
+    vertical-align: middle;
+    object-fit: cover;
+    width: auto;
+    margin-top: 20px;
+}
+
+    .img-content:focus {
+        border-style: solid;
+        border-width: 5px;
+        border-color: #c1c1c1;
+    }
+
+.img-box {
+    /*border-style: solid;*/
+    /*border-width: 1px 1px 1px 1px;*/
+    /*padding: 20px 10px;*/
+    border-color: #c1c1c1;
+    /*margin: 5px;*/
+    max-width: 100%;
+    /*position:relative;*/
+}
+
+.selected {
+    -webkit-box-shadow: 0px 0px 0px 5px rgba(186,30,121,1);
+    -moz-box-shadow: 0px 0px 0px 5px rgba(186,30,121,1);
+    box-shadow: 0px 0px 0px 5px rgba(186,30,121,1);
+}
+
+.redirect-img {
+    cursor: pointer;
+}
+
+.email-validation-success {
+    border: 1px solid #40de23;
+}
+
+.email-validation-error {
+    border: 1px solid #ba1e79;
+}
+
+.ColumItem {
+    background: white;
+    position: fixed;
+}
+
+@media only screen and (max-width: 600px) {
+    .ColumItem {
+        display: none;
+    }
+}
+
+.LeftMenu {
+    list-style-type: none;
+    margin-left: -45px;
+}
+
+    .LeftMenu li {
+        margin-top: 10px;
+    }
+
+    .LeftMenu a {
+        text-decoration: none;
+        color: black;
+        font-size: 13px;
+    }
+
+.CenterGroupItem {
+    background: white;
+    margin-bottom: 10px;
+    padding: 10px 10px 10px 20px;
+}
+
+h4 {
+    font-weight: 600;
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.DescriptionTitle {
+    font-size: 25px !important;
+}
+
+.ImgCenter {
+    text-align: center !important;
+}
+
+.Awareness {
+    padding: 0px;
+}
+
+.Interaction {
+    padding: 0px;
+}
+
+.Recruitment {
+    padding: 0px;
+    margin-bottom: 50px;
+}
+
+.Awareness span {
+    background: rgba(200, 56, 130, 1.0);
+    height: 6px;
+}
+
+.Interaction span {
+    background: rgba(23, 96, 141, 1.0);
+    height: 6px;
+}
+
+.Recruitment span {
+    background: rgba(113, 174, 82, 1.0);
+    height: 6px;
+}
+
+.multiselect-clear-filter {
+    margin-top: 0px !important;
+}
+
+.portlet {
+    box-shadow: none;
+}
+
+    .portlet.light {
+        padding: 0px;
+    }
+
+.CenterGroupButton {
+    margin-top: 15px;
+    font-size: 13px;
+    border: 1px solid rgba(63, 148, 208, 1.0);
+    background: white;
+    color: black;
+    text-align: left;
+    padding: 10px 0px 10px 7px;
+}
+
+.TestimonialButton {
+    margin-top: 15px;
+    background: rgba(63, 148, 208, 1.0);
+    color: white;
+    text-align: center;
+    padding: 10px 60px 10px 60px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.ButtonActive {
+    margin-top: 15px;
+    border: 1px solid rgba(63, 148, 208, 1.0);
+    text-align: left;
+    padding: 10px 0px 10px 7px;
+    color: white;
+    background: rgba(63, 148, 208, 1.0);
+}
+
+.CreateCompanyProfile {
+    margin-top: 15px;
+    background: rgba(233, 71, 138, 1.0);
+    color: white;
+    text-align: center;
+    padding: 10px 50px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.ContactButton {
+    margin-top: 15px;
+    background: #b8bbbc;
+    color: white;
+    text-align: center;
+    padding: 10px 50px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+    .ContactButton:hover {
+        color: white;
+    }
+
+.SelectedPhotoType {
+    margin-top: 15px;
+    background: #008ada !important;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 50px;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.CreateCompanyProfile:hover {
+    color: white;
+}
+
+.ButtonDiv {
+    padding: 0px;
+}
+
+.ProfileFormItem {
+    padding-left: 0px;
+    margin-bottom: 15px;
+}
+
+@media only screen and (max-width: 600px) {
+    .MobileImg {
+        max-width: 85% !important;
+    }
+
+    .Awareness {
+        margin-top: 50px;
+        padding: 0px;
+    }
+
+    .Interaction {
+        margin-top: 50px;
+        padding: 0px;
+    }
+
+    .Recruitment {
+        margin-top: 50px;
+        padding: 0px;
+        margin-bottom: 50px;
+    }
+}

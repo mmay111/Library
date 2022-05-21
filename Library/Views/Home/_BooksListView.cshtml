@@ -1,0 +1,55 @@
+﻿
+<!--@model List<Library.Helpers.BooksCardViewModel>
+@{
+    var pageNumber = ViewBag.PageNumber;
+}
+
+
+@foreach (var item in Model)
+{
+    
+        <div class="row no-gutters  card card-noborder flex-row mt-1 p-2 p-sm-4">
+           
+
+            <div class="col-3 col-sm-1 text-center align-self-center">
+                <img src="@ImgHelper.SetImage(item.CompanyLogoPath,ImgHelper.CardImageType.CompanyLogo)" alt="@item.CompanyName" class="comp-logo img-fluid ml-2">
+
+            </div>
+            <div class="col-9 col-sm-11">
+                <div class="card-body pr-0">
+                    <div class="row no-gutters">
+                        <div class="flex-grow-1">
+                            <h5 class="card-title f-16 ff-pnova-b">@item.JobTitle</h5>
+                            <p class="card-text">
+                                @item.CompanyName
+                                <span class="text-grey-l f-12 pl-3">@item.CityName</span>
+                            </p>
+
+                        </div>
+                        <div style="min-width:300px;display:flex;">
+                            <div class="float-right align-self-center">
+                                <button href="/@item.UrlValue" class="btn btn-job-apply d-none d-lg-inline fw-600">Başvur <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
+                            </div>
+                            <div class="float-right align-self-center">
+                                @Html.RemainingTimeByJob(item.FinishDate, false, "ml-5 mr-5 d-none d-lg-inline p-2 pl-3 pr-3 r-999")
+                            </div>
+                        </div>-->
+                        @*<div class="float-right align-self-center" style="max-width:30px;">
+                                <a href="#" class="link-pink"><i class="fas fa-heart fa-lg"></i></a>
+                            </div>*@
+                    <!--</div>
+                </div>
+            </div>
+
+
+            <div class="col-12 p-2 d-lg-none">
+                <p class="card-text d-flex justify-content-between align-items-center">
+                    @Html.RemainingTimeByJob(item.FinishDate, false, "float-left")
+                    <button href="@(item.UrlValue)" class="btn btn-job-apply float-right">Başvur <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>-->
+                    @*<span class="badge-circle-green float-right">Son 20 Gün</span>*@
+                <!--</p>
+            </div>
+        </div>
+    
+
+}-->

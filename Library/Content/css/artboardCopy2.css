@@ -1,0 +1,224 @@
+
+
+.artboardcopy2 {
+  width               : 100%;
+  min-width           : 1403px;
+  height              : 100vh;
+  min-height          : 990px;
+  position            : relative;
+  overflow            : hidden;
+  margin              : 0px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color    : rgba(255, 255, 255, 1.0);
+}
+a {
+  text-decoration     : none;
+}
+div {
+  -webkit-text-size-adjust: none;
+}
+.anima-full-width-a {
+  width               : 100%;
+}
+.anima-full-height-a {
+  height              : 100%;
+}
+div {
+  -webkit-text-size-adjust: none;
+}
+.artboardcopy2 .a14235converted {
+  background-color    : rgba(255,255,255,0.0);
+  top                 : -145px;
+  height              : 1281px;
+  width               : 1805px;
+  position            : absolute;
+  margin              : 0;
+  left                : -230px;
+  -ms-transform       : rotate(0deg); /* IE 9 */
+  -webkit-transform   : rotate(0deg); /* Chrome, Safari, Opera */
+  transform           : rotate(0deg);
+}
+.artboardcopy2 .thankyouforyourp {
+  background-color    : rgba(255,255,255,0.0);
+  top                 : 628px;
+  height              : auto;
+  width               : 543px;
+  position            : absolute;
+  margin              : 0;
+  left                : 48px;
+  -ms-transform       : rotate(0deg); /* IE 9 */
+  -webkit-transform   : rotate(0deg); /* Chrome, Safari, Opera */
+  transform           : rotate(0deg);
+  font-family         : "Avenir-Medium", Helvetica, Arial, serif;
+  font-size           : 27.0px;
+  color               : rgba(44, 42, 42, 1.0);
+  text-align          : left;
+  line-height         : 37.0px;
+}
+.artboardcopy2 .thankyouforyourp .span1 {
+  
+}
+.artboardcopy2 .thankyouforyourp .span2 {
+  text-align          : justify;
+}
+.artboardcopy2 .a19042019 {
+  background-color    : rgba(255,255,255,0.0);
+  top                 : 728px;
+  height              : auto;
+  width               : 279px;
+  position            : absolute;
+  margin              : 0;
+  left                : 48px;
+  -ms-transform       : rotate(0deg); /* IE 9 */
+  -webkit-transform   : rotate(0deg); /* Chrome, Safari, Opera */
+  transform           : rotate(0deg);
+  font-family         : "Avenir-Medium", Helvetica, Arial, serif;
+  font-size           : 27.0px;
+  color               : rgba(44, 42, 42, 1.0);
+  text-align          : left;
+  line-height         : 37.0px;
+}
+.artboardcopy2 .capturetheflag {
+  background-color    : rgba(255,255,255,0.0);
+  top                 : 222px;
+  height              : auto;
+  width               : 716px;
+  position            : absolute;
+  margin              : 0;
+  left                : 48px;
+  -ms-transform       : rotate(0deg); /* IE 9 */
+  -webkit-transform   : rotate(0deg); /* Chrome, Safari, Opera */
+  transform           : rotate(0deg);
+  font-family         : "Avenir-Black", Helvetica, Arial, serif;
+  font-size           : 59.09px;
+  color               : rgba(44, 42, 42, 1.0);
+  text-align          : left;
+  line-height         : 81.0px;
+}
+.artboardcopy2 .image1 {
+  background-color    : rgba(255,255,255,0.0);
+  top                 : 840px;
+  height              : 106px;
+  width               : 336px;
+  position            : absolute;
+  margin              : 0;
+  left                : 50px;
+  -ms-transform       : rotate(0deg); /* IE 9 */
+  -webkit-transform   : rotate(0deg); /* Chrome, Safari, Opera */
+  transform           : rotate(0deg);
+}
+.artboardcopy2 .image11 {
+  background-color    : rgba(255,255,255,0.0);
+  top                 : 850px;
+  height              : 81px;
+  width               : 291px;
+  position            : absolute;
+  margin              : 0;
+  left                : 1052px;
+  -ms-transform       : rotate(0deg); /* IE 9 */
+  -webkit-transform   : rotate(0deg); /* Chrome, Safari, Opera */
+  transform           : rotate(0deg);
+}
+@font-face {
+  font-family: 'SignPainters Script';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/Areas/Company/Content/fonts/SignPainter.otf') format('woff2');
+}
+.artboardcopy2 .aslu0131handereciou011fluk {
+  background-color    : rgba(255,255,255,0.0);
+  top                 : 475px;
+  height              : auto;
+  width               : 746px;
+  position            : absolute;
+  margin              : 0;
+  left                : 50px;
+  -ms-transform       : rotate(0deg); /* IE 9 */
+  -webkit-transform   : rotate(0deg); /* Chrome, Safari, Opera */
+  transform           : rotate(0deg);
+  font-family         : 'SignPainters Script';
+  font-size           : 80.0px;
+  color               : rgba(202, 44, 122, 1.0);
+  text-align          : left;
+  line-height         : 77.0px;
+}
+/* .anima-animate-appear prefix for appear animations */
+.anima-animate-appear {
+  opacity             : 0;
+  display             : block;
+  -webkit-animation   : anima-reveal 0.3s ease-in-out 1 normal forwards;
+  -moz-animation      : anima-reveal 0.3s ease-in 1 normal forwards;
+  -o-animation        : anima-reveal 0.3s ease-in-out 1 normal forwards;
+  animation           : anima-reveal 0.3s ease-in-out 1 normal forwards;
+}
+.anima-animate-disappear {
+  opacity             : 1;
+  display             : block;
+  -webkit-animation   : anima-reveal 0.3s ease-in-out 1 reverse forwards;
+  -moz-animation      : anima-reveal 0.3s ease-in 1 normal forwards;
+  -o-animation        : anima-reveal 0.3s ease-in-out 1 reverse forwards;
+  animation           : anima-reveal 0.3s ease-in-out 1 reverse forwards;
+}
+.anima-animate-nodelay {
+  -webkit-animation-delay: 0;
+  -moz-animation-delay: 0;
+  -o-animation-delay  : 0;
+  animation-delay     : 0;
+}
+@-webkit-keyframes anima-reveal {
+  0%
+   
+  {
+      opacity: 0;
+    }
+  
+    
+  100%
+   
+  {
+      opacity: 1;
+    }
+}
+@-moz-keyframes anima-reveal {
+  0%
+   
+  {
+      opacity: 0;
+    }
+  
+    
+  100%
+   
+  {
+      opacity: 1;
+    }
+}
+@-o-keyframes anima-reveal {
+  0%
+   
+  {
+      opacity: 0;
+    }
+  
+    
+  100%
+   
+  {
+      opacity: 1;
+    }
+}
+@keyframes anima-reveal {
+  0%
+   
+  {
+      opacity: 0;
+    }
+  
+    
+  100%
+   
+  {
+      opacity: 1;
+    }
+}

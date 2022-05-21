@@ -1,0 +1,250 @@
+﻿.color-initial {
+    color: initial;
+}
+
+.generalLoader {
+    -webkit-animation: rotateGeneralLoader 2s linear infinite;
+    animation: rotateGeneralLoader 2s linear infinite;
+    height: 50px;
+    left: 50%;
+    position: relative;
+    top: 50%;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+    -webkit-transform: translate(-50%, -50%) rotate( 360deg );
+    -ms-transform: translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate( 360deg );
+    width: 50px;
+    z-index: 4;
+}
+
+.generalLoader-path {
+    stroke-dasharray: 1,500;
+    stroke-dashoffset: 0;
+    -webkit-animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+    animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+    stroke-linecap: round;
+    stroke: #3498db;
+}
+
+@keyframes dash {
+    0% {
+        stroke-dasharray: 1,200;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 89,200;
+        stroke-dashoffset: -35px;
+    }
+
+    100% {
+        stroke-dasharray: 89,200;
+        stroke-dashoffset: -124px;
+    }
+}
+
+@keyframes color {
+    100%, 0% {
+        stroke: #d62d20;
+    }
+
+    40% {
+        stroke: #0057e7;
+    }
+
+    66% {
+        stroke: #008744;
+    }
+
+    80%, 90% {
+        stroke: #ffa700;
+    }
+}
+
+@keyframes rotateGeneralLoader {
+    0% {
+        -webkit-transform: translate(-50%, -50%) rotate(0deg);
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: translate(-50%, -50%) rotate(360deg);
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+.hidden, .aabc {
+    display: none !important;
+}
+
+
+/*#region Jobs Card Start */
+
+a.position {
+    text-decoration: none;
+    -webkit-text-decoration-skip: objects;
+    outline: 0;
+    color: currentColor;
+    cursor: pointer;
+}
+
+    a.position:hover {
+        text-decoration: none;
+    }
+
+a.company {
+    text-decoration: none;
+    -webkit-text-decoration-skip: objects;
+    outline: 0;
+    color: currentColor;
+    cursor: pointer;
+}
+
+    a.company:hover {
+        text-decoration: underline;
+    }
+
+/*#endregion Jobs Card End */
+
+
+/*#region Carousel */
+
+#carousel-thumb .carousel-item {
+    max-height: 500px;
+    object-fit: cover;
+}
+
+    #carousel-thumb .carousel-item img {
+        /*max-height: 600px;*/
+        object-fit: cover !important;
+        height: 500px !important;
+        width: 100% !important;
+    }
+
+
+#carousel-thumb .carousel-indicators-h img {
+    max-height: 70px;
+    object-fit: cover;
+}
+
+.container #carousel-thumb .carousel-item {
+    max-height: 400px;
+    object-fit: cover;
+}
+
+    .container #carousel-thumb .carousel-item img {
+        /*max-height: 600px;*/
+        object-fit: cover !important;
+        height: 600px !important;
+        width: 100% !important;
+    }
+
+@media (max-width: 575.98px) {
+    #carousel-thumb {
+        padding-top: 0;
+    }
+
+        #carousel-thumb .carousel-item img {
+            /*max-height: 600px;*/
+            object-fit: cover !important;
+            height: 400px !important;
+            width: 100% !important;
+        }
+}
+/*#endregion Carousel End */
+
+
+.owl-carousel img.lazy-load {
+    /*max-height:300px;*/
+    width: 100% !important;
+    object-fit: cover !important;
+    height: auto;
+}
+
+
+.navbar-brand .toptalent-logo {
+    width: 170.63px;
+    height: 34px;
+    object-fit:contain;
+}
+
+
+@media (max-width: 575.98px) {
+    .navbar-brand .toptalent-logo {
+        width: 117px;
+        height: 22px;
+    }
+}
+
+.position-title {
+    line-height: 20px;
+}
+
+.page-breadcrumb {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-weight: 600;
+    font-size: 16px;
+    font-family: 'proximaNova'
+}
+
+    .page-breadcrumb li {
+        display: inline;
+    }
+
+
+        .page-breadcrumb li a {
+            display: inline;
+            text-decoration: none;
+            cursor: pointer;
+            color: inherit;
+        }
+
+            .page-breadcrumb li a:hover {
+                display: inline;
+                text-decoration: none;
+                cursor: pointer;
+                color: #ba1e79;
+            }
+
+
+@media (max-width: 575.98px) {
+    /*  .row-padding {
+        padding-left: 0;
+        padding-right: 0;
+     
+    }
+
+    .reset-padding-l {
+        padding-left: 0;
+    }
+
+    .reset-padding-r {
+        padding-right: 0;
+    }
+
+    .secondary-header {
+        padding-top: 20px;
+    }*/
+}
+
+
+
+img.comp-logo {
+    /* max-height: 50px; */
+    /* width: 100px; */
+    object-fit: contain;
+    width: 80px;
+    height: 60px;
+    /* margin: 0 10px 9px 0; */
+    padding: 8px 5px 6px 5px;
+    border-radius: 7.5px;
+    border: solid 1px #e3e7eb;
+    background-color: #ffffff;
+}
+
+.ckContent img {
+    height: auto !important;
+    max-width: 100%;
+}
