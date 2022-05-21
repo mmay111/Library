@@ -18,6 +18,7 @@ namespace Library.Controllers
         private BookRequestsPanelService bookRequestsPanelService = new BookRequestsPanelService();
         private BorrowedBooksPanelService borrowedBooksPanelService = new BorrowedBooksPanelService();
         private DefinitionService definitionService = new DefinitionService();
+        private UserBorrowedBooksService userBorrowedBooksService = new UserBorrowedBooksService();
         // GET: Home
         public ActionResult Index(BooksListDTO model)
         {
@@ -164,6 +165,45 @@ namespace Library.Controllers
 
 
 
+        }
+        public PartialViewResult _ReturnBorrowExpiresDate(BookRequestDTO model)
+        {
+            BooksListDTO currentBook = booksPanelService.GetByID(model.BookID);
+
+            var currentBorrowedBook = userBorrowedBooksService.GetByID(currentBook.BookID);
+
+
+            ViewBag.BookBorrowExpiresDate = currentBorrowedBook.BorrowExpiresDate.ToString("dd MM yyyy");
+            return PartialView("_ReturnBorrowExpiresDate", currentBorrowedBook);
+
+        }
+        public JsonResult RequestTheBook(BookRequestDTO model)
+        {
+            //BooksListDTO currentBook = booksPanelService.GetByID(bookId);
+            var validUserID = Helpers.Utility.GetValidUserID();
+            var borrowedBooksMaxnumber = booksPanelService.BorrowedBooksMaxNumber().maxNumber;
+            var currentBorrowedBooksCount = userBorrowedBooksService.GetUserAllBorrowedBooks(validUserID).Count();
+
+            if (currentBorrowedBooksCount >= borrowedBooksMaxnumber)//userın ödünç aldığı kitap sayısı kütüphanenin max ödünç alma miktarından fazla ise 
+            {
+                return Json("Ödünç alabileceğiniz veya talep oluşturabileceğiniz maximum kitap sayısına ulaştığınız için kaynak talebi gerçekleştirilemedi!", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                model.UserID = validUserID;
+                model.IsActive = true;
+                model.BookIsAvailable = false;
+
+                var result = bookRequestsPanelService.Insert(model);
+                if (result != null)
+                {
+                    return Json("Kitap talebi oluşturuldu", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("Kitap talebi sırasında bir hata oluştu.", JsonRequestBehavior.AllowGet);
+                }
+            }
         }
 
     }

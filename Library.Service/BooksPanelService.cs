@@ -65,7 +65,7 @@ namespace Library.Service
                     Summary = x.BookDetails.Summary,
                     Barcode = x.BookDetails.Barcode,
                     IsAvailable = x.BookDetails.IsAvailable,
-                    IsPrinted=x.BookDetails.IsPrinted,
+                    IsPrinted =x.BookDetails.IsPrinted,
                     
                 }).OrderByDescending(x => x.BookID).ToList();
                

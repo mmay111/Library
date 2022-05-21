@@ -63,5 +63,18 @@ namespace Library.Service
                 return commit == -1 ? true : false;
             }
         }
+        public BookRequestDTO Insert(BookRequestDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var result = uow.Repository<BookRequest>().Insert(uow.MapSingle<BookRequestDTO, BookRequest>(obj));
+                var commit = uow.Commit();
+                if (commit == -1)
+                {
+                    return uow.MapSingle<BookRequest, BookRequestDTO>(result);
+                }
+                return null;
+            }
+        }
     }
 }

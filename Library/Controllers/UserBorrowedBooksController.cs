@@ -20,9 +20,8 @@ namespace Library.Controllers
 
 
             var books = userBorrowedBooksService.GetUserAllBorrowedBooks(validUserID);
-            var objDataTable = new JsonDataTable();
             
-            var d = from c in books
+            var data = from c in books
                                   select new BorrowedBookListForDiplayDTO
                                   {
                                       BookName=c.BookName,
@@ -40,7 +39,7 @@ namespace Library.Controllers
 
 
             
-            return View(d);
+            return View(data);
         }
         
         

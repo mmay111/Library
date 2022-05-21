@@ -225,6 +225,7 @@
     <Content Include="Views\Home\BorrowBookPage.cshtml" />
     <Content Include="Views\Home\_BorrrowBookPage.cshtml" />
     <Content Include="Views\UserBorrowedBooks\Index.cshtml" />
+    <Content Include="Views\Home\_ReturnBorrowExpiresDate.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

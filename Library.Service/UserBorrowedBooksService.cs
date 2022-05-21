@@ -32,5 +32,22 @@ namespace Library.Service
                 return borrowedBooks;
             }
         }
+        public DateTime GetBorrowedBookExpiresDate(int bookId)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var borrowExpiresDate = db.BorrowedBooks.Where(x => x.BookID == bookId).Select(u => u.BorrowExpiresDate).SingleOrDefault();
+                return borrowExpiresDate;
+            }
+        }
+        public BorrowedBooksDTO GetByID(int bookId)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                return uow.MapSingle<BorrowedBooks, BorrowedBooksDTO>(uow.Repository<BorrowedBooks>().Single(x =>
+                 x.BookID == bookId
+                ));
+            }
+        }
     }
 }

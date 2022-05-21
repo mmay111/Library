@@ -1,0 +1,87 @@
+﻿
+@model Library.DTO.BorrowedBooksDTO
+
+<style>
+    .row {
+        margin-bottom: 15px;
+    }
+
+    #app {
+        margin-top: 20px;
+    }
+
+</style>
+<div class="form-group" id="appVendorModal">
+
+    <div class="form">
+        <!--begin form-->
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(x => x.BookID, new { @id = "bookIDHidden" })
+        <p id="editModalDisplayMessage"></p>
+
+        @*<div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <div class="input-icon right">
+                            <input type="text" class="form-control" value="@Model.Book" name="Title" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>*@
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" value="@ViewBag.BookBorrowExpiresDate" name="Title" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="padding-right:30px;">
+                <div class="pull-right">
+                    <a href="/Home/Index" class="btn btn-default">İptal</a>
+                    <button type="button" name="Save" class="btn btn-primary btnRequestBook">Request The Book</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).on('click', '.btnRequestBook', function () {
+
+
+        var bookId = $('#bookIDHidden').val();
+        
+        var data = {
+            BookID: bookId,
+        };
+        $('#borrowBookModal').modal('hide');
+        $.ajax({
+            url: "/Home/RequestTheBook",
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (response) {
+                $('#MessageContent').empty().append("<i class='fas fa-check-circle fa-4x mb-4 mt-4' ></i><h4>" + response + "</h4 >");
+                $('#MessageModal').modal('show');
+                setTimeout(function () {
+                    location.reload();
+                }, 1500)
+            },
+            error: function (response) {
+                $('#MessageContent').empty().append("<i class='fas fa-exclamation-circle fa-4x mb-4 mt-4 text-grey'></i><h4>kitap ödünç alma işlemi sırasında bir hata oluştu.</h4 >");
+                $('#MessageModal').modal('show');
+            }
+        })
+    })
+</script>

@@ -164,7 +164,7 @@
                                                     <button href="#" v-on:click="btnEdit(book.BookID)"  style="border-radius: 999px !important;" class="btn btn-md btn-primary">Ödünç Al <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
                                                 </div>
                                                 <div v-else>
-                                                    <button href="#" style="border-radius: 999px !important;" class="btn btn-md btn-warning ">Talep Oluştur <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
+                                                    <button href="#" v-on:click="btnExpiresDate(book.BookID)" style="border-radius: 999px !important;" class="btn btn-md btn-warning ">İade Tarihini Görüntüle <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -255,8 +255,6 @@
             data: {
 
                 books:@Html.Raw(Json.Encode(Model)),
-
-
 
                 //filter//
                 booksNameFilter: '',
@@ -391,8 +389,27 @@
                             console.log("error" + response.responseText);
                         }
                     })
+                }, 
+                btnExpiresDate(el) {
+                    console.log(el);
+                    var model = {
+                        bookId: el,
+                    };
+                    $.ajax({
+                        url: "/Home/_ReturnBorrowExpiresDate",
+                        type: "POST",
+                        data: JSON.stringify(model),
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            //console.log("data success: " + data);
+                            $("#borrowBookModal #borrowBookModalBody").empty().append(data);
+                            $('#borrowBookModal').modal('show');
+                        },
+                        error: function (response) {
+                            console.log("error" + response.responseText);
+                        }
+                    })
                 },
-
 
 
 
