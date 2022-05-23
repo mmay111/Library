@@ -1,0 +1,78 @@
+﻿@model  List<BorrowedBooksListDTO>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        .center {
+            text-align: center !important;
+        }
+
+        table, th, td {
+            position: relative;
+            margin: auto;
+            padding: 5px !important;
+            text-align: left;
+        }
+    </style>
+    <style>
+        @@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700,600,800,900&subset=latin-ext');
+    </style>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.rtl.min.css" rel="stylesheet" />
+    <title>Library System</title>
+</head>
+<body>
+    <br /><br />
+    <div class="caption" style="margin-top:10px;">
+
+    </div>
+    <br />
+    <div class="row" style="margin:20px;">
+
+
+        <p style="margin-left:110px;"> Below you can find the borrowed books report </p>
+
+
+    </div>
+    
+    @foreach (BorrowedBooksListDTO item in  Model)
+    {
+        <div class="row" style="margin-bottom:10px;">
+            <div style="align-content:center;">
+                <table style="min-width:400px; width:400px;">
+                    <tr>
+                        <td>Book Name</td>
+                        <td><b>@item.BookName</b>
+                    </tr>
+                    <tr>
+                        <td>Borrow Fee</td>
+                        <td><b>@item.BookBorrowFee </b>
+                    </tr>
+                    <tr>
+                        <td>borrow date</td>
+                        <td><b>@item.BorrrowDate.ToString("dd MM yyyy")</b>
+                    </tr>
+                    <tr>
+                        <td>expires date</td>
+                        <td><b>@item.BorrowExpiresDate.ToString("dd MM yyyy")</b>
+                    </tr>
+                   
+                </table>
+            </div>
+        </div>
+    }
+
+
+
+
+
+</body>
+</html>

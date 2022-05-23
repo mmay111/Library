@@ -3,13 +3,30 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
 
+}
 
 <h2 class="page-title">Borrowed Books</h2>
 <div class="page-bar">
-    <ul class="page-breadcrumb">
-        Your borrowed Books in the system are listed below.
-    </ul>
+    <div class="row">
+
+        
+            <div class="row">
+                <div class="col-md-10">
+                    Your borrowed Books in the system are listed below.
+                </div>
+                <div class="col-md-2">
+                    <a style="border-radius: 999px !important;" class="btn btn-md btn-primary " href="@Url.Action("Report","UserBorrowedBooks")">Borrowed Books Report</a>
+
+                </div>
+            </div>
+           
+            
+       
+
+
+    </div>
 
 </div>
 <br />
