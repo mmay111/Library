@@ -35,16 +35,15 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Book Name</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="input-icon right">
                                     @if (Model != null)
                                     {
-                                        <input type="text" maxlength="200" class="form-control" value="@Model.BookName" name="BookName" required />
+                                        <input type="text" maxlength="200" class="form-control" value="@Model.BookName" name="BookName" placeholder="Book Name" required />
                                     }
                                     else
                                     {
-                                        <input type="text" maxlength="200" class="form-control" name="BookName" required />
+                                        <input type="text" maxlength="200" class="form-control" placeholder="Book Name" name="BookName" required />
                                     }
                                 </div>
                             </div>
@@ -52,16 +51,15 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Author Name</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="input-icon right">
                                     @if (Model != null)
                                     {
-                                        <input type="text" maxlength="200" class="form-control" value="@Model.AuthorName" name="AuthorName" required />
+                                        <input type="text" maxlength="200" class="form-control" value="@Model.AuthorName" placeholder="Author Name" name="AuthorName" required />
                                     }
                                     else
                                     {
-                                        <input type="text" maxlength="200" class="form-control" name="AuthorName" required />
+                                        <input type="text" maxlength="200" class="form-control" name="AuthorName" placeholder="Author Name" required />
                                     }
                                 </div>
                             </div>
@@ -71,49 +69,48 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Barcode</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="input-icon right">
                                     @if (Model != null)
                                     {
-                                        <input type="text" maxlength="11" class="form-control" value="@Model.Barcode" name="Barcode" required />
+                                        <input type="text" maxlength="11" class="form-control" value="@Model.Barcode" placeholder="Barcode" name="Barcode" required />
                                     }
                                     else
                                     {
-                                        <input type="text" maxlength="11" class="form-control" name="Barcode" required />
+                                        <input type="text" maxlength="11" class="form-control" name="Barcode" placeholder="Barcode" required />
                                     }
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    @*<div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label col-md-3">Campus</label>
                             <div class="col-md-9">
                                 @Html.DropDownList("CampusID", null, "Kampüs seçiniz", new { @class = "form-control ", @id = "CampusID", @name = "CampusID", @required = true })
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-md-3">Book Summary</label>
-                        <div class="col-md-9">
+                        
+                        <div class="col-md-11"style="margin-left:15px;" >
+
                             @if (Model != null)
                             {
-                                <textarea type="text" rows="4" maxlength="1000" class="form-control" value="@Model.Summary" name="Summary" required></textarea>
+                                <textarea type="text" rows="4" maxlength="1000" class="form-control" value="@Model.Summary" placeholder="Book Summary" name="Summary" required></textarea>
                             }
                             else
                             {
-                                <textarea type="text" rows="4" maxlength="1000" class="form-control" name="Summary" required></textarea>
+                                <textarea type="text" rows="4" maxlength="1000" class="form-control" name="Summary" placeholder="Book Summary" required></textarea>
                             }
                         </div>
                     </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Book type</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12"  style="margin-left:15px;">
                                 @Html.DropDownList("ResourceTypeID", null, "Kitap türünü seçiniz", new { @class = "form-control ", @id = "ResourceTypeID", @name = "ResourceTypeID", @required = true })
                             </div>
                         </div>
@@ -125,8 +122,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Is Available</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
 
                                 @Html.DropDownListFor(m => m.IsAvailable, availableSelectList, "Mevcut olma durumu", new { @class = "form-control ", @required = true })
                             </div>
@@ -134,8 +130,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Is Printed</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
 
                                 @Html.DropDownListFor(m => m.IsPrinted, isPrintedSelectList, "Basılı olma durumu", new { @class = "form-control ", @required = true })
                             </div>

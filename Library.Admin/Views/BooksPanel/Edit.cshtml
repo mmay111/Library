@@ -23,6 +23,8 @@
         <!--begin form-->
         <form action="/BooksPanel/Edit" method="post" id="form_sample_2" class="form-horizontal">
             @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.BookID)
+            @Html.HiddenFor(model => model.BookDetailsID)
             <div class="form-body">
                 <div class="alert alert-danger display-hide">
                     <button class="close" data-close="alert"></button> Please fill the required fields.
@@ -30,24 +32,22 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Book Name</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="input-icon right">
-                                    
-                                    <input type="text" maxlength="200" class="form-control" value="@Model.BookName" name="BookName" required />
-                                   
+
+                                    <input type="text" maxlength="200" class="form-control" value="@Model.BookName" placeholder="Book Name" name="BookName" required />
+
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Author Name</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="input-icon right">
-                                   
-                                        <input type="text" maxlength="200" class="form-control" value="@Model.AuthorName" name="AuthorName" required />
-                                    
+
+                                    <input type="text" maxlength="200" class="form-control" value="@Model.AuthorName" placeholder="Author Name" name="AuthorName" required />
+
                                 </div>
                             </div>
                         </div>
@@ -56,45 +56,35 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Barcode</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
                                 <div class="input-icon right">
-                                   
-                                        <input type="text" maxlength="11" class="form-control" value="@Model.Barcode" name="Barcode" required />
-                                    
+
+                                    <input type="text" maxlength="11" class="form-control" value="@Model.Barcode" placeholder="Barcode" name="Barcode" required />
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Campus</label>
-                            <div class="col-md-9">
-                                @Html.DropDownListFor(Model => Model.CampusID, new SelectList(ViewBag.Campuses, "CampusID", "CampusName"), "Kampüs seçiniz", new { @id = "CampusID", @class = "form-control", @required = true })
+                    @*<div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Campus</label>
+                        <div class="col-md-9">
+                            @Html.DropDownListFor(Model => Model.CampusID, new SelectList(ViewBag.Campuses, "CampusID", "CampusName"), "Kampüs seçiniz", new { @id = "CampusID", @class = "form-control", @required = true })
 
-                            </div>
                         </div>
                     </div>
+                </div>*@
                 </div>
                 <div class="row">
                     <div class="form-group">
-                        <label class="control-label col-md-3">Book Summary</label>
-                        <div class="col-md-9">
-                            
-                                <textarea type="text" rows="4" maxlength="1000" class="form-control" value="@Model.Summary" name="Summary" required></textarea>
-                            
+                        <div class="col-md-12">
+
+                            <textarea type="text" rows="4" maxlength="1000" class="form-control" value="@Model.Summary" placeholder="Book Summary" name="Summary" required>@Model.Summary</textarea>
+
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Book Type</label>
-                                <div class="col-md-9">
-                                    @Html.DropDownListFor(Model => Model.ResourceTypeID, new SelectList(ViewBag.ResourceTypes, "ResourceTypeID", "ResourceTypeName"), "Kullanıcı tipini seçiniz", new { @id = "ResourceTypeID", @class = "form-control", @required = true })
 
-                                </div>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
@@ -102,8 +92,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Is Available</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
 
                                 @Html.DropDownListFor(m => m.IsAvailable, availableSelectList, "Mevcut olma durumu", new { @class = "form-control ", @required = true })
                             </div>
@@ -111,19 +100,26 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Is Printed</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
+                                @Html.DropDownListFor(Model => Model.ResourceTypeID, new SelectList(ViewBag.ResourceTypes, "ResourceTypeID", "ResourceTypeName"), "Kullanıcı tipini seçiniz", new { @id = "ResourceTypeID", @class = "form-control", @required = true })
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-12">
 
                                 @Html.DropDownListFor(m => m.IsPrinted, isPrintedSelectList, "Basılı olma durumu", new { @class = "form-control ", @required = true })
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Status</label>
-                            <div class="col-md-9">
+                            <div class="col-md-12">
 
                                 @Html.DropDownListFor(m => m.IsActive, selectList, "Aktiflik durumu", new { @class = "form-control ", @required = true })
                             </div>
@@ -155,6 +151,20 @@
         {
             @: toastr.error("Failed to update book record", "Edit Book Record");
         }
+
+            //Form Submit
+            var allowSubmit = true;
+            $("#btnSave").click(function () {
+                if (allowSubmit) {
+                    submitform();
+                }
+            })
+            function submitform() {
+                if ($('#form_sample_2').valid()) {
+                    allowSubmit = false;
+                    document.getElementById('form_sample_2').submit();
+                }
+            }
     });
     </script>
 }

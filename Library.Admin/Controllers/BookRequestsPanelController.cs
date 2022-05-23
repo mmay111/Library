@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using Library.DTO;
 using Library.Service;
 using Library.Admin.Models;
+using System.Net;
 
 namespace Library.Admin.Controllers
 {
@@ -77,7 +78,7 @@ namespace Library.Admin.Controllers
                                       c.BookName,
                                       Helper.Utility.GetIsAvailable(c.IsAvailable),
                                       Helper.Utility.GetIsActive(c.IsActive),
-                                      string.Format("<a href='/BookRequests/Edit/{0}'class='bold'> Düzenle</a>",c.BookRequestID),
+                                      string.Format("<a href='/BookRequestsPanel/Edit/{0}'class='bold'> Düzenle</a>",c.BookRequestID),
                                     };
 
             objDataTable.sEcho = parameters.sEcho;
@@ -85,5 +86,19 @@ namespace Library.Admin.Controllers
             objDataTable.iTotalDisplayRecords = tempData.Count();
             return objDataTable;
         }
+        //public ActionResult Edit(int bookRequestID)
+        //{
+        //    if (bookRequestID < 1)
+        //    {
+        //        return  HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    BooksListDTO book = booksPanelService.GetByID(id);
+        //    if (book == null)
+        //        return HttpNotFound();
+
+        //    ViewBag.ResourceTypes = defService.GetAllActiveResorceTypes()?.OrderBy(x => x.ResourceTypeID).ToList();
+        //    //ViewBag.Campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusID).ToList();
+        //    return View(book);
+        //}
     }
 }

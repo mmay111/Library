@@ -53,7 +53,7 @@ namespace Library.Admin.Controllers
                                     sortColumnIndex == 7 ? c.IsPrinted :
                                     sortColumnIndex == 8 ? c.IsActive : new object());
 
-            var data = booksPanelService.GetAllBooks().Where(x=>x.CampusID==validUserCampusId);
+            var data = booksPanelService.GetAllBooksByCampusID(validUserCampusId);
             var tempData = data?.OrderByDescending(x => x.BookID).ToList();
 
             var isName = HttpContext.Request["sSearch_0"];
@@ -114,8 +114,8 @@ namespace Library.Admin.Controllers
         {
             var resourceTypes = defService.GetAllActiveResorceTypes()?.OrderBy(x => x.ResourceTypeID).ToList();
             ViewBag.ResourceTypeID = new SelectList(resourceTypes, "ResourceTypeID", "ResourceTypeName");
-            var campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusName).ToList();
-            ViewBag.CampusID = new SelectList(campuses, "CampusID", "CampusName");
+            //var campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusName).ToList();
+            //ViewBag.CampusID = new SelectList(campuses, "CampusID", "CampusName");
 
             return View();
         }
@@ -123,13 +123,14 @@ namespace Library.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(BooksListDTO model)
         {
+            var validuser = Helper.Utility.GetValidUserInfo();
             var bookExist = booksPanelService.GetByID(model.BookID);
             if (bookExist != null)
             {
                 var resourceTypes = defService.GetAllActiveResorceTypes()?.OrderBy(x => x.ResourceTypeID).ToList();
                 ViewBag.ResourceTypeID = new SelectList(resourceTypes, "ResourceTypeID", "ResourceTypeName");
-                var campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusName).ToList();
-                ViewBag.CampusID = new SelectList(campuses, "CampusID", "CampusName");
+                //var campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusName).ToList();
+                //ViewBag.CampusID = new SelectList(campuses, "CampusID", "CampusName");
 
                 return View(model);
             }
@@ -137,6 +138,7 @@ namespace Library.Admin.Controllers
             {
                 model.IsActive = true;
                 model.IsAvailable = true;
+                model.CampusID = validuser.CampusID;
                 AuthorDTO author = authorsPanelService.GetByName(model.AuthorName);
                 if (author != null)
                     model.AuthorID = author.AuthorID;
@@ -171,7 +173,7 @@ namespace Library.Admin.Controllers
                 return HttpNotFound();
 
             ViewBag.ResourceTypes = defService.GetAllActiveResorceTypes()?.OrderBy(x => x.ResourceTypeID).ToList();
-            ViewBag.Campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusID).ToList();
+            //ViewBag.Campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusID).ToList();
             return View(book);
         }
 
@@ -179,18 +181,31 @@ namespace Library.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(BooksListDTO model)
         {
+            var validuser = Helper.Utility.GetValidUserInfo();
             BooksListDTO currentBook = booksPanelService.GetByID(model.BookID);
 
             AuthorDTO author = authorsPanelService.GetByName(model.AuthorName);
-            if (author.AuthorID != currentBook.AuthorID)
-                model.AuthorID = 0;
+            if (author != null)
+            {
+                if (author.AuthorID != currentBook.AuthorID)
+                    model.AuthorID = 0;
+                else
+                    model.AuthorID = author.AuthorID;
 
+
+            }
+            else
+            {
+                model.AuthorID = 0;
+            }
+            
+            model.CampusID = validuser.CampusID;
             bool result = booksPanelService.Update(model);
             if (result)
                 return RedirectToAction("Index");
 
             ViewBag.ResourceTypes = defService.GetAllActiveUserTypes()?.OrderBy(x => x.UserTypeID).ToList();
-            ViewBag.Campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusID).ToList();
+            //ViewBag.Campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusID).ToList();
             ViewBag.Error = "Error";
             return View(model);
         }

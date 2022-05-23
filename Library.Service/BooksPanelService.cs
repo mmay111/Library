@@ -31,6 +31,26 @@ namespace Library.Service
                 return books;
             }
         }
+        public List<BooksListDTO> GetAllBooksByCampusID(int campusId)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var books = db.Books.Select(x => new BooksListDTO
+                {
+                    BookID = x.BookID,
+                    BookName = x.BookName,
+                    AuthorName = x.BookDetails.Author.AuthorName,
+                    Barcode = x.BookDetails.Barcode,
+                    ResourceTypeName = x.BookDetails.ResourceTypes.ResourceTypeName,
+                    CampusID=x.BookDetails.CampusID,
+                    CampusName = x.BookDetails.Campus.CampusName,
+                    IsAvailable = x.BookDetails.IsAvailable,
+                    IsPrinted = x.BookDetails.IsPrinted,
+                    IsActive = true,
+                }).Where(x => x.IsActive == true && x.CampusID==campusId).ToList();
+                return books;
+            }
+        }
         public List<BooksListDTO> GetFilteredBooks(BooksListDTO model)
         {
             using (LibraryEntities db = new LibraryEntities())
@@ -176,6 +196,7 @@ namespace Library.Service
                             {
                                 BookDetailsID=obj.BookDetailsID,
                                 BookName=obj.BookName,
+                                IsActive=true,
 
                             };
                             var bookResult = uow.Repository<Books>().Insert(uow.MapSingle<BooksDTO, Books>(booksModel));
@@ -225,7 +246,7 @@ namespace Library.Service
                                 //var commit = uow.Commit();
                                 obj.AuthorID = authorResult.AuthorID;
                             }
-
+                            
                             BookDetailsDTO bookDetailsModel = new BookDetailsDTO
                             {
                                 Summary = obj.Summary,
@@ -236,7 +257,9 @@ namespace Library.Service
                                 IsActive = true,
                                 IsAvailable = obj.IsAvailable,
                                 IsPrinted = obj.IsPrinted,
+                                BookDetailsID=obj.BookDetailsID,
                             };
+                        
                             var bookDetailsResult = UpdateBookDetails(bookDetailsModel);
                             //var commit = uow.Commit();
 
