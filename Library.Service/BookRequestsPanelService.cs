@@ -11,7 +11,7 @@ namespace Library.Service
 {
     public class BookRequestsPanelService : BaseService
     {
-        public List<BookRequestListDTO> GetAllBookRequests()
+        public List<BookRequestListDTO> GetAllBookRequestsByCampusID(int campusId)
         {
             using (LibraryEntities db = new LibraryEntities())
             {
@@ -24,8 +24,10 @@ namespace Library.Service
                     IsAvailable = x.Books.BookDetails.IsAvailable,
                     IsActive = x.IsActive,
                     BookIsAvailable=x.BookIsAvailable,
+                    CampusID=x.Books.BookDetails.CampusID,
+                    
                     //FullName = x.Name + " " + x.Surname,
-                }).ToList();
+                }).Where(x=>x.CampusID==campusId).ToList();
                 return bookRequests;
             }
         }
@@ -76,5 +78,15 @@ namespace Library.Service
                 return null;
             }
         }
+        public bool UpdateBookRequestIsAvailable(BookRequestDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                uow.Repository<BookRequest>().Update(uow.MapSingle<BookRequestDTO, BookRequest>(obj));
+                var commit = uow.Commit();
+                return commit == -1 ? true : false;
+            }
+        }
+
     }
 }

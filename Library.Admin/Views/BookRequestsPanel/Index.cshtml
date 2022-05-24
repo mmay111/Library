@@ -61,3 +61,25 @@
 </div>
 <script src="~/Scripts/bookRequestsPanelDataQuery.js"></script>
 
+<script>
+    function UpdateIsAvailable(el) {
+        console.log(el);
+        var data = { bookrequestId: el }
+        $.ajax({
+            type: "POST",
+            url: "/BookRequestsPanel/Edit",
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            success: function (data) {
+                console.log(data);
+                setTimeout(function () {
+                    location.reload();
+                }, 1500)
+
+            },
+            error: function (response) {
+                console.log("Hata");
+            }
+        });
+    }
+</script>

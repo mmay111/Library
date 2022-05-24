@@ -1,4 +1,6 @@
-﻿using Library.Service;
+﻿using Library.Core;
+using Library.DTO;
+using Library.Service;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +78,59 @@ namespace Library.Controllers
             }
             ViewBag.Message = message;
             return View(user);
+        }
+        public ActionResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public JsonResult Register(UserDTO user)
+        {
+            string message="";
+            var password = user.PasswordHash;
+            user.PasswordHash = MD5Hash.GetMd5Hash(password);
+            user.IsActive = true;
+            user.UserTypeID = 3;
+
+            UserDTO result = userService.Insert(user);
+
+
+            if (result!=null)
+            {
+                JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+                result.PasswordHash = "";
+                string userData = serializer.Serialize(result);
+
+                //create cookie
+                FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket(1,
+                    result.UserID.ToString(),
+                    DateTime.Now,
+                    DateTime.Now.AddMonths(1),
+                    true,
+                    userData
+                    );
+
+                //add cookie to response
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                string FormCookieName = "User" + FormsAuthentication.FormsCookieName;
+                System.Web.HttpCookie authCookie = new System.Web.HttpCookie(FormCookieName, encryptedTicket);
+                authCookie.HttpOnly = true;
+                if (authTicket.IsPersistent)
+                {
+                    authCookie.Expires = authTicket.Expiration;
+                }
+                System.Web.HttpContext.Current.Response.Cookies.Add(authCookie);
+
+                return Json(1);
+            }
+            else
+            {
+                message = "Error! please try again";
+            }
+            ViewBag.Message = message;
+            return Json(0);
         }
         private void RemoveCookie(string cookieName)
         {

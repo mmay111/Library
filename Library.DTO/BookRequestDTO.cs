@@ -25,5 +25,6 @@ namespace Library.DTO
         public bool IsAvailable { get; set; }
         public bool IsActive { get; set; }
         public bool BookIsAvailable { get; set; }
+        public int CampusID { get; set; }
     }
 }

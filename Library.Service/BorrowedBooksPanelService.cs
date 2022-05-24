@@ -35,6 +35,30 @@ namespace Library.Service
                 return borrowedBooks;
             }
         }
+        public List<BorrowedBooksListDTO> GetAllBorrowedBooksbyCampusID(int campusId)
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var borrowedBooks = db.BorrowedBooks.Select(x => new BorrowedBooksListDTO
+                {
+                    BorrowedBookID = x.BorrowedBookID,
+                    UserID = x.UserID,
+                    Name = x.User.Name,
+                    //Surname = x.Surname,
+                    AuthorName = x.Books.BookDetails.Author.AuthorName,
+                    BookName = x.Books.BookName,
+                    Barcode = x.Books.BookDetails.Barcode,
+                    CampusName = x.User.Campus.CampusName,
+                    BookBorrowFee = x.BookBorrowFee,
+                    IsActive = x.IsActive,
+                    BorrrowDate = x.BorrrowDate,
+                    BorrowExpiresDate = x.BorrowExpiresDate,
+                    IsReturned = x.IsReturned,
+                    //FullName = x.Name + " " + x.Surname,
+                }).Where(x=>x.CampusID==campusId).ToList();
+                return borrowedBooks;
+            }
+        }
         public List<BorrowedBooks> GetTodaysBorrowedBooksByCampusID(int campusID)
         {
             using (LibraryEntities db = new LibraryEntities())

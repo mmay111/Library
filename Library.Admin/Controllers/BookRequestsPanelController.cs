@@ -37,6 +37,7 @@ namespace Library.Admin.Controllers
         }
         private JsonDataTable GetBookRequestsForWebView(jQueryDataTableParam parameters)
         {
+            var validUser = Helper.Utility.GetValidUserInfo();
             var sortColumnIndex = Convert.ToInt32((HttpContext.Request["iSortCol_1"]));
             var sortDirection = HttpContext.Request["sSortDir_1"];//asc or desc
 
@@ -46,7 +47,7 @@ namespace Library.Admin.Controllers
                                     sortColumnIndex == 3 ? c.IsAvailable :
                                     sortColumnIndex == 4 ? c.IsActive : new object());
 
-            var data = bookRequestsService.GetAllBookRequests();
+            var data = bookRequestsService.GetAllBookRequestsByCampusID(validUser.CampusID);
             var tempData = data?.OrderByDescending(x => x.BookRequestID).ToList();
 
             var isName = HttpContext.Request["sSearch_0"];
@@ -78,7 +79,7 @@ namespace Library.Admin.Controllers
                                       c.BookName,
                                       Helper.Utility.GetIsAvailable(c.IsAvailable),
                                       Helper.Utility.GetIsActive(c.IsActive),
-                                      string.Format("<a href='/BookRequestsPanel/Edit/{0}'class='bold'> Düzenle</a>",c.BookRequestID),
+                                      string.Format("<a  onclick='UpdateIsAvailable({0})' class='bold'> Düzenle</a>",c.BookRequestID),
                                     };
 
             objDataTable.sEcho = parameters.sEcho;
@@ -86,19 +87,29 @@ namespace Library.Admin.Controllers
             objDataTable.iTotalDisplayRecords = tempData.Count();
             return objDataTable;
         }
-        //public ActionResult Edit(int bookRequestID)
-        //{
-        //    if (bookRequestID < 1)
-        //    {
-        //        return  HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    BooksListDTO book = booksPanelService.GetByID(id);
-        //    if (book == null)
-        //        return HttpNotFound();
 
-        //    ViewBag.ResourceTypes = defService.GetAllActiveResorceTypes()?.OrderBy(x => x.ResourceTypeID).ToList();
-        //    //ViewBag.Campuses = defService.GetAllActiveCampuses()?.OrderBy(x => x.CampusID).ToList();
-        //    return View(book);
-        //}
+        public JsonResult Edit(int bookRequestID)
+        {
+           
+            BookRequestDTO currentBookRequest = bookRequestsService.GetBookRequestByID(bookRequestID);
+            if (currentBookRequest.BookIsAvailable == true)
+            {
+                currentBookRequest.BookIsAvailable = false;
+                currentBookRequest.IsActive = true;
+            }
+                
+
+            else if(currentBookRequest.BookIsAvailable == false)
+            {
+                currentBookRequest.BookIsAvailable = true;
+                currentBookRequest.IsActive = true;
+            }
+                
+
+            var result = bookRequestsService.Update(currentBookRequest);
+
+            BookRequestDTO currentBookRequest2 = bookRequestsService.GetBookRequestByID(bookRequestID);
+            return Json("Book is Available updated");
+        }
     }
 }

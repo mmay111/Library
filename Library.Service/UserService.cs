@@ -52,6 +52,19 @@ namespace Library.Service
 
             }).FirstOrDefault();
         }
+        public UserDTO Insert(UserDTO obj)
+        {
+            using (UnitOfWork uow = new UnitOfWork())
+            {
+                var result = uow.Repository<User>().Insert(uow.MapSingle<UserDTO, User>(obj));
+                var commit = uow.Commit();
+                if (commit == -1)
+                {
+                    return uow.MapSingle<User, UserDTO>(result);
+                }
+                return null;
+            }
+        }
 
     }
 }
