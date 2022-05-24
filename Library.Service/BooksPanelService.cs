@@ -348,7 +348,7 @@ namespace Library.Service
                 return uow.MapSingle<BorrowedBooksMaxNumber, BorrowedBooksMaxNumberDTO>(uow.Repository<BorrowedBooksMaxNumber>().Single(x => x.IsActive == true));
             }
         }
-        public int GetAllBooksByResourceTypeIDandCampusID(byte resourceTypeId, byte validUserCampusId)
+        public int GetAllBooksCountByResourceTypeIDandCampusID(byte resourceTypeId, byte validUserCampusId)
         {
             using (LibraryEntities db = new LibraryEntities())
             {
@@ -356,7 +356,7 @@ namespace Library.Service
                 return books.Count;
             }
         }
-        public int GetAlllAvailableBooksByResourceTypeIDandCampusID(byte resourceTypeId, byte validUserCampusId)
+        public int GetAlllAvailableBooksCountByResourceTypeIDandCampusID(byte resourceTypeId, byte validUserCampusId)
         {
             using (LibraryEntities db = new LibraryEntities())
             {
@@ -365,6 +365,7 @@ namespace Library.Service
                 
             }
         }
+
 
     }
 }

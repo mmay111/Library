@@ -1,0 +1,72 @@
+﻿@model ResourceTypesReportDTO
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        .center {
+            text-align: center !important;
+        }
+
+        table, th, td {
+            position: relative;
+            margin: auto;
+            padding: 5px !important;
+            text-align: left;
+        }
+    </style>
+    <style>
+        @@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700,600,800,900&subset=latin-ext');
+    </style>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap.rtl.min.css" rel="stylesheet" />
+    <title>Library System</title>
+</head>
+<body>
+    <br /><br />
+    <div class="caption" style="margin-top:50px;">
+
+    </div>
+    <br />
+    <div class="row" style="margin:50px;">
+
+
+        <p>  Critical Stock Report of @Model.ResourceTypeName on  @DateTime.Today</p>
+
+
+    </div>
+    <div class="row">
+        <div style="align-content:center;">
+            <table style="min-width:400px; width:400px;">
+                <tr>
+                    <td>Resource Type Name</td>
+                    <td><b>@Model.ResourceTypeName</b></td>
+                </tr>
+                <tr>
+                    <td>Total Books Count</td>
+                    <td><b>@Model.AllBooksCount </b>Books </td>
+                </tr>
+                <tr>
+                    <td>Available Books Count</td>
+                    <td><b>@Model.AvailableBooksCount </b>Books</td>
+                </tr>
+                <tr>
+                    <td>Ratio</td>
+                    <td><b>%@Model.Ratio </b> </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+
+
+</body>
+</html>

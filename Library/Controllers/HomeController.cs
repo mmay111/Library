@@ -74,9 +74,9 @@ namespace Library.Controllers
             var multiplier = 1;
 
             BooksListDTO currentBook = booksPanelService.GetByID(model.BookID);
-            int booksCountByResourceTypeID = booksPanelService.GetAllBooksByResourceTypeIDandCampusID(currentBook.ResourceTypeID, validUserInfo.CampusID);
+            int booksCountByResourceTypeID = booksPanelService.GetAllBooksCountByResourceTypeIDandCampusID(currentBook.ResourceTypeID, validUserInfo.CampusID);
 
-            int availableBooksCountByResourceTypeID = booksPanelService.GetAlllAvailableBooksByResourceTypeIDandCampusID(currentBook.ResourceTypeID, validUserInfo.CampusID);
+            int availableBooksCountByResourceTypeID = booksPanelService.GetAlllAvailableBooksCountByResourceTypeIDandCampusID(currentBook.ResourceTypeID, validUserInfo.CampusID);
 
             float ratio = (float)availableBooksCountByResourceTypeID / (float)booksCountByResourceTypeID *100;
             if (ratio < 10)//Kategorilerden herhangi birinde mevcut kaynak sayısının %10’unun altına indiğinde, kaynak miktarı % 10’un üstüne çıkana kadar ilgili kategoriden hiçbir kullanıcıya kitap ödünç verilmeyecektir

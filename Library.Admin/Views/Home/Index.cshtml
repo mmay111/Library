@@ -1,8 +1,38 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var criticalStocks = ViewBag.CriticalStocks as List<Library.DTO.ResourceTypesDTO>;
 }
+
+
+<div class="container-fluid container-blue-lt">
+    @if (criticalStocks != null)
+    {
+        foreach (var item in criticalStocks)
+        {
+            <div class="row" style="margin-bottom:20px;">
+                <idv class="col-md-4">
+                    <spam style="color:red;">@item.ResourceTypeName resource Type dropped below critical stock level.</spam>
+
+
+                    <div class="row" style="margin-left:10px; margin-top:10px;">
+                        <div class="col-md-9">
+
+                        </div>
+                        <a href="@Url.Action("CriticalStockReport","Home",new { ResourceTypeID = @item.ResourceTypeID })" class="btn btn-primary">See Report</a>
+                    </div>
+                </idv>
+            </div>
+
+        }
+    }
+
+</div>
+
+
+
+
+
 
 
 

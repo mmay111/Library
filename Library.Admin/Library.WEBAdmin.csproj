@@ -1225,6 +1225,7 @@
     <Content Include="Views\ReportsPanel\Index.cshtml" />
     <Content Include="Views\ReportsPanel\Report.cshtml" />
     <Content Include="Views\BorrowedBooksPanel\Index.cshtml" />
+    <Content Include="Views\Home\CriticalStockReport.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

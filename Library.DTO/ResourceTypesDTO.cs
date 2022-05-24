@@ -12,4 +12,14 @@ namespace Library.DTO
         public string ResourceTypeName { get; set; }
         public bool IsActive { get; set; }
     }
+    public class ResourceTypesReportDTO
+    {
+        public byte ResourceTypeID { get; set; }
+        public string ResourceTypeName { get; set; }
+        public int AllBooksCount { get; set; }
+        public int AvailableBooksCount { get; set; }
+
+        public float Ratio { get; set; }
+        public bool IsActive { get; set; }
+    }
 }
