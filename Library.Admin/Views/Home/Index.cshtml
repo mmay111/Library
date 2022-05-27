@@ -11,7 +11,7 @@
         foreach (var item in criticalStocks)
         {
             <div class="row" style="margin-bottom:20px;">
-                <idv class="col-md-4">
+                <div class="col-md-4">
                     <spam style="color:red;">@item.ResourceTypeName resource Type dropped below critical stock level.</spam>
 
 
@@ -21,7 +21,7 @@
                         </div>
                         <a href="@Url.Action("CriticalStockReport","Home",new { ResourceTypeID = @item.ResourceTypeID })" class="btn btn-primary">See Report</a>
                     </div>
-                </idv>
+                </div>
             </div>
 
         }

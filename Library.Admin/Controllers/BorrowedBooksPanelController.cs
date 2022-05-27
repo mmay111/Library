@@ -110,7 +110,7 @@ namespace Library.Admin.Controllers
         {
 
             var borrowedBook = borrowedBooksPanelService.GetByID(borrowedBookID);
-            var bookDetails = booksPanelService.GetByID(borrowedBook.BorrowedBookID);
+            var bookDetails = booksPanelService.GetByID(borrowedBook.BookID);
             if (borrowedBook.IsReturned)
             {
                 borrowedBook.IsReturned = false;

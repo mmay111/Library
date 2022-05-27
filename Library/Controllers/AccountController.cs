@@ -1,5 +1,6 @@
 ﻿using Library.Core;
 using Library.DTO;
+using Library.Filters;
 using Library.Service;
 using System;
 using System.Collections.Generic;
@@ -131,6 +132,16 @@ namespace Library.Controllers
             }
             ViewBag.Message = message;
             return Json(0);
+        }
+        
+        [UserAuthorizeAttribute]
+        [HttpPost]
+        public ActionResult Logout()
+        {
+            RemoveCookie($"User{FormsAuthentication.FormsCookieName}");
+            FormsAuthentication.SignOut();
+
+            return Json("/Account/Login");
         }
         private void RemoveCookie(string cookieName)
         {

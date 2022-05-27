@@ -1,4 +1,5 @@
-﻿using Library.Admin.Models;
+﻿using Library.Admin.Filters;
+using Library.Admin.Models;
 using Library.Service;
 using System;
 using System.Collections.Generic;
@@ -79,6 +80,14 @@ namespace Library.Admin.Controllers
             }
             ViewBag.Message = message;
             return View(user);
+        }
+        [LibrarianAuthorizeAttribute]
+        public ActionResult Logout()
+        {
+            RemoveCookie($"LibrarianUser{FormsAuthentication.FormsCookieName}");
+            FormsAuthentication.SignOut();
+
+            return Json("/Account/Login");
         }
         private void RemoveCookie(string cookieName)
         {

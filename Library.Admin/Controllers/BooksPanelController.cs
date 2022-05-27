@@ -102,7 +102,7 @@ namespace Library.Admin.Controllers
                                       Helper.Utility.GetIsAvailable(c.IsAvailable),
                                       Helper.Utility.GetIsPrinted(c.IsPrinted),
                                       Helper.Utility.GetIsActive(c.IsActive),
-                                      string.Format("<a href='/BooksPanel/Edit/{0}'class='bold'> Düzenle</a>",c.BookID),
+                                      string.Format("<a href='/BooksPanel/Edit/{0}'class='bold'> Edit</a>",c.BookID),
                                     };
 
             objDataTable.sEcho = parameters.sEcho;

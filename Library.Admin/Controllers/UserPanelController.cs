@@ -1,4 +1,5 @@
-﻿using Library.Admin.Models;
+﻿using Library.Admin.Filters;
+using Library.Admin.Models;
 using Library.Core;
 using Library.DTO;
 using Library.Service;
@@ -11,6 +12,7 @@ using System.Web.Mvc;
 
 namespace Library.Admin.Controllers
 {
+    [LibrarianAuthorizeAttribute]
     public class UserPanelController : Controller
     {
         private UserPanelService userPanelService = new UserPanelService();

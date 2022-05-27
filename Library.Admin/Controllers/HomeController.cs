@@ -31,12 +31,15 @@ namespace Library.Admin.Controllers
                 var allBooksCountByResourceTypeIDandCampusID = booksPanelService.GetAllBooksCountByResourceTypeIDandCampusID(item.ResourceTypeID, validUserCampusId);
 
                 var allAvailableBooksCountByResourceTypeIDandCampusID = booksPanelService.GetAlllAvailableBooksCountByResourceTypeIDandCampusID(item.ResourceTypeID, validUserCampusId);
-
-                var result = ((float)allAvailableBooksCountByResourceTypeIDandCampusID / (float)allBooksCountByResourceTypeIDandCampusID) * 100;
-                if (result < 10)
+                if (allBooksCountByResourceTypeIDandCampusID != 0)
                 {
-                    criticalStocks.Add(item);
+                    var result = ((float)allAvailableBooksCountByResourceTypeIDandCampusID / (float)allBooksCountByResourceTypeIDandCampusID) * 100;
+                    if (result < 10)
+                    {
+                        criticalStocks.Add(item);
+                    }
                 }
+               
 
             }
             ViewBag.CriticalStocks = criticalStocks;
@@ -62,7 +65,7 @@ namespace Library.Admin.Controllers
                 var data = (new ResourceTypesReportDTO
                 {
                     ResourceTypeName = resourceType.ResourceTypeName,
-                    AllBooksCount = allAvailableBooksCountByResourceTypeIDandCampusID,
+                    AllBooksCount = allBooksCountByResourceTypeIDandCampusID,
                     AvailableBooksCount = allAvailableBooksCountByResourceTypeIDandCampusID,
                     Ratio = result,
                    

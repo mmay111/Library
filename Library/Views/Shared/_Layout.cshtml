@@ -63,78 +63,34 @@
 <body>
 
 
-
-
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-right">
-            <div class="modal-content modal-content-right">
-                <div class="modal-body">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="forgotPassword" tabindex="-1" aria-labelledby="forgotPassword" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-right">
-            <div class="modal-content modal-content-right">
-                <div class="modal-body" id="forgotPasswordModalBody">
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="registration" tabindex="-1" aria-labelledby="registration" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-right">
-            <div class="modal-content modal-content-right">
-                <div class="modal-body" id="registrationModalBody">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="OnBoarding" tabindex="-1" aria-labelledby="onBoarding" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content r-15">
-                <div class="modal-body p-30" id="OnBoardingModalBody">
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="MessageModal" tabindex="-1" aria-labelledby="MessageModal" aria-hidden="true" style="z-index:1051!important;">
-        <div class="modal-dialog">
-            <div class="modal-content r-15">
-                <div class="modal-body text-center p-30" id="MessageContent">
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <div class="fixed-top" style="background-color: #fff; box-shadow: 0 1px 0 0 #e3e7eb;">
-
-
-
         <div class="row px-md-4">
-            <div class="col-7 col-sm-7 navbar-height-l reset-padding-l pr-0 pt-4">
+            <div class="col-12 col-sm-12 navbar-height-l reset-padding-l pr-0 pt-4">
 
                 <a href="#" class="link-black" style="left:-3px; position:relative;" data-toggle="collapse" data-target="#accordionLefMenu" aria-controls="navbarCollapse" aria-expanded="true" aria-label="Toggle navigation"><i class="fas fa-bars d-sm-none f-16" style="vertical-align:middle;"></i></a>
                 <a class="navbar-brand mx-0 mr-sm-5" href="/">
-                   
+
                     <img width="70" height="34" src="~/Content/library-logo.png" />
-                   
+
                 </a>
                 <div class="d-none d-lg-inline d-xl-inline">
                     <div class="d-none d-lg-inline d-xl-inline dropdown-nav">
                         <span class="un">
-                            <a href="/Home/Index" class="btn ff-pnova-b fw-600  p-2 pr-2 dropdown-toggle headItem" type="button"  aria-haspopup="true" aria-expanded="false">
-                               Home 
+                            <a href="/Home/Index" class="btn ff-pnova-b fw-600  p-2 pr-2 dropdown-toggle headItem" type="button" aria-haspopup="true" aria-expanded="false">
+                                Home
                             </a>
                         </span>
                         <span class="un">
-                            <a href="/UserBorrowedBooks/Index" class="btn ff-pnova-b fw-600  p-2 pl-2 pr-2 dropdown-toggle headItem" type="button"  aria-haspopup="true" aria-expanded="false">
+                            <a href="/UserBorrowedBooks/Index" class="btn ff-pnova-b fw-600  p-2 pl-2 pr-2 dropdown-toggle headItem" type="button" aria-haspopup="true" aria-expanded="false">
                                 Borrowed Books@*<i class="fas fa-chevron-down" style=""></i>*@
                             </a>
                         </span>
-                        
+                        <span style="text-align:right;float:right; ">
+                            <a href="" id="btnLogOff" class="btn ff-pnova-b fw-600  p-2 pl-2 pr-2 dropdown-toggle headItem" type="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-key"></i> Log Out
+                            </a>
+                        </span>
+
 
 
 
@@ -147,17 +103,17 @@
                     .dropdown-nav a.dropdown-toggle {
                         font-weight: 600;
                         font-size: 18px;
-
                     }
+
                         a.dropdown-toggle:after, .dropdown-nav a.dropdown-toggle:after {
                             display: none;
                         }
                 </style>
             </div>
-        
+
 
         </div>
-       
+
 
 
     </div>
@@ -196,6 +152,33 @@
     <script src="~/Assets/js/polyfill-0.1.43.min.js"></script>
     <script src="~/Assets/js/select2-4.0.0-rc.0.min.js"></script>
     <script src="~/Assets/js/jquery.inputmask.bundle-3.1.62.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.page-sidebar-menu .active a').append('<span class="selected"></span>');
+
+            $('#btnLogOff').click(function () {
+                $.ajax({
+                    cache: false,
+                    url: "/Account/Logout/",
+                    type: "POST",
+                    data: {},
+                    success: function (data) {
+                        console.log(data);
+                        if (data != 0)
+                            location.href = "/Account/Login"
+                        location.reload();
+                    },
+                    error: function (response) {
+                        console.log(response.status + " - " + response.statusText);
+                    }
+                })
+            });
+
+        });
+    </script>
+
+
     @RenderSection("scripts", required: false)
 
 
