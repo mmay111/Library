@@ -138,23 +138,23 @@ namespace Library.Admin.Controllers
 
                 if (result != null)
                 {
-                    //using (MailService mailService = new MailService())
-                    //{
-                    //    string mailTemplateUrl = "WelcomeUser.html";
+                    using (MailService mailService = new MailService())
+                    {
+                        string mailTemplateUrl = "WelcomeUser.html";
 
-                    //    var emailReponse = mailService.SendEmail(new EmailModel
-                    //    {
-                    //        Body = mailService.GetHtmlBody(mailTemplateUrl).
-                    //           Replace("{FirstName}", model.Name).
-                    //           Replace("{LastName}", model.Surname).
-                    //           Replace("{Password}", password).
-                    //           //Replace("{LogoUrl}", Helper.EtutanakValues.AppLogoUrl).
-                    //           Replace("{WebsiteUrl}", Helper.LibraryValues.WebsiteUrl),
-                    //        EmailAddress = model.Email,
-                    //        Subject = "Darin E-tutanak Kullanıcı Giriş Bilgisi",
-                    //        URL = "",
-                    //    });
-                    //}
+                        var emailReponse = mailService.SendEmail(new EmailModel
+                        {
+                            Body = mailService.GetHtmlBody(mailTemplateUrl).
+                               Replace("{FirstName}", model.Name).
+                               Replace("{LastName}", model.Surname).
+                               Replace("{Password}", password).
+                               
+                               Replace("{WebsiteUrl}", Helper.LibraryValues.WebsiteUrl),
+                            EmailAddress = model.Email,
+                            Subject = "Kütüphane Otomasyonu Giriş Bilgisi",
+                            URL = "",
+                        });
+                    }
                     return RedirectToAction("Index");
                 }
                 else
