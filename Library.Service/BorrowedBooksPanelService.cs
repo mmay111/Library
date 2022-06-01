@@ -68,6 +68,14 @@ namespace Library.Service
                 return borrowedBooks;
             }
         }
+        public List<BorrowedBooks> GetTodaysBorrowedBooksForAllCampus()
+        {
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var borrowedBooks = db.BorrowedBooks.Where(b => b.BorrrowDate.Year == DateTime.Now.Year && b.BorrrowDate.Month == DateTime.Now.Month && b.BorrrowDate.Day == DateTime.Now.Day).Where(x => x.IsReturned == false && x.IsActive == true).ToList();
+                return borrowedBooks;
+            }
+        }
         public List<BorrowedBooks> GetLastMonthBorrowedBooksByCampusID(int campusID)
         {
             var newDate = DateTime.Now.Date.AddDays(-30);
@@ -78,12 +86,32 @@ namespace Library.Service
 
             }
         }
+        public List<BorrowedBooks> GetLastMonthBorrowedBooksForAllCampus()
+        {
+            var newDate = DateTime.Now.Date.AddDays(-30);
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var borrowedBooks = db.BorrowedBooks.Where(b => b.BorrrowDate >= newDate).Where(x => x.IsReturned == false && x.IsActive == true).ToList();
+                return borrowedBooks;
+
+            }
+        }
         public List<BorrowedBooks> GetLastWeekBorrowedBooksByCampusID(int campusID)
         {
             var newDate = DateTime.Now.Date.AddDays(-7);
             using (LibraryEntities db = new LibraryEntities())
             {
                 var borrowedBooks = db.BorrowedBooks.Where(b => b.BorrrowDate >= newDate).Where(x => x.Books.BookDetails.CampusID == campusID && x.IsReturned == false && x.IsActive == true).ToList();
+                return borrowedBooks;
+
+            }
+        }
+        public List<BorrowedBooks> GetLastWeekBorrowedBooksForAllCampus()
+        {
+            var newDate = DateTime.Now.Date.AddDays(-7);
+            using (LibraryEntities db = new LibraryEntities())
+            {
+                var borrowedBooks = db.BorrowedBooks.Where(b => b.BorrrowDate >= newDate).Where(x => x.IsReturned == false && x.IsActive == true).ToList();
                 return borrowedBooks;
 
             }

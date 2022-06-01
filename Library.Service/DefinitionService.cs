@@ -14,6 +14,7 @@ namespace Library.Service
     {
         public static readonly string AllActiveUserTypes = "AllActiveUserTypes";
         public static readonly string AllActiveCampuses = "AllActiveCampuses";
+        public static readonly string CampusByID = "CampusByID";
         public static readonly string AllActiveResourceTypes = "AllActiveResourceTypes";
         public static readonly string AllActiveBookBorrowFee = "AllActiveBookBorrowFee";
     }
@@ -49,6 +50,16 @@ namespace Library.Service
                 using (UnitOfWork uow = new UnitOfWork())
                 {
                     return cacheService.GetOrSet(CacheKeys.AllActiveCampuses, () => uow.MapList<Campus, CampusDTO>(uow.Repository<Campus>().Search(x => x.IsActive == true)), 15);
+                }
+            }
+        }
+        public CampusDTO GetCampusByID(int campusID)
+        {
+            using (InMemoryCache cacheService = new InMemoryCache())
+            {
+                using (UnitOfWork uow = new UnitOfWork())
+                {
+                    return cacheService.GetOrSet(CacheKeys.CampusByID, () => uow.MapList<Campus, CampusDTO>(uow.Repository<Campus>().Search(x => x.CampusID == campusID)).FirstOrDefault(), 15);
                 }
             }
         }

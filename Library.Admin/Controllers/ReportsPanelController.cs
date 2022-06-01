@@ -91,9 +91,10 @@ namespace Library.Admin.Controllers
             if (Helper.Utility.GetValidUserInfo() != null)
             {
 
-                List<CampusDTO> cm = definitionService.GetAllActiveCampuses().Where(x => x.CampusID == campusID).ToList();
+                CampusDTO cm = definitionService.GetCampusByID(campusID);
                 
-                var campusName = Helper.Utility.GetValidUserCampus().CampusName;
+
+                
                 var booksCount = 0;
                 if (campusID == 0)
                 {
@@ -108,7 +109,11 @@ namespace Library.Admin.Controllers
                 string dateFinish=null;
                 if (type == 0)
                 {
-                    borrowedBooksCount = borrowedBooksService.GetTodaysBorrowedBooksByCampusID(campusID).Count();
+                    if (campusID == 0)
+                        borrowedBooksCount = borrowedBooksService.GetTodaysBorrowedBooksForAllCampus().Count();
+                    else
+                        borrowedBooksCount = borrowedBooksService.GetTodaysBorrowedBooksByCampusID(campusID).Count();
+
                     dateStart = DateTime.Now.ToString("dd.MM.yyyy 00:00:00");
                     
                     dateFinish = DateTime.Now.ToString();
@@ -116,12 +121,19 @@ namespace Library.Admin.Controllers
                 }
                 else if (type == 1)
                 {
-                    borrowedBooksCount = borrowedBooksService.GetLastWeekBorrowedBooksByCampusID(campusID).Count();
+                    if(campusID==0)
+                        borrowedBooksCount = borrowedBooksService.GetLastWeekBorrowedBooksForAllCampus().Count();
+                    else
+                        borrowedBooksCount = borrowedBooksService.GetLastWeekBorrowedBooksByCampusID(campusID).Count();
                     dateStart = DateTime.Now.AddDays(-7).ToString();
                     dateFinish = DateTime.Now.ToString();
                 }
                 else if (type == 2)
                 {
+                    if(campusID==0)
+                        borrowedBooksCount = borrowedBooksService.GetLastMonthBorrowedBooksForAllCampus().Count();
+                    else
+                        borrowedBooksCount = borrowedBooksService.GetLastMonthBorrowedBooksByCampusID(campusID).Count();
                     borrowedBooksCount = borrowedBooksService.GetLastMonthBorrowedBooksByCampusID(campusID).Count();
                     dateStart = DateTime.Now.AddDays(-30).ToString();
                     dateFinish = DateTime.Now.ToString();
@@ -129,7 +141,7 @@ namespace Library.Admin.Controllers
                 var availableBooksCount = booksCount - borrowedBooksCount;
                  var data = (new CampusReportDTO
                 {
-                    CampusName=campusName,
+                    CampusName=cm.CampusName,
                     BooksCount = booksCount,
                     AvailableBooksCount=availableBooksCount,
                     BorrowedBooksCount = borrowedBooksCount,
