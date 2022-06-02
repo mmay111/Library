@@ -147,6 +147,7 @@ namespace Library.Admin.Controllers
                             Body = mailService.GetHtmlBody(mailTemplateUrl).
                                Replace("{FirstName}", model.Name).
                                Replace("{LastName}", model.Surname).
+                               Replace("{UserName}", model.Email).
                                Replace("{Password}", password).
                                
                                Replace("{WebsiteUrl}", Helper.LibraryValues.WebsiteUrl),
