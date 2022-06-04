@@ -47,7 +47,7 @@
         <div class="row">
             <div class="col-md-12" style="padding-right:30px;">
                 <div class="pull-right">
-                    <a href="/Home/Index" class="btn btn-default">İptal</a>
+                    <a href="/Home/Index" class="btn btn-default">Cancel</a>
                     <button type="button" name="Save" class="btn btn-primary btnRequestBook">Request The Book</button>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 }, 1500)
             },
             error: function (response) {
-                $('#MessageContent').empty().append("<i class='fas fa-exclamation-circle fa-4x mb-4 mt-4 text-grey'></i><h4>kitap ödünç alma işlemi sırasında bir hata oluştu.</h4 >");
+                $('#MessageContent').empty().append("<i class='fas fa-exclamation-circle fa-4x mb-4 mt-4 text-grey'></i><h4>An error occurred while requested the book..</h4 >");
                 $('#MessageModal').modal('show');
             }
         })

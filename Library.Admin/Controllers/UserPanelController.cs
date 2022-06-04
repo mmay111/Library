@@ -97,7 +97,7 @@ namespace Library.Admin.Controllers
                                       c.UserTypeName,
                                       c.CampusName,
                                       Helper.Utility.GetIsActive(c.IsActive),
-                                      string.Format("<a href='/UserPanel/Edit/{0}'class='bold'> Düzenle</a>",c.UserID),
+                                      string.Format("<a href='/UserPanel/Edit/{0}'class='bold'> Edit</a>",c.UserID),
                                     };
 
             objDataTable.sEcho = parameters.sEcho;
@@ -152,7 +152,7 @@ namespace Library.Admin.Controllers
                                
                                Replace("{WebsiteUrl}", Helper.LibraryValues.WebsiteUrl),
                             EmailAddress = model.Email,
-                            Subject = "Kütüphane Otomasyonu Giriş Bilgisi",
+                            Subject = "Library Automation Login Information",
                             URL = "",
                         });
                     }

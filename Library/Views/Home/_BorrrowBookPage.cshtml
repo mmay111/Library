@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <div class="col-md-12">
                         <div class="input-icon right">
-                            @Html.DropDownList("BookBorrowFeeID", null, "ödünç alma gün sayısı seçiniz", new { @class = "form-control ", @id = "BookBorrowFeeID", @name = "BookBorrowFeeID", @required = true })
+                            @Html.DropDownList("BookBorrowFeeID", null, "select the number of days to borrow", new { @class = "form-control ", @id = "BookBorrowFeeID", @name = "BookBorrowFeeID", @required = true })
                         </div>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
         <div class="row">
             <div class="col-md-12" style="padding-right:30px;">
                 <div class="pull-right">
-                    <a href="/Home/Index" class="btn btn-default">İptal</a>
-                    <button type="button" name="Save" class="btn btn-primary btnBorrowBook">Kaydet</button>
+                    <a href="/Home/Index" class="btn btn-default">Cancel</a>
+                    <button type="button" name="Save" class="btn btn-primary btnBorrowBook">Save</button>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
         var borrowDateId = $('#BookBorrowFeeID').val();
         var bookId = $('#bookIDHidden').val();
         if (borrowDateId=='') {
-            $('#editModalDisplayMessage').empty().append("Lütfen ödünç almak istediğiniz gün sayısını seçiniz!");
+            $('#editModalDisplayMessage').empty().append("Please select the number of days you want to borrow!");
             return false;
         }
         var data = {
@@ -89,7 +89,7 @@
                 }, 1500)
             },
             error: function (response) {
-                $('#MessageContent').empty().append("<i class='fas fa-exclamation-circle fa-4x mb-4 mt-4 text-grey'></i><h4>kitap ödünç alma işlemi sırasında bir hata oluştu.</h4 >");
+                $('#MessageContent').empty().append("<i class='fas fa-exclamation-circle fa-4x mb-4 mt-4 text-grey'></i><h4>An error occurred while borrow the book..</h4 >");
                 $('#MessageModal').modal('show');
             }
         })

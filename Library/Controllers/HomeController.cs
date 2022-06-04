@@ -53,11 +53,11 @@ namespace Library.Controllers
             var result = bookRequestsPanelService.Update(currentrequest);
             if (result)
             {
-                return Json("işlem başarılı bir şekilde gerçekleşti.", JsonRequestBehavior.AllowGet);
+                return Json("Book request successfully fulfilled.", JsonRequestBehavior.AllowGet);
             }
             else
             {
-                return Json("işlem sırasında bir hata oluştu!", JsonRequestBehavior.AllowGet);
+                return Json("An error occurred during the book request", JsonRequestBehavior.AllowGet);
             }
 
 
@@ -81,7 +81,7 @@ namespace Library.Controllers
             float ratio = (float)availableBooksCountByResourceTypeID / (float)booksCountByResourceTypeID *100;
             if (ratio < 10)//Kategorilerden herhangi birinde mevcut kaynak sayısının %10’unun altına indiğinde, kaynak miktarı % 10’un üstüne çıkana kadar ilgili kategoriden hiçbir kullanıcıya kitap ödünç verilmeyecektir
             {
-                return Json("Kategori bazında kitap miktarı yüzde 10'un altına düştüğü için ödünç verme işlemi gerçekleştirilemiyor.", JsonRequestBehavior.AllowGet);
+                return Json("Lending cannot be performed because the amount of books on a category basis falls below 10 percent.", JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -89,7 +89,7 @@ namespace Library.Controllers
                 {
                     if (ratio < 50)
                     {
-                        return Json("Kategori bazında kitap miktarı yüzde 50'nin altında olduğu için kayıt dondurmuş öğrencilere ödünç verme işlemi gerçekleştirilemiyor.", JsonRequestBehavior.AllowGet);
+                        return Json("Since the amount of books on a category basis is below 50 percent, lending to students whose registration has been frozen cannot be performed.", JsonRequestBehavior.AllowGet);
                     }
                     borrowedBooksMaxnumber = borrowedBooksMaxnumber / 2;//kayıt dodurmuş öğrenci max alınan kaynak sayısının yarısı kadar alabilir
                     multiplier = 2;//kayıt dodurmuş öğrenci 2 kat fazla ödeme yapar
@@ -99,7 +99,7 @@ namespace Library.Controllers
                 {
                     if (ratio < 50)
                     {
-                        return Json("Kategori bazında kitap miktarı yüzde 50'nin altında olduğu için kayıt dondormuş öğrencilere ödünç verme işlemi gerçekleştirilemiyor.", JsonRequestBehavior.AllowGet);
+                        return Json("Since the amount of books on a category basis is below 50 percent, lending to guest students cannot be performed.", JsonRequestBehavior.AllowGet);
                     }
                     borrowedBooksMaxnumber = borrowedBooksMaxnumber / 2;//misafir max alınan kaynak sayısının yarısı kadar alabilir
                     multiplier = 2;//misafir 2 kat fazla ödeme yapar
@@ -129,22 +129,22 @@ namespace Library.Controllers
                         var result = booksPanelService.UpdateBookDetails(bookDetails);
                         if (result)
                         {
-                            return Json("Kitap ödünç alındı.", JsonRequestBehavior.AllowGet);
+                            return Json("The book was borrowed.", JsonRequestBehavior.AllowGet);
                         }
                         else
                         {
 
-                            return Json("işlem sırasında bir hata oluştu!", JsonRequestBehavior.AllowGet);
+                            return Json("An error occurred during the operation!", JsonRequestBehavior.AllowGet);
                         }
                     }
                     else
                     {
-                        return Json("işlem sırasında bir hata oluştu!", JsonRequestBehavior.AllowGet);
+                        return Json("An error occurred during the operation!", JsonRequestBehavior.AllowGet);
                     }
                 }
                 else
                 {
-                    return Json("Ödünç alabileceğiniz maximum kitap sayısını geçtiniz!", JsonRequestBehavior.AllowGet);
+                    return Json("You have exceeded the maximum number of books you can borrow!", JsonRequestBehavior.AllowGet);
                 }
             }
         }
@@ -182,11 +182,11 @@ namespace Library.Controllers
             //BooksListDTO currentBook = booksPanelService.GetByID(bookId);
             var validUserID = Helpers.Utility.GetValidUserID();
             var borrowedBooksMaxnumber = booksPanelService.BorrowedBooksMaxNumber().maxNumber;
-            var currentBorrowedBooksCount = userBorrowedBooksService.GetUserAllBorrowedBooks(validUserID).Count();
+            var currentBorrowedBooksCount = userBorrowedBooksService.GetUserAllBorrowedBooks(validUserID).Where(x=>x.IsReturned==false).Count();
 
             if (currentBorrowedBooksCount >= borrowedBooksMaxnumber)//userın ödünç aldığı kitap sayısı kütüphanenin max ödünç alma miktarından fazla ise 
             {
-                return Json("Ödünç alabileceğiniz veya talep oluşturabileceğiniz maximum kitap sayısına ulaştığınız için kaynak talebi gerçekleştirilemedi!", JsonRequestBehavior.AllowGet);
+                return Json("The resource request could not be fulfilled because you have reached the maximum number of books you can borrow or create a request for!", JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -197,11 +197,11 @@ namespace Library.Controllers
                 var result = bookRequestsPanelService.Insert(model);
                 if (result != null)
                 {
-                    return Json("Kitap talebi oluşturuldu", JsonRequestBehavior.AllowGet);
+                    return Json("Book request created", JsonRequestBehavior.AllowGet);
                 }
                 else
                 {
-                    return Json("Kitap talebi sırasında bir hata oluştu.", JsonRequestBehavior.AllowGet);
+                    return Json("An error occurred during the book request.", JsonRequestBehavior.AllowGet);
                 }
             }
         }

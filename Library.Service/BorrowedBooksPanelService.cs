@@ -129,7 +129,7 @@ namespace Library.Service
         {
             using (LibraryEntities db = new LibraryEntities())
             {
-                var borrowedBooks = db.BorrowedBooks.Where(b => b.UserID >= userId).Where(x => x.IsActive == true).ToList();
+                var borrowedBooks = db.BorrowedBooks.Where(b => b.UserID == userId && b.IsReturned==false && b.IsActive==true).ToList();
                 return borrowedBooks.Count();
 
             }

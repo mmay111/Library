@@ -11,7 +11,7 @@ using Library.Filters;
 
 namespace Library.Controllers
 {
-    [UserAuthorize]
+    [UserAuthorizeAttribute]
     public class UserBorrowedBooksController : Controller
     {
         private UserBorrowedBooksService userBorrowedBooksService = new UserBorrowedBooksService();

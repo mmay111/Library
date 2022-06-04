@@ -74,7 +74,7 @@ namespace Library.Admin.Controllers
                                     {
                                       c.CampusID.ToString(),
                                       c.CampusName,
-                                       string.Format("<a class='btn btn-xs blue-hoki' target='_blank' href='"+Url.Action("Report","ReportsPanel",new { campusID = c.CampusID,type = type })+"''>Raporu görüntüle</a>",c.CampusID),
+                                       string.Format("<a class='btn btn-xs blue-hoki' target='_blank' href='"+Url.Action("Report","ReportsPanel",new { campusID = c.CampusID,type = type })+"''>View Report</a>",c.CampusID),
 
 
                                     };

@@ -94,14 +94,14 @@
                         <div class="form-group">
                             <div class="col-md-12">
 
-                                @Html.DropDownListFor(m => m.IsAvailable, availableSelectList, "Mevcut olma durumu", new { @class = "form-control ", @required = true })
+                                @Html.DropDownListFor(m => m.IsAvailable, availableSelectList, "Select Is Available", new { @class = "form-control ", @required = true })
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="col-md-12">
-                                @Html.DropDownListFor(Model => Model.ResourceTypeID, new SelectList(ViewBag.ResourceTypes, "ResourceTypeID", "ResourceTypeName"), "Kullanıcı tipini seçiniz", new { @id = "ResourceTypeID", @class = "form-control", @required = true })
+                                @Html.DropDownListFor(Model => Model.ResourceTypeID, new SelectList(ViewBag.ResourceTypes, "ResourceTypeID", "ResourceTypeName"), "Select Resource Type", new { @id = "ResourceTypeID", @class = "form-control", @required = true })
 
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
 
-                                @Html.DropDownListFor(m => m.IsPrinted, isPrintedSelectList, "Basılı olma durumu", new { @class = "form-control ", @required = true })
+                                @Html.DropDownListFor(m => m.IsPrinted, isPrintedSelectList, "select is Printed", new { @class = "form-control ", @required = true })
                             </div>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
 
-                                @Html.DropDownListFor(m => m.IsActive, selectList, "Aktiflik durumu", new { @class = "form-control ", @required = true })
+                                @Html.DropDownListFor(m => m.IsActive, selectList, "Select Is active", new { @class = "form-control ", @required = true })
                             </div>
                         </div>
                     </div>

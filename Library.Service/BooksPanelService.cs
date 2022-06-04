@@ -46,8 +46,8 @@ namespace Library.Service
                     CampusName = x.BookDetails.Campus.CampusName,
                     IsAvailable = x.BookDetails.IsAvailable,
                     IsPrinted = x.BookDetails.IsPrinted,
-                    IsActive = true,
-                }).Where(x => x.IsActive == true && x.CampusID==campusId).ToList();
+                    IsActive = x.IsActive,
+                }).Where(x => x.CampusID==campusId).ToList();
                 return books;
             }
         }
@@ -84,6 +84,8 @@ namespace Library.Service
                     AuthorName = x.BookDetails.Author.AuthorName,
                     Summary = x.BookDetails.Summary,
                     Barcode = x.BookDetails.Barcode,
+                    CampusName=x.BookDetails.Campus.CampusName,
+                    ResourceTypeName=x.BookDetails.ResourceTypes.ResourceTypeName,
                     IsAvailable = x.BookDetails.IsAvailable,
                     IsPrinted =x.BookDetails.IsPrinted,
                     
@@ -173,7 +175,8 @@ namespace Library.Service
                                 {
                                     AuthorName = obj.AuthorName,
                                 };
-                                var authorResult = authorsPanelService.Insert(authorModel);
+                               
+                                var authorResult = uow.Repository<Author>().Insert(uow.MapSingle<AuthorDTO, Author>(authorModel));
                                 obj.AuthorID = authorResult.AuthorID;
                             }
 
@@ -188,7 +191,7 @@ namespace Library.Service
                                 IsAvailable=obj.IsAvailable,
                                 IsPrinted=obj.IsPrinted,
                             };
-                            var bookDetailsResult = InsertBookDetails(bookDetailsModel);
+                            var bookDetailsResult = uow.Repository<BookDetails>().Insert(uow.MapSingle<BookDetailsDTO, BookDetails>(bookDetailsModel));
                             //var commit = uow.Commit();
                             obj.BookDetailsID = bookDetailsResult.BookDetailsID;
 
@@ -242,11 +245,11 @@ namespace Library.Service
                                 {
                                     AuthorName = obj.AuthorName,
                                 };
-                                var authorResult = authorsPanelService.Insert(authorModel);
+                                var authorResult = uow.Repository<Author>().Insert(uow.MapSingle<AuthorDTO, Author>(authorModel));
                                 //var commit = uow.Commit();
                                 obj.AuthorID = authorResult.AuthorID;
                             }
-                            
+                                              
                             BookDetailsDTO bookDetailsModel = new BookDetailsDTO
                             {
                                 Summary = obj.Summary,
@@ -254,18 +257,21 @@ namespace Library.Service
                                 Barcode = obj.Barcode,
                                 CampusID = obj.CampusID,
                                 ResourceTypeID = obj.ResourceTypeID,
-                                IsActive = true,
+                                IsActive = obj.IsActive,
                                 IsAvailable = obj.IsAvailable,
                                 IsPrinted = obj.IsPrinted,
                                 BookDetailsID=obj.BookDetailsID,
                             };
                         
-                            var bookDetailsResult = UpdateBookDetails(bookDetailsModel);
+                            var bookDetailsResult = uow.Repository<BookDetails>().Update(uow.MapSingle<BookDetailsDTO, BookDetails>(bookDetailsModel));
                             //var commit = uow.Commit();
 
                             BooksDTO booksModel = new BooksDTO
                             {
+                                BookID=obj.BookID,
                                 BookName = obj.BookName,
+                                BookDetailsID = obj.BookDetailsID,
+                                IsActive =obj.IsActive,
 
                             };
                             var bookResult = uow.Repository<Books>().Update(uow.MapSingle<BooksDTO, Books>(booksModel));

@@ -98,7 +98,7 @@ namespace Library.Admin.Controllers
                                       c.BorrowExpiresDate.ToString("dd MM yyyy"),
                                       Helper.Utility.GetIsReturned(c.IsReturned),
 
-                                      string.Format("<button type='button' onclick='btnEdit({0})' class='btn btn-fit-height blue' > İade Durumunu Güncelle</button>", c.BorrowedBookID),
+                                      string.Format("<button type='button' onclick='btnEdit({0})' class='btn btn-fit-height blue' > Update Return Status</button>", c.BorrowedBookID),
                                     };
 
             objDataTable.sEcho = parameters.sEcho;
@@ -127,11 +127,11 @@ namespace Library.Admin.Controllers
             if (result)
             {
                 var bookAvailableResult = booksPanelService.Update(bookDetails);
-                return Json("Kitap iade durumu güncellendi.");
+                return Json("Book return status updated.");
             }
             else
             {
-                return Json("Kitap iadesi sırasında bir hata oluştu.");
+                return Json("An error occurred during the book return.");
             }
 
 

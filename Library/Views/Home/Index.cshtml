@@ -38,17 +38,17 @@
         {
             foreach (var item in availableBookRequest)
             {
-                <spam style="color:red;">Talep oluşturduğunuz @item.BookName adlı kitap şuan mevcut bulunmaktadır.</spam>
-                
-                    
-                    <div style="margin-left:10px; margin-top:10px;"><button v-on:click="showedBookRequestBtn(@item.BookRequestID)" type="button" class="btn btn-primary" id="SendNotificationButton">Okey</button></div>
-                
+                <spam style="color:red;">The book "@item.BookName" that you requested is now available.</spam>
+
+
+                <div style="margin-left:10px; margin-top:10px;"><button v-on:click="showedBookRequestBtn(@item.BookRequestID)" type="button" class="btn btn-primary" id="SendNotificationButton">Okey</button></div>
+
             }
         }
         <div class="row row-padding">
             <div class="col-lg-12 pt-4 mt-2 pt-sm-5">
                 <div class="d-none d-sm-block">
-                   
+
                 </div>
 
                 <h1 class="f-24 pt-3 pt-sm-4"><strong>Books</strong></h1>
@@ -113,7 +113,7 @@
             </div>
             <div class="w-100 job-list " v-for="book in books">
                 <div class="row no-gutters  card card-noborder flex-row " style="margin-bottom:2px; border-radius: 10px !important;">
-                    
+
                     <div class="col-12">
                         <div class="card-body pr-0">
                             <div class="row no-gutters">
@@ -161,10 +161,10 @@
                                         <div style="min-width:100px;display:flex;">
                                             <div class="float-right align-self-center mt-2 pt-2">
                                                 <div v-if="book.IsAvailable">
-                                                    <button href="#" v-on:click="btnEdit(book.BookID)"  style="border-radius: 999px !important;" class="btn btn-md btn-primary">Ödünç Al <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
+                                                    <button href="#" v-on:click="btnEdit(book.BookID)" style="border-radius: 999px !important;" class="btn btn-md btn-primary">Borrow The Book <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
                                                 </div>
                                                 <div v-else>
-                                                    <button href="#" v-on:click="btnExpiresDate(book.BookID)" style="border-radius: 999px !important;" class="btn btn-md btn-warning ">İade Tarihini Görüntüle <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
+                                                    <button href="#" v-on:click="btnExpiresDate(book.BookID)" style="border-radius: 999px !important;" class="btn btn-md btn-warning ">View Return Date <i class="fas fa-chevron-right fa-xs p-left-10"></i></button>
                                                 </div>
                                             </div>
                                         </div>
@@ -191,7 +191,7 @@
                     Send Notification
                 </div>
                 <div class="modal-body col-md-12" id="">
-                  
+
                     <p>Talep oluşturduğunuz </p>
                 </div>
                 <div class="modal-footer">
@@ -246,7 +246,7 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 <script>
-   
+
 
     window.addEventListener('load', () => {
        new Vue({
@@ -265,7 +265,7 @@
             },
 
             mounted() {
-               
+
             },
             watch: {
 
@@ -363,7 +363,7 @@
                             setTimeout(function () {
                                 location.reload();
                             }, 1500)
-                           
+
                         },
                         error: function (response) {
                             console.log("Hata");
@@ -389,7 +389,7 @@
                             console.log("error" + response.responseText);
                         }
                     })
-                }, 
+                },
                 btnExpiresDate(el) {
                     console.log(el);
                     var model = {
@@ -422,7 +422,7 @@
 
     });
     function btnEdit(el) {
-        
+
     }
 
 

@@ -44,10 +44,10 @@ namespace Library.Admin.Controllers
             Func<BookRequestListDTO, object> orderingFunction = (c => sortColumnIndex == 0 ? c.BookRequestID :
                                     sortColumnIndex == 1 ? c.Name :
                                     sortColumnIndex == 2 ? c.BookName :
-                                    sortColumnIndex == 3 ? c.IsAvailable :
+                                    sortColumnIndex == 3 ? c.BookIsAvailable :
                                     sortColumnIndex == 4 ? c.IsActive : new object());
 
-            var data = bookRequestsService.GetAllBookRequestsByCampusID(validUser.CampusID);
+            var data = bookRequestsService.GetAllBookRequestsByCampusID(validUser.CampusID).Where(x=>x.IsAvailable==true);
             var tempData = data?.OrderByDescending(x => x.BookRequestID).ToList();
 
             var isName = HttpContext.Request["sSearch_0"];
@@ -77,9 +77,9 @@ namespace Library.Admin.Controllers
 
                                       c.Name,
                                       c.BookName,
-                                      Helper.Utility.GetIsAvailable(c.IsAvailable),
+                                      Helper.Utility.GetIsAvailable(c.BookIsAvailable),
                                       Helper.Utility.GetIsActive(c.IsActive),
-                                      string.Format("<a  onclick='UpdateIsAvailable({0})' class='bold'> Düzenle</a>",c.BookRequestID),
+                                      string.Format("<a  onclick='UpdateIsAvailable({0})' class='bold'> Update IsAvailable</a>",c.BookRequestID),
                                     };
 
             objDataTable.sEcho = parameters.sEcho;
@@ -109,7 +109,7 @@ namespace Library.Admin.Controllers
             var result = bookRequestsService.Update(currentBookRequest);
 
             BookRequestDTO currentBookRequest2 = bookRequestsService.GetBookRequestByID(bookRequestID);
-            return Json("Book is Available updated");
+            return Json("Book  isAvailable updated");
         }
     }
 }

@@ -111,7 +111,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <div class="col-md-12"  style="margin-left:15px;">
-                                @Html.DropDownList("ResourceTypeID", null, "Kitap türünü seçiniz", new { @class = "form-control ", @id = "ResourceTypeID", @name = "ResourceTypeID", @required = true })
+                                @Html.DropDownList("ResourceTypeID", null, "Select type of resource", new { @class = "form-control ", @id = "ResourceTypeID", @name = "ResourceTypeID", @required = true })
                             </div>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
 
-                                @Html.DropDownListFor(m => m.IsAvailable, availableSelectList, "Mevcut olma durumu", new { @class = "form-control ", @required = true })
+                                @Html.DropDownListFor(m => m.IsAvailable, availableSelectList, "Select is Available", new { @class = "form-control ", @required = true })
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                         <div class="form-group">
                             <div class="col-md-12">
 
-                                @Html.DropDownListFor(m => m.IsPrinted, isPrintedSelectList, "Basılı olma durumu", new { @class = "form-control ", @required = true })
+                                @Html.DropDownListFor(m => m.IsPrinted, isPrintedSelectList, "Select Is Printed", new { @class = "form-control ", @required = true })
                             </div>
                         </div>
                     </div>
@@ -160,7 +160,7 @@
 
             @if (ViewBag.Error == "Error")
             {
-                 @: toastr.error("Kullanıcı eklenemedi", "Yeni Kullanıcı Kaydı");
+                 @: toastr.error("The book could not be saved", "New book Registration");
 
             }
 

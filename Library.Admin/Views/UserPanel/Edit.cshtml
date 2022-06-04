@@ -80,7 +80,7 @@
                             <label class="control-label col-md-3">Status</label>
                             <div class="col-md-9">
 
-                                @Html.DropDownListFor(m => m.IsActive, selectList, "Aktiflik durumu", new { @class = "form-control ", @required = true })
+                                @Html.DropDownListFor(m => m.IsActive, selectList, "Select Is Active", new { @class = "form-control ", @required = true })
                             </div>
                         </div>
                     </div>
@@ -100,7 +100,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">User Type</label>
                             <div class="col-md-9">
-                                @Html.DropDownListFor(Model => Model.UserTypeID, new SelectList(ViewBag.UserTypes, "UserTypeID", "UserTypeName"), "Kullanıcı tipini seçiniz", new { @id = "UserTypeID", @class = "form-control", @required = true })
+                                @Html.DropDownListFor(Model => Model.UserTypeID, new SelectList(ViewBag.UserTypes, "UserTypeID", "UserTypeName"), "Select User Type", new { @id = "UserTypeID", @class = "form-control", @required = true })
                             </div>
                         </div>
                     </div>
@@ -108,7 +108,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Campus</label>
                             <div class="col-md-9">
-                                @Html.DropDownListFor(Model => Model.CampusID, new SelectList(ViewBag.Campuses, "CampusID", "CampusName"), "Kampüs seçiniz", new { @id = "CampusID", @class = "form-control", @required = true })
+                                @Html.DropDownListFor(Model => Model.CampusID, new SelectList(ViewBag.Campuses, "CampusID", "CampusName"), "Select Campus", new { @id = "CampusID", @class = "form-control", @required = true })
 
                             </div>
                         </div>

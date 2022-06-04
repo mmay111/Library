@@ -22,7 +22,7 @@ namespace Library.Service
                     AuthorName = x.Books.BookDetails.Author.AuthorName,
                     BookName = x.Books.BookName,
                     Barcode = x.Books.BookDetails.Barcode,
-                    CampusName = x.User.Campus.CampusName,
+                    CampusName = x.Books.BookDetails.Campus.CampusName,
                     BookBorrowFee = x.BookBorrowFee,
                     IsActive = x.IsActive,
                     BorrrowDate = x.BorrrowDate,
